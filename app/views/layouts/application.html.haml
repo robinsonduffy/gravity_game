@@ -1,0 +1,19 @@
+!!! 5
+%html
+  %head
+    %title= title
+    = stylesheet_link_tag :all
+    = javascript_include_tag "jquery.min.js"
+    = #javascript_include_tag "jquery-ui.js"
+    = javascript_include_tag "jquery_ujs.js"
+    = csrf_meta_tag
+  %body
+    %div#header
+      %ul#user-navigation
+    %div#content-wrapper
+      %h1.title= (@title.nil?) ? @base_title : @title
+      %div#flash-messages
+        - flash.each do |type, message|
+          %div{:class => ["flash", type]}= message
+      %div#content= yield
+    %div#debug-info= debug(params) if Rails.env.development?
