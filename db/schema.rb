@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525040731) do
+ActiveRecord::Schema.define(:version => 20120525044540) do
 
   create_table "extra_attributes", :force => true do |t|
     t.string   "key"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(:version => 20120525040731) do
   add_index "extra_attributes", ["game_piece_id"], :name => "index_extra_attributes_on_game_piece_id"
 
   create_table "extra_classes", :force => true do |t|
-    t.string   "class_name"
+    t.string   "name"
     t.integer  "game_piece_id"
     t.datetime "created_at"
     t.datetime "updated_at"
