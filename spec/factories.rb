@@ -1,5 +1,6 @@
 Factory.define :level do |level|
   level.number 1
+  level.grid_size 4
 end
 
 Factory.define :game_piece do |game_piece|

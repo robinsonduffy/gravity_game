@@ -5,4 +5,8 @@ class Level < ActiveRecord::Base
                      :numericality => {:only_integer => true},
                      :positive_number => true
   
+  validates :grid_size, :presence => true,
+                        :numericality => {:only_integer => true},
+                        :inclusion => {:in => 4..8}
+  
 end

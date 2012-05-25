@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525044540) do
+ActiveRecord::Schema.define(:version => 20120525054825) do
 
   create_table "extra_attributes", :force => true do |t|
     t.string   "key"
@@ -46,6 +46,7 @@ ActiveRecord::Schema.define(:version => 20120525044540) do
     t.integer  "number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "grid_size"
   end
 
   add_index "levels", ["number"], :name => "index_levels_on_number"
