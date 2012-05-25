@@ -1,0 +1,13 @@
+
+table.board-grid {width:500px; height:500px; border-collapse:collapse;}
+table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
+#board-wrapper {position:relative}
+.game-board {position:absolute;}
+
+
+#game-pieces div {width:90px; height:90px; float:left; position:absolute; margin:1px; background-image:url('../imgs/table-4/sprite.png'); background-repeat:no-repeat;}
+#game-pieces .game-piece {z-index:5;}
+#game-pieces .station {z-index:1;}
+#game-pieces .station {background-color:transparent;}
+#game-pieces .paint {z-index:1;}
+#game-pieces .goal {z-index:1; background-color:transparent;}
