@@ -1,0 +1,21 @@
+- content_for :custom_css do
+  = stylesheet_link_tag "table.css"
+  = stylesheet_link_tag "table-#{@level.grid_size}.css"
+- content_for :custom_js do
+  = javascript_include_tag "jquery.transform-0.9.3.min.js"
+  = javascript_include_tag "gravity.js"
+%div#wrapper
+  %div#nav
+    %p#counter-clock-wise Counter Clock Wise
+    %p#clock-wise Clock Wise
+  %input#empty-cell
+  %div#board-wrapper
+    %div#board.game-board
+      %table{:id => "squares", :class => "board-grid", :cell_border => "1"}
+        - @level.grid_size.times do |i|
+          %tr
+            - @level.grid_size.times do |j|
+              %td{:class => 'square', :id => "row-#{i+1}-square-#{j+1}", :_cell => "#{i+1},#{j+1}"}
+      %div#game-pieces
+        - @level.game_pieces.each do |game_piece|
+          %div{game_piece.class_hash, game_piece.attributes_hash}

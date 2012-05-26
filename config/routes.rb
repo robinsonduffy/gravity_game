@@ -2,6 +2,8 @@ GravityGame::Application.routes.draw do
   
   root :to => "pages#home"
   
+  match 'level/:id' => 'levels#show', :as => 'level_show'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
