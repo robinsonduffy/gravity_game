@@ -427,7 +427,7 @@ function checkSuccess(){
 		var goals_reached = 0;
 		settling = false;
 		$('#board .goal').each(function(){
-			if($("#board .game-piece."+$(this).attr('_station_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
+			if($("#board .game-piece."+$(this).attr('_goal_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
 				goals_reached++;
 			}
 		});
