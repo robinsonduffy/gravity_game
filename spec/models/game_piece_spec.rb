@@ -46,7 +46,7 @@ describe GamePiece do
     end
     
     it "should return the attributes_hash when called" do
-      @game_piece.attributes_hash.should == {"_attrA" => 'valueA', "_attrB" => 'valueB', "_attrC" => 'valueC'}
+      @game_piece.attributes_hash.should == {"_cell" => "1,1", "_attrA" => 'valueA', "_attrB" => 'valueB', "_attrC" => 'valueC'}
     end
   end
 end

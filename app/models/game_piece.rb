@@ -17,6 +17,7 @@ class GamePiece < ActiveRecord::Base
   
   def attributes_hash
     attribute_hash = Hash.new
+    attribute_hash['_cell'] = self.cell
     self.extra_attributes.each do |extra_attribute|
       attribute_hash[extra_attribute.key] = extra_attribute.value
     end
