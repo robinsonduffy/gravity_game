@@ -5,7 +5,7 @@ class PagesController < ApplicationController
   
   def home
     user = @graph.get_object('me')
-    raise user.inspect
+    raise @game_user.inspect
   end
   
   def post_home
