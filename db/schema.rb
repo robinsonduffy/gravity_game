@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120525054825) do
+ActiveRecord::Schema.define(:version => 20120602042106) do
 
   create_table "extra_attributes", :force => true do |t|
     t.string   "key"
@@ -50,5 +50,13 @@ ActiveRecord::Schema.define(:version => 20120525054825) do
   end
 
   add_index "levels", ["number"], :name => "index_levels_on_number"
+
+  create_table "users", :force => true do |t|
+    t.string   "fbid"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "users", ["fbid"], :name => "index_users_on_fbid", :unique => true
 
 end
