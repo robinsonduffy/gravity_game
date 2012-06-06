@@ -26,11 +26,11 @@ describe GamePiece do
   describe "special methods" do
     before(:each) do
       @game_piece = @level.game_pieces.create!(@attrs)
-      @game_piece.extra_classes.create!({:name => 'classA'})
-      @game_piece.extra_classes.create!({:name => 'classB'})
-      @game_piece.extra_attributes.create!({:key => '_attrA', :value => 'valueA'})
-      @game_piece.extra_attributes.create!({:key => '_attrB', :value => 'valueB'})
-      @game_piece.extra_attributes.create!({:key => '_attrC', :value => 'valueC'})
+      @game_piece.meta_data.create!({:key => 'class', :value => 'classA'})
+      @game_piece.meta_data.create!({:key => 'class', :value => 'classB'})
+      @game_piece.meta_data.create!({:key => '_attrA', :value => 'valueA'})
+      @game_piece.meta_data.create!({:key => '_attrB', :value => 'valueB'})
+      @game_piece.meta_data.create!({:key => '_attrC', :value => 'valueC'})
     end
     
     it "should have a class_hash method" do

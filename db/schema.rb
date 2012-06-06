@@ -11,26 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120602042106) do
+ActiveRecord::Schema.define(:version => 20120605162430) do
 
-  create_table "extra_attributes", :force => true do |t|
-    t.string   "key"
-    t.string   "value"
-    t.integer  "game_piece_id"
+  create_table "completions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "level_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "extra_attributes", ["game_piece_id"], :name => "index_extra_attributes_on_game_piece_id"
-
-  create_table "extra_classes", :force => true do |t|
-    t.string   "name"
-    t.integer  "game_piece_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "extra_classes", ["game_piece_id"], :name => "index_extra_classes_on_game_piece_id"
+  add_index "completions", ["level_id"], :name => "index_completions_on_level_id"
+  add_index "completions", ["user_id", "level_id"], :name => "index_completions_on_user_id_and_level_id", :unique => true
+  add_index "completions", ["user_id"], :name => "index_completions_on_user_id"
 
   create_table "game_pieces", :force => true do |t|
     t.string   "cell"
@@ -44,12 +36,23 @@ ActiveRecord::Schema.define(:version => 20120602042106) do
 
   create_table "levels", :force => true do |t|
     t.integer  "number"
+    t.integer  "grid_size"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "grid_size"
   end
 
   add_index "levels", ["number"], :name => "index_levels_on_number"
+
+  create_table "meta_data", :force => true do |t|
+    t.integer  "item_id"
+    t.string   "item_type"
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "meta_data", ["item_id", "item_type"], :name => "index_meta_data_on_item_id_and_item_type"
 
   create_table "users", :force => true do |t|
     t.string   "fbid"
