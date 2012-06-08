@@ -47,12 +47,13 @@ ActiveRecord::Schema.define(:version => 20120605162430) do
     t.integer  "item_id"
     t.string   "item_type"
     t.string   "key"
-    t.string   "value"
+    t.text     "value"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "meta_data", ["item_id", "item_type"], :name => "index_meta_data_on_item_id_and_item_type"
+  add_index "meta_data", ["key"], :name => "index_meta_data_on_key"
 
   create_table "users", :force => true do |t|
     t.string   "fbid"

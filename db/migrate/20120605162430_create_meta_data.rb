@@ -4,10 +4,11 @@ class CreateMetaData < ActiveRecord::Migration
       t.integer :item_id
       t.string :item_type
       t.string :key
-      t.string :value
+      t.text :value
       t.timestamps
     end
     add_index :meta_data, [:item_id, :item_type]
+    add_index :meta_data, :key
   end
 
   def self.down
