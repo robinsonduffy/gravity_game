@@ -8,6 +8,7 @@ class Level < ActiveRecord::Base
   has_many :game_pieces 
   has_many :completions, :dependent => :destroy
   has_many :users_completed, :through => :completions, :source => :user
+  has_many :meta_data, :as => :item
   
   validates :number, :presence => true,
                      :numericality => {:only_integer => true},
