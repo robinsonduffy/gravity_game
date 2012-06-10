@@ -1,7 +1,5 @@
 class GamePiece < ActiveRecord::Base
   belongs_to :level
-  has_many :extra_attributes
-  has_many :extra_classes
   has_many :meta_data, :as => :item
   
   validates :cell, :presence => true
