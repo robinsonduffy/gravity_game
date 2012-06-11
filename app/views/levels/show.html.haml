@@ -19,3 +19,5 @@
       %div#game-pieces
         - @level.game_pieces.each do |game_piece|
           %div{game_piece.class_hash, game_piece.attributes_hash}
+  %input{:id => 'data-l', :type => 'hidden', :value => @level.id}
+  %input{:id => 'data-u', :type => 'hidden', :value => session[:fb_user_id]}

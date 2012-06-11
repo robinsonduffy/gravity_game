@@ -439,4 +439,14 @@ function checkSuccess(){
 
 function triggerSuccess(){
 	$("#empty-cell").val('Success');
+	$.ajax({
+		type: "POST",
+		url : '/ajax/complete_level',
+		data : {
+			u : $("#data-u").val(),
+			l : $("#data-l").val()
+		}
+	}).done(function(msg){
+		alert(msg);
+	});
 }

@@ -7,6 +7,8 @@ GravityGame::Application.routes.draw do
   
   match 'auth/facebook/callback' => 'sessions#callback', :as => 'fb_callback'
   
+  post 'ajax/complete_level' => 'ajax#complete_level'
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
