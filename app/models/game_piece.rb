@@ -1,6 +1,6 @@
 class GamePiece < ActiveRecord::Base
   belongs_to :level
-  has_many :meta_data, :as => :item
+  has_many :meta_data, :as => :item, :dependent => :delete_all
   
   validates :cell, :presence => true
   validates :piece_type, :presence => true
