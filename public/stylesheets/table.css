@@ -1,7 +1,7 @@
 
 table.board-grid {width:500px; height:500px; border-collapse:collapse;}
 table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
-#board-wrapper {position:relative}
+#board-wrapper {position:relative; clear:left;}
 .game-board {position:absolute;}
 
 
