@@ -1,8 +1,7 @@
 GravityGame::Application.routes.draw do
   
   
-  get '/' => "pages#home", :as => 'root'
-  post '/' => 'pages#post_home'
+  match '/' => "pages#home", :as => 'root'
   
   match 'level/:id' => 'levels#show', :as => 'level_show'
   
