@@ -1,6 +1,8 @@
 
 #debug-info {float:left; clear:both; position:absolute; top:650px;}
 
-#nav {float:left;}
+#nav {float:left; width:500px;}
 #nav #counter-clock-wise {width:40px; height:40px; float:left; background-image:url('../imgs/shared/counterclockwise.png'); cursor:pointer;}
 #nav #clock-wise {width:40px; height:40px; float:left; background-image:url('../imgs/shared/clockwise.png'); cursor:pointer;}
+#nav #reload {width:40px; height:40px; float:right;}
+#nav #reload img {border:0;}

@@ -3,11 +3,12 @@ var max_x = 0;
 var max_y = 0;
 var pieces_moved = false;
 var settling = false;
+var rotations = 0;
 $(document).ready(function(){
 	max_x = parseInt($("#board table tr").length);
 	max_y = parseInt($("#board table tr").length);
 	setUpPieces();
-	$("#nav p").click(function(){
+	$("#nav p.rotate").click(function(){
 		if(!settling){
 			rotate(this.id);
 		}
@@ -17,6 +18,9 @@ $(document).ready(function(){
 			$(this).toggleClass("locked");
 			afterRotate();
 		}
+	});
+	$("#nav #reload").click(function(){
+		return confirm("Are you sure you want to reload this level?")
 	});
 });
 
@@ -45,6 +49,7 @@ function rotate(direction){
 			rotate_degree = 90;
 			break;
 	}
+	rotations++;
 	$("#board").clone().attr('id','board-clone').appendTo($("#board-wrapper"));
 	$("#board").css('visibility','hidden');
 	rearrangeBoard();
@@ -444,7 +449,8 @@ function triggerSuccess(){
 		url : '/ajax/complete_level',
 		data : {
 			u : $("#data-u").val(),
-			l : $("#data-l").val()
+			l : $("#data-l").val(),
+			r : rotations
 		}
 	}).done(function(msg){
 		alert(msg);

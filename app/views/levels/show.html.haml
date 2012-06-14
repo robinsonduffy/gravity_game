@@ -6,8 +6,9 @@
   = javascript_include_tag "gravity.js"
 %div#wrapper
   %div#nav
-    %p#counter-clock-wise &nbsp;
-    %p#clock-wise &nbsp;
+    %p#counter-clock-wise.rotate &nbsp;
+    %p#clock-wise.rotate &nbsp;
+    %p#reload= link_to image_tag('/imgs/shared/reload.png'), "/level/#{@level.id}"
   %div#board-wrapper
     %div#board.game-board
       %table{:id => "squares", :class => "board-grid", :cell_border => "1"}
