@@ -50,6 +50,7 @@ function rotate(direction){
 			break;
 	}
 	rotations++;
+	$("#current-rotations").html(rotations);
 	$("#board").clone().attr('id','board-clone').appendTo($("#board-wrapper"));
 	$("#board").css('visibility','hidden');
 	rearrangeBoard();
@@ -443,16 +444,14 @@ function checkSuccess(){
 }
 
 function triggerSuccess(){
-	$("#empty-cell").val('Success');
+	$("#nav p.rotate").hide();
 	$.ajax({
 		type: "POST",
 		url : '/ajax/complete_level',
 		data : {
-			u : $("#data-u").val(),
-			l : $("#data-l").val(),
 			r : rotations
 		}
 	}).done(function(msg){
-		alert(msg);
+		alert(msg.toSource());
 	});
 }

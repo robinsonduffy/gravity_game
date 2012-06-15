@@ -19,5 +19,30 @@
       %div#game-pieces
         - @level.game_pieces.each do |game_piece|
           %div{game_piece.class_hash, game_piece.attributes_hash}
-  %input{:id => 'data-l', :type => 'hidden', :value => @level.id}
-  %input{:id => 'data-u', :type => 'hidden', :value => session[:fb_user_id]}
+  %div#level-info
+    %h3= "Level #{@level.id}"
+    %div#user-current-stats
+      %h4 Current Attempt
+      %table
+        %tr
+          %td.stat-title Rotations
+          %td#current-rotations.stat-value 0
+    %div#user-level-stats
+      %h4 Your Best Scores
+      - if current_user.completed_levels.include? @level
+        %table
+          %tr
+            %td.stat-title Rotations
+            %td.stat-value= current_user.best_rotation(@level)
+      - else
+        %p.bold No one has ever completed this level.
+    %div#level-stats
+      %h4 Community Best Scores
+      - if @level.users_completed
+        %table
+          %tr
+            %td.stat-title Rotations
+            %td.stat-value= @level.best_rotation
+      - else
+        %p.bold No one has ever completed this level.
+            

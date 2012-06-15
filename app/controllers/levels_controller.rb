@@ -4,5 +4,6 @@ class LevelsController < ApplicationController
   
   def show
     @level = Level.find(params[:id])
+    session[:current_level] = @level.id
   end
 end

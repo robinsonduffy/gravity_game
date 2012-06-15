@@ -7,4 +7,8 @@ module ApplicationHelper
       "#{@title} | #{base_title}"
     end
   end
+  
+  def current_user
+    @game_user ||= User.find_by_fbid(session[:fb_user_id])
+  end
 end

@@ -1,4 +1,5 @@
 
+#wrapper {float:left; width:750px;}
 #debug-info {float:left; clear:both; position:absolute; top:650px;}
 
 #nav {float:left; width:500px;}
@@ -6,3 +7,5 @@
 #nav #clock-wise {width:40px; height:40px; float:left; background-image:url('../imgs/shared/clockwise.png'); cursor:pointer;}
 #nav #reload {width:40px; height:40px; float:right;}
 #nav #reload img {border:0;}
+
+#level-info {float:right; width:210px; padding:10px; border:1px solid black; background-color:#e9e9e9}

@@ -5,5 +5,8 @@ class User < ActiveRecord::Base
   
   validates :fbid, :presence => true,
                    :uniqueness => true
-  
+                   
+  def best_rotation(level)
+    self.completions.joins(:meta_data).where("meta_data.key = 'rotations' AND completions.level_id = ?", level.id).first.meta_data.find_by_key("rotations").value.to_i
+  end
 end

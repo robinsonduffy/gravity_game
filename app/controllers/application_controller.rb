@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   protect_from_forgery
   rescue_from Koala::Facebook::APIError, :with => :oath2_error
   before_filter :set_p3p
@@ -90,6 +91,10 @@ class ApplicationController < ActionController::Base
       logger.debug session.inspect
       logger.debug "~~~"
       logger.debug " "
+    end
+    
+    def clear_current_level
+      session[:current_level] = nil
     end
   
 end
