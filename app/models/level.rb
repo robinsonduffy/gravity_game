@@ -17,5 +17,9 @@ class Level < ActiveRecord::Base
   validates :grid_size, :presence => true,
                         :numericality => {:only_integer => true},
                         :inclusion => {:in => 4..8}
+                        
+  def best_rotation
+    self.completions.joins(:meta_data).where("meta_data.key = 'rotations'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("rotations").value.to_i
+  end
   
 end
