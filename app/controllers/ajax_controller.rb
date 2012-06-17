@@ -24,7 +24,7 @@ class AjaxController < ApplicationController
     u_rotations = completion.meta_data.find_by_key("rotations") || completion.meta_data.build(:key => 'rotations', :value => rotations)
     #LOCKS
     l_locks = level.best_locked
-    u_locks = u_rotations = completion.meta_data.find_by_key("locks") || completion.meta_data.build(:key => 'locks', :value => locks)
+    u_locks = completion.meta_data.find_by_key("locks") || completion.meta_data.build(:key => 'locks', :value => locks)
     #COINS
     l_coins = level.best_coins
     u_coins = completion.meta_data.find_by_key("coins") || completion.meta_data.build(:key => 'coins', :value => coins)
