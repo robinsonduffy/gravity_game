@@ -5,6 +5,7 @@ var pieces_moved = false;
 var settling = false;
 var rotations = 0;
 var locks = 0;
+var coins = 0;
 $(document).ready(function(){
 	max_x = parseInt($("#board table tr").length);
 	max_y = parseInt($("#board table tr").length);
@@ -371,7 +372,8 @@ function applyCoins(){
 				$("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").remove();
 			}
 			$(this).remove();
-			//TODO: ADD COINS
+			coins = coins + parseInt($(this).attr('_coin_value'),10);
+			$("#current-coins .stat-value").html(coins);
 			pieces_moved = true;
 		}
 	});
@@ -453,7 +455,8 @@ function triggerSuccess(){
 		url : '/ajax/complete_level',
 		data : {
 			r : rotations,
-			l : locks
+			l : locks,
+			c : coins
 		}
 	}).done(function(msg){
 		alert(msg.toSource());

@@ -34,4 +34,10 @@ class Level < ActiveRecord::Base
     end
   end
   
+  def best_coins
+    if self.completions.length > 0
+      self.completions.joins(:meta_data).where("meta_data.key = 'coins'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("coins").value.to_i
+    end
+  end
+  
 end

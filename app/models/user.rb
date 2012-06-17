@@ -13,4 +13,8 @@ class User < ActiveRecord::Base
   def best_locked(level)
     self.completions.joins(:meta_data).where("meta_data.key = 'locks' AND completions.level_id = ?", level.id).first.meta_data.find_by_key("locks").value.to_i
   end
+  
+  def best_coins(level)
+    self.completions.joins(:meta_data).where("meta_data.key = 'coins' AND completions.level_id = ?", level.id).first.meta_data.find_by_key("coins").value.to_i
+  end
 end
