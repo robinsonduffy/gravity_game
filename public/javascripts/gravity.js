@@ -4,6 +4,7 @@ var max_y = 0;
 var pieces_moved = false;
 var settling = false;
 var rotations = 0;
+var locks = 0;
 $(document).ready(function(){
 	max_x = parseInt($("#board table tr").length);
 	max_y = parseInt($("#board table tr").length);
@@ -50,7 +51,7 @@ function rotate(direction){
 			break;
 	}
 	rotations++;
-	$("#current-rotations").html(rotations);
+	$("#current-rotations .stat-value").html(rotations);
 	$("#board").clone().attr('id','board-clone').appendTo($("#board-wrapper"));
 	$("#board").css('visibility','hidden');
 	rearrangeBoard();
@@ -432,6 +433,8 @@ function checkSuccess(){
 	}else{
 		var goals_reached = 0;
 		settling = false;
+		locks = $("#board .locked").length;
+		$("#current-locks .stat-value span").html(locks);
 		$('#board .goal').each(function(){
 			if($("#board .game-piece."+$(this).attr('_goal_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
 				goals_reached++;
@@ -449,7 +452,8 @@ function triggerSuccess(){
 		type: "POST",
 		url : '/ajax/complete_level',
 		data : {
-			r : rotations
+			r : rotations,
+			l : locks
 		}
 	}).done(function(msg){
 		alert(msg.toSource());
