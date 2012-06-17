@@ -36,8 +36,9 @@
           %td.stat-title Coins
           %td.stat-value 0
     %div#user-level-stats
-      %h4 Your Best Scores
+      %h4 Your Best Score
       - if current_user.completed_levels.include? @level
+        %p.top-score= current_user.best_score(@level)
         %table
           %tr
             %td.stat-title Rotations
@@ -51,8 +52,9 @@
       - else
         %p.bold You have never completed this level.
     %div#level-stats
-      %h4 Community Best Scores
+      %h4 Community Best Score
       - if @level.users_completed.length > 0
+        %p.top-score= @level.best_score
         %table
           %tr
             %td.stat-title Rotations

@@ -22,29 +22,29 @@ class AjaxController < ApplicationController
     #ROTATIONS
     l_rotations = level.best_rotation
     u_rotations = completion.meta_data.find_by_key("rotations") || completion.meta_data.build(:key => 'rotations', :value => rotations)
-    if u_rotations.value.to_i > rotations
-      response[:rotation_personal_best] = 'true'
-      u_rotations.value = rotations.to_s
-      u_rotations.save unless u_rotations.id.nil?
-    end
-    response[:rotation_best] = 'true' if (l_rotations.nil? || rotations < l_rotations)
     #LOCKS
     l_locks = level.best_locked
     u_locks = u_rotations = completion.meta_data.find_by_key("locks") || completion.meta_data.build(:key => 'locks', :value => locks)
-    if u_locks.value.to_i > locks
-      response[:locks_personal_best] = 'true'
-      u_locks.value = locks.to_s
-      u_locks.save unless u_locks.id.nil?
-    end
-    response[:locks_best] = 'true' if (l_locks.nil? || locks < l_locks)
     #COINS
     l_coins = level.best_coins
     u_coins = completion.meta_data.find_by_key("coins") || completion.meta_data.build(:key => 'coins', :value => coins)
-    if u_coins.value.to_i < coins
-      response[:coins_personal_best] = 'true'
+    #SCORE
+    score = ((1 - (coins / level.possible_coins)) * 50) + (rotations * 2) + ((locks / level.total_lockable) * 25)
+    l_score = level.best_score
+    u_score = completion.meta_data.find_by_key("score") || completion.meta_data.build(:key => 'score', :value => score)
+    response[:score] = score
+    if u_score.value.to_i > score
+      response[:score_personal_best] = 'true'
+      u_score.value = score.to_s
+      u_score.save unless u_score.id.nil?
       u_coins.value = coins.to_s
       u_coins.save unless u_coins.id.nil?
+      u_locks.value = locks.to_s
+      u_locks.save unless u_locks.id.nil?
+      u_rotations.value = rotations.to_s
+      u_rotations.save unless u_rotations.id.nil?
     end
+    response[:score_best] = 'true' if (l_score.nil? || score < l_score)
     #SAVE Completion
     completion.save
     #send the ajax response

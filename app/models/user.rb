@@ -17,4 +17,8 @@ class User < ActiveRecord::Base
   def best_coins(level)
     self.completions.joins(:meta_data).where("meta_data.key = 'coins' AND completions.level_id = ?", level.id).first.meta_data.find_by_key("coins").value.to_i
   end
+  
+  def best_score(level)
+    self.completions.joins(:meta_data).where("meta_data.key = 'score' AND completions.level_id = ?", level.id).first.meta_data.find_by_key("score").value.to_i
+  end
 end

@@ -20,24 +20,34 @@ class Level < ActiveRecord::Base
                         
   def best_rotation
     if self.completions.length > 0
-      self.completions.joins(:meta_data).where("meta_data.key = 'rotations'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("rotations").value.to_i
+      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("rotations").value.to_i
     end
-  end
-  
-  def total_lockable
-    self.game_pieces.joins(:meta_data).where("meta_data.key = 'class' AND meta_data.value = 'lockable'").count
   end
   
   def best_locked
     if self.completions.length > 0
-      self.completions.joins(:meta_data).where("meta_data.key = 'locks'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("locks").value.to_i
+      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("locks").value.to_i
     end
   end
   
   def best_coins
     if self.completions.length > 0
-      self.completions.joins(:meta_data).where("meta_data.key = 'coins'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("coins").value.to_i
+      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("coins").value.to_i
     end
+  end
+  
+  def best_score
+    if self.completions.length > 0
+      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("score").value.to_i
+    end
+  end
+  
+  def possible_coins
+    self.game_pieces.joins(:meta_data).where("meta_data.key = '_coin_value'").select("SUM(cast(meta_data.value as unsigned)) as total_coins_possible").first.total_coins_possible.to_i
+  end
+  
+  def total_lockable
+    self.game_pieces.joins(:meta_data).where("meta_data.key = 'class' AND meta_data.value = 'lockable'").count
   end
   
 end
