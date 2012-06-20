@@ -8,7 +8,7 @@
   %div#nav
     %p#counter-clock-wise.rotate &nbsp;
     %p#clock-wise.rotate &nbsp;
-    %p#cancel-level= link_to image_tag('/imgs/shared/cancel.png'), root_path
+    %p#cancel-level= link_to image_tag('/imgs/shared/cancel.png'), collection_path(:id => @level.collection.id)
     %p#reload-level= link_to image_tag('/imgs/shared/reload.png'), "/level/#{@level.id}"
   %div#board-wrapper
     %div#board.game-board
