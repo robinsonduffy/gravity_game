@@ -1,3 +1,4 @@
-%p Home Page Stub
+%h1 Gravity Game
 %ul
-  %li= link_to("Level 1","level/1")
+  - @collections.each do |collection|
+    %li= link_to collection.name, collection_path(:id => collection.id)

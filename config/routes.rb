@@ -3,11 +3,13 @@ GravityGame::Application.routes.draw do
   
   match '/' => "pages#home", :as => 'root'
   
-  match 'level/:id' => 'levels#show', :as => 'level_show'
+  match 'level/:id' => 'levels#show', :as => 'level'
   
   match 'auth/facebook/callback' => 'sessions#callback', :as => 'fb_callback'
   
   post 'ajax/complete_level' => 'ajax#complete_level'
+  
+  match 'collection/:id' => 'collections#show', :as => 'collection'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

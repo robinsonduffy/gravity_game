@@ -1,0 +1,4 @@
+%h1= @collection.name
+%ul
+  - @collection.levels.each do |level|
+    %li= link_to level.number, level_path(:id => level.id)

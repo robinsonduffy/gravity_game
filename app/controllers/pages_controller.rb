@@ -7,7 +7,7 @@ class PagesController < ApplicationController
   protect_from_forgery :except => [:home]
   
   def home
-    user = @graph.get_object('me')
+    @collections = Collection.order(:number)
   end
   
   def redirect_after_canvas_post
