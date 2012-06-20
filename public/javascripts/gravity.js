@@ -21,8 +21,11 @@ $(document).ready(function(){
 			afterRotate();
 		}
 	});
-	$("#nav #reload").click(function(){
+	$("#nav #reload-level").click(function(){
 		return confirm("Are you sure you want to reload this level?")
+	});
+	$("#nav #cancel-level").click(function(){
+		return confirm("Are you sure you want to quit this level?")
 	});
 });
 

@@ -8,7 +8,8 @@
   %div#nav
     %p#counter-clock-wise.rotate &nbsp;
     %p#clock-wise.rotate &nbsp;
-    %p#reload= link_to image_tag('/imgs/shared/reload.png'), "/level/#{@level.id}"
+    %p#cancel-level= link_to image_tag('/imgs/shared/cancel.png'), root_path
+    %p#reload-level= link_to image_tag('/imgs/shared/reload.png'), "/level/#{@level.id}"
   %div#board-wrapper
     %div#board.game-board
       %table{:id => "squares", :class => "board-grid", :cell_border => "1"}
