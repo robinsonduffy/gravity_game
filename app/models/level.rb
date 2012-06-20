@@ -9,10 +9,12 @@ class Level < ActiveRecord::Base
   has_many :completions, :dependent => :delete_all
   has_many :users_completed, :through => :completions, :source => :user
   has_many :meta_data, :as => :item, :dependent => :delete_all
+  belongs_to :collection
   
   validates :number, :presence => true,
                      :numericality => {:only_integer => true},
-                     :positive_number => true
+                     :positive_number => true,
+                     :uniqueness => {:scope => :collection_id}
   
   validates :grid_size, :presence => true,
                         :numericality => {:only_integer => true},

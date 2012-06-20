@@ -52,5 +52,20 @@ describe Level do
       bad_level.should_not be_valid
     end
     
+    it "should require a unique number per collection" do
+      level = Level.create!(@attrs.merge(:collection => Factory(:collection)))
+      bad_level = Level.new(@attrs.merge(:collection => level.collection))
+      bad_level.should_not be_valid
+    end
+    
+    it "should allow the same number in different collections" do
+      collection1 = Factory(:collection, {:number => 1})
+      collection2 = Factory(:collection, {:number => 2})
+      level1 = Level.create!(@attrs.merge(:collection => collection1, :number => 1))
+      level2 = Level.new(@attrs.merge(:collection => collection2, :number => 2))
+      level1.should be_valid
+      level2.should be_valid
+    end
+    
   end
 end

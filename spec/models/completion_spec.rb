@@ -2,7 +2,8 @@ require 'spec_helper'
 
 describe Completion do
   before(:each) do
-    @level = Factory(:level)
+    @collection = Factory(:collection)
+    @level = Factory(:level, :collection => @collection)
     @user = Factory(:user)
   end
   
@@ -29,7 +30,7 @@ describe Completion do
     
     it "should allow users to have multple levels" do
       @user.completions.create!(:level => @level)
-      good_completion = @user.completions.build(:level => Factory(:level, :number => 2))
+      good_completion = @user.completions.build(:level => Factory(:level, :number => 2, :collection => @collection))
       good_completion.should be_valid
     end
     

@@ -1,6 +1,12 @@
+Factory.define :collection do |collection|
+  collection.number 1
+  collection.name "Collection One"
+end
+
 Factory.define :level do |level|
   level.number 1
   level.grid_size 4
+  level.association :collection
 end
 
 Factory.define :game_piece do |game_piece|

@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120605162430) do
+ActiveRecord::Schema.define(:version => 20120620043324) do
+
+  create_table "collections", :force => true do |t|
+    t.integer  "number"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "collections", ["number"], :name => "index_collections_on_number", :unique => true
 
   create_table "completions", :force => true do |t|
     t.integer  "user_id"
@@ -39,8 +48,10 @@ ActiveRecord::Schema.define(:version => 20120605162430) do
     t.integer  "grid_size"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "collection_id"
   end
 
+  add_index "levels", ["collection_id"], :name => "index_levels_on_collection_id"
   add_index "levels", ["number"], :name => "index_levels_on_number"
 
   create_table "meta_data", :force => true do |t|
