@@ -21,7 +21,8 @@
         - @level.game_pieces.each do |game_piece|
           %div{game_piece.class_hash, game_piece.attributes_hash}
   %div#level-info
-    %h3= "Level #{@level.id}"
+    %p#level-collection-name= @level.collection.name
+    %h3= "Level #{@level.number}"
     %div#user-current-stats
       %h4 Current Attempt
       %table
