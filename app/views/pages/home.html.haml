@@ -1,4 +1,4 @@
 %h1 Gravity Game
 %ul
   - @collections.each do |collection|
-    %li= link_to collection.name, collection_path(:id => collection.id)
+    %li= link_to "#{collection.name} (#{collection.percent_done(current_user)}%)", collection_path(:id => collection.id)
