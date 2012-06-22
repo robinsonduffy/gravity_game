@@ -32,3 +32,7 @@
 #popup-window {display:none; position:fixed; _position:absolute; /* hack for internet explorer 6*/ width:408px; background:#FFFFFF; border:2px solid #cecece; z-index:200; padding:12px;}
 #popup-close-button {float:right; width:40px; height:40px; background-image:url('../imgs/shared/cancel.png');right:6px; top:4px; position:absolute; margin:0; cursor:pointer;}
 #popup-content h1{text-align:left; color:#333; font-size:25px; border-bottom:1px dotted #D3D3D3; padding-bottom:7px; margin-top:0px; margin-bottom:0px;}
+
+/*SCORE TALLY*/
+#tally .tally-detail-value {display:none;}
+#tally #tally-score-value {display:none;}

@@ -462,6 +462,25 @@ function triggerSuccess(){
 			c : coins
 		}
 	}).done(function(msg){
-		alert(msg.toSource());
+		if(msg.type == 'Error'){
+		  alert('There was an error (code: '+msg.code+')');
+		  return false;
+		}
+		if(msg.type == 'Success'){
+		  tallyScore(msg);
+		}
 	});
+}
+
+function tallyScore(scoreInfo){
+  $("#popup-content").html("<h1>Success!</h1><table id='tally'><tr><td id='tally-score'><p id='tally-score-value'></p><p id='tally-score-label'>Score</p></td><td id='tally-score-details'><p id='tally-detail-rotations'><span class='tally-detail-label'>Rotations:</span><span class='tally-detail-value'></span></p><p id='tally-detail-locks'><span class='tally-detail-label'>Locks:</span><span class='tally-detail-value'></span></p><p id='tally-detail-coins'><span class='tally-detail-label'>Coins:</span><span class='tally-detail-value'></span></p></td></tr></table>");
+  centerPopup();
+  loadPopup();
+  $("#tally-detail-rotations .tally-detail-value").html(rotations).fadeIn(2000, function(){
+    $("#tally-detail-locks .tally-detail-value").html(locks).fadeIn(2000, function(){
+      $("#tally-detail-coins .tally-detail-value").html(coins).fadeIn(2000, function(){
+        $("#tally-score-value").html(scoreInfo.score).fadeIn(2000);
+      });
+    });
+  });
 }
