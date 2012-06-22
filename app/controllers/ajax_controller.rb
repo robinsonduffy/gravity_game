@@ -3,13 +3,13 @@ class AjaxController < ApplicationController
   
   def complete_level
     rotations = params[:r].to_i || 0
-    ajax_response({:type => 'Error', :code => 'cl4'}) and return if rotations < 1
+    ajax_response({:type => 'Error', :code => 'CL4'}) and return if rotations < 1
     locks = params[:l].to_i || -1
-    ajax_response({:type => 'Error', :code => 'cl5'}) and return if locks < 0
+    ajax_response({:type => 'Error', :code => 'CL5'}) and return if locks < 0
     coins = params[:c].to_i || -1
-    ajax_response({:type => 'Error', :code => 'cl6'}) and return if coins < 0
+    ajax_response({:type => 'Error', :code => 'CL6'}) and return if coins < 0
     level = Level.find_by_id(session[:current_level])
-    ajax_response({:type => 'Error', :code => 'cl2'}) and return if level.nil?
+    ajax_response({:type => 'Error', :code => 'CL2'}) and return if level.nil?
     if current_user.completed_levels.include?(level)
       #this user has already completed this level
       completion = current_user.completions.find_by_level_id(level)
