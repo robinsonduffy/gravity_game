@@ -24,8 +24,9 @@
 #collection-level-grid li span.star.completed {background-image:url('../imgs/shared/star-badge.png'); background-repeat:no-repeat; background-position:center;}
 
 /* ROUND CORNERS */
-.round {
-  -moz-border-radius:    10px;
-  -webkit-border-radius: 10px;
-  border-radius:         10px;
-}
+.round {-moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px;}
+
+/*POPUP*/
+#popup-background {display:none; position:fixed; _position:absolute; /* hack for internet explorer 6*/ height:100%; width:100%; top:0; left:0; background:#000000; border:1px solid #cecece; z-index:100;}
+#popup-window {display:none; position:fixed; _position:absolute; /* hack for internet explorer 6*/ width:408px; background:#FFFFFF; border:2px solid #cecece; z-index:200; padding:12px; font-size:13px;}
+#popup-close-button {float:right; width:40px; height:40px; background-image:url('../imgs/shared/cancel.png');right:6px; top:4px; position:absolute; margin:0; cursor:pointer;}

@@ -4,6 +4,7 @@
 - content_for :custom_js do
   = javascript_include_tag "jquery.transform-0.9.3.min.js"
   = javascript_include_tag "gravity.js"
+  = javascript_include_tag "popup.js"
 %div#wrapper
   %div#nav
     %p#counter-clock-wise.rotate &nbsp;
@@ -69,4 +70,9 @@
             %td.stat-value= @level.best_coins
       - else
         %p.bold No one has ever completed this level.
-            
+%div#popup-window
+  %p#popup-close-button
+  %div#popup-content
+    %h1 Test this out
+%div#popup-background
+%script{:type => 'text/javascript',} centerPopup();loadPopup();
