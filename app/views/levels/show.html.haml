@@ -1,3 +1,4 @@
+- popup = @level.meta_data.where(:key => 'popup').first
 - content_for :custom_css do
   = stylesheet_link_tag "table.css"
   = stylesheet_link_tag "table-#{@level.grid_size}.css"
@@ -5,12 +6,16 @@
   = javascript_include_tag "jquery.transform-0.9.3.min.js"
   = javascript_include_tag "gravity.js"
   = javascript_include_tag "popup.js"
+  - unless popup.nil?
+    %script{:type => 'text/javascript'} $(document).ready(function(){$("#level-popup").click(function(){centerPopup(); loadPopup();});$("#level-popup").click();});
 %div#wrapper
   %div#nav
     %p#counter-clock-wise.rotate &nbsp;
     %p#clock-wise.rotate &nbsp;
     %p#cancel-level= link_to image_tag('/imgs/shared/cancel.png'), collection_path(:id => @level.collection.id)
     %p#reload-level= link_to image_tag('/imgs/shared/reload.png'), "/level/#{@level.id}"
+    - unless popup.nil?
+      %p#level-popup
   %div#board-wrapper
     %div#board.game-board
       %table{:id => "squares", :class => "board-grid", :cell_border => "1"}
@@ -73,6 +78,6 @@
 %div#popup-window
   %p#popup-close-button
   %div#popup-content
-    %h1 Test this out
+    - unless popup.nil?
+      = raw(popup.value)
 %div#popup-background
-%script{:type => 'text/javascript',} centerPopup();loadPopup();
