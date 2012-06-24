@@ -1,6 +1,6 @@
 %h1#collection-list-name= @collection.name
 %ul#collection-level-grid.round
-  - @collection.levels.each do |level|
+  - @collection.levels.order(:number).each do |level|
     %li
       = link_to level.number, level_path(:id => level.id), {:class => 'number round'}
       %span{:class => "star#{current_user.completed_levels.include?(level) ? ' completed' : ''}"}
