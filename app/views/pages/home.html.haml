@@ -1,4 +1,18 @@
+- content_for :custom_js do
+  = javascript_include_tag "jquery.tinycarousel.min.js"
+- content_for :custom_css do
+  = stylesheet_link_tag "slider.css"
 %h1 Gravity Game
-%ul
-  - @collections.each do |collection|
-    %li= link_to "#{collection.name} (#{collection.percent_done(current_user)}%)", collection_path(:id => collection.id)
+%div#slider1
+  %a{:class => 'buttons prev', :href=> '#'} Left
+  %div.viewport.round
+    %ul.overview
+      - @collections.each do |collection|
+        %li
+          %div.slider-item.round
+            %h3= link_to collection.name, collection_path(collection)
+            %div.slider-collection-percent.round
+              %span.slider-collection-percent-bar.round{:style => "width:#{collection.percent_done(current_user)}%"}
+              %span.slider-collection-percent-text= "#{collection.percent_done(current_user)}%"
+  %a{:class => 'buttons next', :href=> '#'} Right
+%script{:type => 'text/javascript'} $("#slider1").tinycarousel();

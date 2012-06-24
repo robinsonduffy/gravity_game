@@ -1,0 +1,25 @@
+/* Tiny Carousel
+#slider1 { height: 1%; overflow:hidden; padding: 0 0 10px; width:370px; margin-left:auto; margin-right:auto;}
+#slider1 .viewport { float: left; width: 240px; height: 125px; overflow: hidden; position: relative; border:3px solid #3B5998; padding:10px;}
+#slider1 .buttons { background:url("../imgs/shared/slider-buttons.png") no-repeat scroll 0 0 transparent; display: block; margin: 30px 10px 0 0; background-position: 0 -38px; text-indent: -999em; float: left; width: 39px; height: 37px; overflow: hidden; position: relative; }
+#slider1 .next { background-position: 0 0; margin: 30px 0 0 10px;  }
+#slider1 .disable { visibility: hidden; }
+#slider1 .overview { list-style: none; position: absolute; padding: 0; margin: 0; width: 240px; left: 0 top: 0; }
+#slider1 .overview li{ float: left; margin: 0 20px 0 0; padding: 1px; height: 121px; border: 1px solid #dcdcdc; width: 236px; background-color:#f0f0f0}
+
+
+*/
+/* Tiny Carousel */
+#slider1 { height: 1%; overflow:hidden; padding: 0 0 10px; width:370px; margin-left:auto; margin-right:auto;  }
+#slider1 .viewport { float: left; width: 240px; height: 125px; overflow: hidden; position: relative; border:3px solid #3B5998;}
+#slider1 .buttons { background:url("../imgs/shared/slider-buttons.png") no-repeat scroll 0 0 transparent; display: block; margin: 30px 10px 0 0; background-position: 0 -38px; text-indent: -999em; float: left; width: 39px; height: 37px; overflow: hidden; position: relative; }
+#slider1 .next { background-position: 0 0; margin: 30px 0 0 10px;  }
+#slider1 .disable { visibility: hidden; }
+#slider1 .overview { list-style: none; position: absolute; padding: 0; margin: 0; width: 240px; left: 0 top: 0; }
+#slider1 .overview li{ float: left; margin: 0 20px 0 0; height: 121px; width: 236px;}
+
+#slider1 .slider-item {border:1px solid #dcdcdc; height:105px; margin:10px 0 0 10px; width:217px; background-color:#f0f0f0; text-align:center;}
+#slider1 .slider-item h3 a {color:black; text-decoration:none; font-size:30px;}
+#slider1 .slider-collection-percent {border:1px solid blue; float:left; width:80%; margin-left:20px; height:20px; position:relative;}
+#slider1 .slider-collection-percent .slider-collection-percent-bar {background-color:#a9ccfd; height:100%; float:left;}
+#slider1 .slider-collection-percent .slider-collection-percent-text {position:absolute; left:0; width:100%; height:100%; line-height:20px; font-weight:bold;}
