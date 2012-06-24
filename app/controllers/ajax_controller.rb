@@ -20,13 +20,13 @@ class AjaxController < ApplicationController
       response = {:type => 'Success', :first_time => 'true'}
     end
     #ROTATIONS
-    l_rotations = level.best_rotation
+    #l_rotations = level.best_rotation
     u_rotations = completion.meta_data.find_by_key("rotations") || completion.meta_data.build(:key => 'rotations', :value => rotations)
     #LOCKS
-    l_locks = level.best_locked
+    #l_locks = level.best_locked
     u_locks = completion.meta_data.find_by_key("locks") || completion.meta_data.build(:key => 'locks', :value => locks)
     #COINS
-    l_coins = level.best_coins
+    #l_coins = level.best_coins
     u_coins = completion.meta_data.find_by_key("coins") || completion.meta_data.build(:key => 'coins', :value => coins)
     #SCORE
     score = ((1 - (coins / level.possible_coins)) * 50) + (rotations * 2) + ((locks / level.total_lockable) * 25)

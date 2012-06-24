@@ -480,10 +480,16 @@ function tallyScore(scoreInfo){
   popupLock = true;
   centerPopup();
   loadPopup();
-  $("#tally-detail-rotations .tally-detail-value").html(rotations).fadeIn(2000, function(){
-    $("#tally-detail-locks .tally-detail-value").html(locks).fadeIn(2000, function(){
-      $("#tally-detail-coins .tally-detail-value").html(coins).fadeIn(2000, function(){
-        $("#tally-score-value").html(scoreInfo.score).fadeIn(2000);
+  $("#tally-detail-rotations .tally-detail-value").html(rotations).fadeIn(1000, function(){
+    $("#tally-detail-locks .tally-detail-value").html(locks).fadeIn(1000, function(){
+      $("#tally-detail-coins .tally-detail-value").html(coins).fadeIn(1000, function(){
+        $("#tally-score-value").html(scoreInfo.score).fadeIn(1000, function(){
+          if(scoreInfo.score_best == 'true'){
+            $("#honors p").html("This is the best score for this level...ever!").addClass("honor-msg");
+          }else if(scoreInfo.score_personal_best == 'true'){
+            $("#honors p").html("This is your personal best score for this level!").addClass("honor-msg");
+          }
+        });
       });
     });
   });

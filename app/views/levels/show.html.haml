@@ -97,6 +97,8 @@
             %p#tally-detail-coins
               %span.tally-detail-label Coins:
               %span.tally-detail-value
+      %div#honors
+        %p &nbsp;
       %div#next-action-buttons
         = link_to image_tag('/imgs/shared/go-back.png'), collection_path(@level.collection), {:id => 'button-return', :title => 'Go Back'}
         = link_to image_tag('/imgs/shared/redo.png'), level_path(@level), {:title => 'Redo Level'}
