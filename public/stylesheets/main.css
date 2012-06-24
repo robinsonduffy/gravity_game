@@ -23,6 +23,8 @@
 #collection-level-grid li a.number:hover {background-color:#89b0f8;}
 #collection-level-grid li span.star {width:35px; height:35px; float:left; position:absolute; right:0px;}
 #collection-level-grid li span.star.completed {background-image:url('../imgs/shared/star-badge.png'); background-repeat:no-repeat; background-position:center;}
+#collection-back {position:absolute;}
+#collection-back img {border:0;}
 
 /* ROUND CORNERS */
 .round {-moz-border-radius:10px; -webkit-border-radius:10px; border-radius:10px;}

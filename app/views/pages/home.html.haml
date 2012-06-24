@@ -1,3 +1,4 @@
+- params[:lc] = 1 unless Level.find_by_number(params[:lc])
 - content_for :custom_js do
   = javascript_include_tag "jquery.tinycarousel.min.js"
 - content_for :custom_css do
@@ -15,4 +16,4 @@
               %span.slider-collection-percent-bar.round{:style => "width:#{collection.percent_done(current_user)}%"}
               %span.slider-collection-percent-text= "#{collection.percent_done(current_user)}%"
   %a{:class => 'buttons next', :href=> '#'} Right
-%script{:type => 'text/javascript'} $("#slider1").tinycarousel();
+%script{:type => 'text/javascript'}= "$('#slider1').tinycarousel({start: #{params[:lc]}});"

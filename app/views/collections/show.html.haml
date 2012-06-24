@@ -1,3 +1,4 @@
+= link_to image_tag('/imgs/shared/go-back.png'), root_path(:lc => @collection.number), {:id => 'collection-back', :title => 'Go Back'}
 %h1#collection-list-name= @collection.name
 %ul#collection-level-grid.round
   - @collection.levels.order(:number).each do |level|
