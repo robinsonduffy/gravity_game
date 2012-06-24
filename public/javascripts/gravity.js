@@ -27,6 +27,7 @@ $(document).ready(function(){
 	$("#nav #cancel-level").click(function(){
 		return confirm("Are you sure you want to quit this level?")
 	});
+	$("#")
 });
 
 function afterRotate(){
@@ -452,7 +453,7 @@ function checkSuccess(){
 }
 
 function triggerSuccess(){
-	$("#nav p.rotate").hide();
+	$("#nav p").css('visibility', 'hidden');
 	$.ajax({
 		type: "POST",
 		url : '/ajax/complete_level',
@@ -473,7 +474,10 @@ function triggerSuccess(){
 }
 
 function tallyScore(scoreInfo){
-  $("#popup-content").html("<h1>Success!</h1><table id='tally'><tr><td id='tally-score'><p id='tally-score-value'></p><p id='tally-score-label'>Score</p></td><td id='tally-score-details'><p id='tally-detail-rotations'><span class='tally-detail-label'>Rotations:</span><span class='tally-detail-value'></span></p><p id='tally-detail-locks'><span class='tally-detail-label'>Locks:</span><span class='tally-detail-value'></span></p><p id='tally-detail-coins'><span class='tally-detail-label'>Coins:</span><span class='tally-detail-value'></span></p></td></tr></table>");
+  $("#popup-content #startup-popup").hide();
+  $("#popup-content #score-tally-popup").show();
+  $("#popup-close-button").hide();
+  popupLock = true;
   centerPopup();
   loadPopup();
   $("#tally-detail-rotations .tally-detail-value").html(rotations).fadeIn(2000, function(){

@@ -8,6 +8,7 @@
 //SETTING UP OUR POPUP
 //0 means disabled; 1 means enabled;
 var popupStatus = 0;
+var popupLock = false;
 
 //loading popup with jQuery magic!
 function loadPopup(){
@@ -25,7 +26,7 @@ function loadPopup(){
 //disabling popup with jQuery magic!
 function disablePopup(){
 	//disables popup only if it is enabled
-	if(popupStatus==1){
+	if(popupStatus==1 && !popupLock){
 		$("#popup-background").fadeOut("slow");
 		$("#popup-window").fadeOut("slow");
 		popupStatus = 0;
