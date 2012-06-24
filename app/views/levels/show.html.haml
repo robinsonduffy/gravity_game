@@ -13,7 +13,7 @@
     %p#counter-clock-wise.rotate &nbsp;
     %p#clock-wise.rotate &nbsp;
     %p#cancel-level= link_to image_tag('/imgs/shared/cancel.png'), collection_path(:id => @level.collection.id)
-    %p#reload-level= link_to image_tag('/imgs/shared/reload.png'), "/level/#{@level.id}"
+    %p#reload-level= link_to image_tag('/imgs/shared/reload.png'), level_path(@level)
     - unless popup.nil?
       %p#level-popup
   %div#board-wrapper
