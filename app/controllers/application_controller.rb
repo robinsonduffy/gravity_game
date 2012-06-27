@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
   def require_current_user
     #@graph = Koala::Facebook::API.new(session[:access_token])
     #session[:fb_user_id] = (@graph.get_object('me'))["id"]
-    session[:fb_user_id] = '12345'
+    session[:fb_user_id] = 'abcde12345'
     @game_user = User.find_by_fbid(session[:fb_user_id])
     if(@game_user.nil? && session[:fb_user_id].present? && !session[:fb_user_id].empty?)
       @game_user = User.create!({:fbid => session[:fb_user_id]})
