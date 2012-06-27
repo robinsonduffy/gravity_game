@@ -6,4 +6,10 @@ class LevelsController < ApplicationController
     @level = Level.find(params[:id])
     session[:current_level] = @level.id
   end
+  
+  def get_create_commands
+    @level = Level.find(params[:id])
+    render :layout => false
+  end
+  
 end

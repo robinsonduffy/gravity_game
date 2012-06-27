@@ -1,0 +1,8 @@
+="c = Collection.new({:number => #{@collection.number}, :name => '#{@collection.name}'});"
+- @collection.levels.each do |level|
+  ="l = c.levels.build({:number => #{level.number}, :grid_size => #{level.grid_size}});"
+  - level.game_pieces.each do |gp|
+    = "gp = l.game_pieces.build({:cell => '#{gp.cell}', :piece_type => '#{gp.piece_type}'});"
+    - gp.meta_data.each do |meta|
+      = "gp.meta_data.build({:key => '#{meta.key}', :value => '#{meta.value}'});"
+= "c.save"
