@@ -8,3 +8,4 @@ doc/
 *~
 .project
 config/initializers/facebook.rb
+._*
