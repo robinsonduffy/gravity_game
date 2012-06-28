@@ -5,7 +5,7 @@ class PositiveNumberValidator < ActiveModel::EachValidator
 end
 
 class Level < ActiveRecord::Base
-  has_many :game_pieces 
+  has_many :game_pieces, :dependent => :delete_all
   has_many :completions, :dependent => :delete_all
   has_many :users_completed, :through => :completions, :source => :user
   has_many :meta_data, :as => :item, :dependent => :delete_all
