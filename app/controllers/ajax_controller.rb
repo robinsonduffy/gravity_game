@@ -29,7 +29,11 @@ class AjaxController < ApplicationController
     #l_coins = level.best_coins
     u_coins = completion.meta_data.find_by_key("coins") || completion.meta_data.build(:key => 'coins', :value => coins)
     #SCORE
-    score = ((1 - (coins / level.possible_coins)) * 50) + (rotations * 2) + ((locks / level.total_lockable) * 25)
+    if level.possible_coins > 0
+      score = ((1 - (coins / level.possible_coins)) * 50) + (rotations * 2) + ((locks / level.total_lockable) * 25)
+    else
+      score = (rotations * 2) + ((locks / level.total_lockable) * 25)
+    end
     l_score = level.best_score
     u_score = completion.meta_data.find_by_key("score") || completion.meta_data.build(:key => 'score', :value => score)
     response[:score] = score
