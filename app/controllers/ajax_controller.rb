@@ -4,6 +4,9 @@ class AjaxController < ApplicationController
   def complete_level
     rotations = params[:r].to_i || 0
     ajax_response({:type => 'Error', :code => 'CL4'}) and return if rotations < 1
+    weighted_rotations = params[:w].to_i || 0
+    ajax_response({:type => 'Error', :code => 'CL7'}) and return if weighted_rotations < 1
+    ajax_response({:type => 'Error', :code => 'CL8'}) and return if weighted_rotations < rotations
     locks = params[:l].to_i || -1
     ajax_response({:type => 'Error', :code => 'CL5'}) and return if locks < 0
     coins = params[:c].to_i || -1
@@ -30,9 +33,9 @@ class AjaxController < ApplicationController
     u_coins = completion.meta_data.find_by_key("coins") || completion.meta_data.build(:key => 'coins', :value => coins)
     #SCORE
     if level.possible_coins > 0
-      score = ((1 - (coins / level.possible_coins)) * 50) + (rotations * 2) + ((locks / level.total_lockable) * 25)
+      score = ((1 - (coins / level.possible_coins)) * 50) + (weighted_rotations * 2) + (locks * 5)
     else
-      score = (rotations * 2) + ((locks / level.total_lockable) * 25)
+      score = (weighted_rotations * 2) + (locks * 5)
     end
     l_score = level.best_score
     u_score = completion.meta_data.find_by_key("score") || completion.meta_data.build(:key => 'score', :value => score)

@@ -31,6 +31,8 @@
     %h3= "Level #{@level.number}"
     %div#user-current-stats
       %h4 Current Attempt
+      %p.top-score
+      %p.score-note Score
       %table
         %tr#current-rotations
           %td.stat-title Rotations
@@ -42,7 +44,9 @@
             = " / #{@level.total_lockable}"
         %tr#current-coins
           %td.stat-title Coins
-          %td.stat-value 0
+          %td.stat-value 
+            %span 0
+            = " / #{@level.possible_coins}"
     %div#user-level-stats
       %h4 Your Best Score
       - if current_user.completed_levels.include? @level
@@ -56,7 +60,7 @@
             %td.stat-value= "#{current_user.best_locked(@level)} / #{@level.total_lockable}"
           %tr
             %td.stat-title Coins
-            %td.stat-value= current_user.best_coins(@level)
+            %td.stat-value= "#{current_user.best_coins(@level)} / #{@level.possible_coins}"
       - else
         %p.bold You have never completed this level.
     %div#level-stats
@@ -72,7 +76,7 @@
             %td.stat-value= "#{@level.best_locked} / #{@level.total_lockable}"
           %tr
             %td.stat-title Coins
-            %td.stat-value= @level.best_coins
+            %td.stat-value= "#{@level.best_coins} / #{@level.possible_coins}"
       - else
         %p.bold No one has ever completed this level.
 %div#popup-window

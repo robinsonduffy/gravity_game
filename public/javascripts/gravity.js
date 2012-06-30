@@ -4,11 +4,17 @@ var max_y = 0;
 var pieces_moved = false;
 var settling = false;
 var rotations = 0;
+var weighted_rotations = 0; //the rotations weighted with the number of locks
 var locks = 0;
 var coins = 0;
+var liveScore = 0;
+var possibleCoins = 0;
+var possibleLocks = 0;
 $(document).ready(function(){
 	max_x = parseInt($("#board table tr").length);
 	max_y = parseInt($("#board table tr").length);
+	possibleCoins = getPossibleCoins();
+	possibleLocks = $("#board .lockable").length;
 	setUpPieces();
 	$("#nav p.rotate").click(function(){
 		if(!settling){
@@ -56,6 +62,7 @@ function rotate(direction){
 			break;
 	}
 	rotations++;
+	weighted_rotations = weighted_rotations + 1 + Math.ceil($("#board .locked").length / 2);
 	$("#current-rotations .stat-value").html(rotations);
 	$("#board").clone().attr('id','board-clone').appendTo($("#board-wrapper"));
 	$("#board").css('visibility','hidden');
@@ -377,7 +384,7 @@ function applyCoins(){
 			}
 			$(this).remove();
 			coins = coins + parseInt($(this).attr('_coin_value'),10);
-			$("#current-coins .stat-value").html(coins);
+			$("#current-coins .stat-value span").html(coins);
 			pieces_moved = true;
 		}
 	});
@@ -440,6 +447,7 @@ function checkSuccess(){
 		var goals_reached = 0;
 		settling = false;
 		locks = $("#board .locked").length;
+		tallyLiveScore();
 		$("#current-locks .stat-value span").html(locks);
 		$('#board .goal').each(function(){
 			if($("#board .game-piece."+$(this).attr('_goal_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
@@ -459,6 +467,7 @@ function triggerSuccess(){
 		url : '/ajax/complete_level',
 		data : {
 			r : rotations,
+			w : weighted_rotations,
 			l : locks,
 			c : coins
 		}
@@ -481,8 +490,8 @@ function tallyScore(scoreInfo){
   centerPopup();
   loadPopup();
   $("#tally-detail-rotations .tally-detail-value").html(rotations).fadeIn(1000, function(){
-    $("#tally-detail-locks .tally-detail-value").html(locks).fadeIn(1000, function(){
-      $("#tally-detail-coins .tally-detail-value").html(coins).fadeIn(1000, function(){
+    $("#tally-detail-locks .tally-detail-value").html(locks + ' / ' + possibleLocks).fadeIn(1000, function(){
+      $("#tally-detail-coins .tally-detail-value").html(coins + ' / ' + possibleCoins).fadeIn(1000, function(){
         $("#tally-score-value").html(scoreInfo.score).fadeIn(1000, function(){
           if(scoreInfo.score_best == 'true'){
             $("#honors p").html("This is the best score for this level...ever!").addClass("honor-msg");
@@ -493,4 +502,21 @@ function tallyScore(scoreInfo){
       });
     });
   });
+}
+
+function tallyLiveScore(){
+  if(possibleCoins > 0){
+    liveScore = Math.ceil(((1 - (coins / possibleCoins)) * 50) + (weighted_rotations * 2))
+  }else{
+    liveScore = Math.ceil((weighted_rotations * 2))
+  }
+  $("#user-current-stats .top-score").html(liveScore);
+}
+
+function getPossibleCoins(){
+  totalCoinValue = 0;
+  $("#board .coin").each(function(){
+    totalCoinValue = totalCoinValue + parseInt($(this).attr('_coin_value'),10);
+  })
+  return totalCoinValue;
 }
