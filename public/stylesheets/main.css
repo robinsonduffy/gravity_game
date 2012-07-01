@@ -3,18 +3,6 @@
 #content {width:750px;}
 #debug-info {float:left; clear:both; position:absolute; top:650px;}
 
-/*Level Page*/
-#nav {float:left; width:500px;}
-#nav #counter-clock-wise {width:40px; height:40px; float:left; background-image:url('../imgs/shared/counterclockwise.png'); cursor:pointer;}
-#nav #clock-wise {width:40px; height:40px; float:left; background-image:url('../imgs/shared/clockwise.png'); cursor:pointer;}
-#nav #reload-level {width:40px; height:40px; float:right;}
-#nav #reload-level img {border:0;}
-#nav #cancel-level {width:40px; height:40px; float:right;}
-#nav #cancel-level img {border:0;}
-#nav #level-popup {width:40px; height:40px; float:right; background-image:url('../imgs/shared/info.png'); cursor:pointer; margin-right:3px;}
-
-#level-info {float:right; width:210px; padding:10px; border:1px solid black; background-color:#e9e9e9}
-
 /*Collection List Page*/
 #collection-list-name {width:520px; margin-left:auto; margin-right:auto;}
 #collection-level-grid {width:520px; list-style:none; fl oat:left; margin:0; padding:0; border:3px solid #3B5998; margin-left:auto; margin-right:auto;}
@@ -37,10 +25,16 @@
 #score-tally-popup {display:none;}
 
 /*SCORE TALLY*/
-#tally .tally-detail-value {display:none;}
-#tally #tally-score-value {display:none;}
+#tally .t ally-detail-value {display:none;}
+#tally #ta lly-score-value {display:none;}
 #next-action-buttons {text-align:center;}
 #next-action-buttons img {border:0;}
 #next-action-buttons a {margin-left:20px; margin-right:20px;}
 #honors p {font-size:large; font-weight:bold; height:40px; line-height:46px; padding:0; margin:0;}
 #honors p.honor-msg {background-image:url('../imgs/shared/honor.png'); background-repeat:no-repeat; background-position:center left; padding-left:45px;}
+#tally #tally-score {width:150px; text-align:center;}
+#tally #tally-score-value {font-size:50px; margin:0;}
+#tally #tally-score-label {margin:0; font-size:small;  color:#666;}
+#tally #tally-score-details p {margin:4px 0; font-size:90%;}
+#tally #tally-score-details .tally-detail-label {color:#666; width:70px; float:left; text-align:right; padding-right:10px;}
+#tally #tally-score-details .tally-detail-value {font-weight:bold;}

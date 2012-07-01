@@ -30,7 +30,6 @@
     %p#level-collection-name= @level.collection.name
     %h3= "Level #{@level.number}"
     %div#user-current-stats
-      %h4 Current Attempt
       %p.top-score
       %p.score-note Score
       %table
@@ -89,18 +88,18 @@
       %table#tally
         %tr
           %td#tally-score
-            %p#tally-score-value
+            %p#tally-score-value &nbsp;
             %p#tally-score-label Score
           %td#tally-score-details
             %p#tally-detail-rotations
               %span.tally-detail-label Rotations:
-              %span.tally-detail-value
+              %span.tally-detail-value &nbsp;
             %p#tally-detail-locks
               %span.tally-detail-label Locks:
-              %span.tally-detail-value
+              %span.tally-detail-value &nbsp;
             %p#tally-detail-coins
               %span.tally-detail-label Coins:
-              %span.tally-detail-value
+              %span.tally-detail-value &nbsp;
       %div#honors
         %p &nbsp;
       %div#next-action-buttons
