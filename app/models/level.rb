@@ -22,30 +22,30 @@ class Level < ActiveRecord::Base
                         
   def best_rotation
     if self.completions.length > 0
-      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("rotations").value.to_i
+      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as integer) ASC").first.meta_data.find_by_key("rotations").value.to_i
     end
   end
   
   def best_locked
     if self.completions.length > 0
-      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("locks").value.to_i
+      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as integer) ASC").first.meta_data.find_by_key("locks").value.to_i
     end
   end
   
   def best_coins
     if self.completions.length > 0
-      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("coins").value.to_i
+      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as integer) ASC").first.meta_data.find_by_key("coins").value.to_i
     end
   end
   
   def best_score
     if self.completions.length > 0
-      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as unsigned) ASC").first.meta_data.find_by_key("score").value.to_i
+      self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as integer) ASC").first.meta_data.find_by_key("score").value.to_i
     end
   end
   
   def possible_coins
-    self.game_pieces.joins(:meta_data).where("meta_data.key = '_coin_value'").select("SUM(cast(meta_data.value as unsigned)) as total_coins_possible").first.total_coins_possible.to_i
+    self.game_pieces.joins(:meta_data).where("meta_data.key = '_coin_value'").select("SUM(cast(meta_data.value as integer)) as total_coins_possible").first.total_coins_possible.to_i
   end
   
   def total_lockable
