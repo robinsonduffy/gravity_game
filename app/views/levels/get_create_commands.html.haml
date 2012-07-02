@@ -1,5 +1,7 @@
 ="c = Collection.find(#{@level.collection.id});"
 ="l = c.levels.build({:number => #{@level.number}, :grid_size => #{@level.grid_size}});"
+- @level.meta_data.each do |md|
+  = "l.meta_data.build({:key => '#{md.key}', :value => '#{md.value}'});s"
 - @level.game_pieces.each do |gp|
   = "gp = l.game_pieces.build({:cell => '#{gp.cell}', :piece_type => '#{gp.piece_type}'});"
   - gp.meta_data.each do |meta|
