@@ -27,13 +27,44 @@ $(document).ready(function(){
 			afterRotate();
 		}
 	});
-	$("#nav #reload-level").click(function(){
-		return confirm("Are you sure you want to reload this level?")
+	$("#nav #reload-level a").click(function(){
+	  $("#alert-popup-ok").click(function(){
+	    window.location = $("#reload-level a").attr('href');
+	  });
+	  $("#alert-popup h3").html("Are you sure you want to restart this level?")
+		$("#popup-content #startup-popup").hide();
+    $("#popup-content #alert-popup").show();
+    $("#popup-close-button").hide();
+    popupLock = true;
+    centerPopup(); 
+	  loadPopup();
+	  return false;
 	});
-	$("#nav #cancel-level").click(function(){
-		return confirm("Are you sure you want to quit this level?")
+	$("#nav #cancel-level a").click(function(){
+	  $("#alert-popup-ok").click(function(){
+	    window.location = $("#cancel-level a").attr('href');
+	  });
+	  $("#alert-popup h3").html("Are you sure you want to quit this level?")
+		$("#popup-content #startup-popup").hide();
+    $("#popup-content #alert-popup").show();
+    $("#popup-close-button").hide();
+    popupLock = true;
+    centerPopup(); 
+	  loadPopup();
+	  return false;
 	});
-	$("#")
+	$("#level-popup").click(function(){
+	  $("#popup-content #startup-popup").show();
+    $("#popup-content #alert-popup").hide();
+    $("#popup-close-button").show();
+    popupLock = false;
+	  centerPopup(); 
+	  loadPopup();
+	});
+	$("#alert-popup-cancel").click(function(){
+    popupLock = false;
+    disablePopup();
+	});
 });
 
 function afterRotate(){

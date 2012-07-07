@@ -7,7 +7,7 @@
   = javascript_include_tag "gravity.js"
   = javascript_include_tag "popup.js"
   - unless popup.nil?
-    %script{:type => 'text/javascript'} $(document).ready(function(){$("#level-popup").click(function(){centerPopup(); loadPopup();});$("#level-popup").click();});
+    %script{:type => 'text/javascript'} $(document).ready(function(){$("#level-popup").click();});
 %div#wrapper
   %div#nav
     %p#counter-clock-wise.rotate &nbsp;
@@ -83,6 +83,11 @@
   %div#popup-content
     - unless popup.nil?
       %div#startup-popup= raw(popup.value)
+    %div#alert-popup
+      %h3 &nbsp;
+      %p.popup-button-row
+        %input{:type => 'button', :value => 'Cancel', :id => 'alert-popup-cancel'}
+        %input{:type => 'button', :value => 'OK', :id => 'alert-popup-ok'}
     %div#score-tally-popup
       %h1 Success!
       %table#tally
