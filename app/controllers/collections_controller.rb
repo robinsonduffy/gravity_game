@@ -5,4 +5,9 @@ class CollectionsController < ApplicationController
   def show
     @collection = Collection.find(params[:id])
   end
+  
+  def get_create_commands
+    @collection = Collection.find(params[:id])
+    render :layout => false
+  end
 end

@@ -11,6 +11,11 @@ GravityGame::Application.routes.draw do
   
   match 'collection/:id' => 'collections#show', :as => 'collection'
   
+  if Rails.env == 'development'
+    match 'level/:id/create' => 'levels#get_create_commands'
+    match 'collection/:id/create' => 'collections#get_create_commands'
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
