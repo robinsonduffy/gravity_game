@@ -1,5 +1,5 @@
 table.board-grid td.square {width:16%; height:16%;}
-#game-pieces div {width:80px; height:80px;}
+#game-pieces div {width:80px; height:80px; background-image:url('../imgs/table-6/sprite.png');}
 
 /*GOALS*/
 #game-pieces .goal.red {background-image:url('../imgs/table-6/goal-red.gif');}
