@@ -13,6 +13,8 @@ class AjaxController < ApplicationController
     ajax_response({:type => 'Error', :code => 'CL6'}) and return if coins < 0
     level = Level.find_by_id(session[:current_level])
     ajax_response({:type => 'Error', :code => 'CL2'}) and return if level.nil?
+    time_taken = params[:t].to_i || 0
+    ajax_response({:type => 'Error', :code => 'CL9'}) and return if time_taken < 1
     if current_user.completed_levels.include?(level)
       #this user has already completed this level
       completion = current_user.completions.find_by_level_id(level)
@@ -31,12 +33,23 @@ class AjaxController < ApplicationController
     #COINS
     #l_coins = level.best_coins
     u_coins = completion.meta_data.find_by_key("coins") || completion.meta_data.build(:key => 'coins', :value => coins)
+    #TIME BONUS
+    time_bonus = 0
+    time_bonus = time_bonus + 1 if time_taken <= 60
+    time_bonus = time_bonus + 1 if time_taken <= 50
+    time_bonus = time_bonus + 1 if time_taken <= 40
+    time_bonus = time_bonus + 1 if time_taken <= 30
+    time_bonus = time_bonus + 1 if time_taken <= 20
+    time_bonus = time_bonus + 1 if time_taken <= 10
+    response[:time_bonus] = time_bonus
     #SCORE
     if level.possible_coins > 0
       score = ((1 - (coins / level.possible_coins)) * 50) + (weighted_rotations * 2) + (locks * 5)
     else
       score = (weighted_rotations * 2) + (locks * 5)
     end
+    score = score - time_bonus
+    score = 1 if score < 1
     l_score = level.best_score
     u_score = completion.meta_data.find_by_key("score") || completion.meta_data.build(:key => 'score', :value => score)
     response[:score] = score

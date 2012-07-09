@@ -10,6 +10,9 @@ var coins = 0;
 var liveScore = 0;
 var possibleCoins = 0;
 var possibleLocks = 0;
+var timer = 0;
+var timerStarted = false;
+var timerInterval;
 $(document).ready(function(){
 	max_x = parseInt($("#board table tr").length);
 	max_y = parseInt($("#board table tr").length);
@@ -82,6 +85,10 @@ function afterRotate(){
 }
 
 function rotate(direction){
+  if(!timerStarted){
+    timerInterval = setInterval("recordTime();", 1000);
+    timerStarted = true;
+  }
 	switch(direction){
 		case 'counter-clock-wise':
 			degree = -90;
@@ -492,6 +499,7 @@ function checkSuccess(){
 }
 
 function triggerSuccess(){
+  clearInterval(timerInterval)
 	$("#nav p").css('visibility', 'hidden');
 	$.ajax({
 		type: "POST",
@@ -500,7 +508,8 @@ function triggerSuccess(){
 			r : rotations,
 			w : weighted_rotations,
 			l : locks,
-			c : coins
+			c : coins,
+			t : timer
 		}
 	}).done(function(msg){
 		if(msg.type == 'Error'){
@@ -520,19 +529,16 @@ function tallyScore(scoreInfo){
   popupLock = true;
   centerPopup();
   loadPopup();
-  $("#tally-detail-rotations .tally-detail-value").html(rotations).fadeIn(1000, function(){
-    $("#tally-detail-locks .tally-detail-value").html(locks + ' / ' + possibleLocks).fadeIn(1000, function(){
-      $("#tally-detail-coins .tally-detail-value").html(coins + ' / ' + possibleCoins).fadeIn(1000, function(){
-        $("#tally-score-value").html(scoreInfo.score).fadeIn(1000, function(){
-          if(scoreInfo.score_best == 'true'){
-            $("#honors p").html("This is the best score for this level...ever!").addClass("honor-msg");
-          }else if(scoreInfo.score_personal_best == 'true'){
-            $("#honors p").html("This is your personal best score for this level!").addClass("honor-msg");
-          }
-        });
-      });
-    });
-  });
+  $("#tally-detail-rotations .tally-detail-value").html(rotations);
+  $("#tally-detail-locks .tally-detail-value").html(locks + ' / ' + possibleLocks);
+  $("#tally-detail-coins .tally-detail-value").html(coins + ' / ' + possibleCoins);
+  $("#tally-score-value").html(scoreInfo.score);
+  $("#tally-detail-time .tally-detail-value").html(scoreInfo.time_bonus);
+  if(scoreInfo.score_best == 'true'){
+    $("#honors p").html("This is the best score for this level...ever!").addClass("honor-msg");
+  }else if(scoreInfo.score_personal_best == 'true'){
+    $("#honors p").html("This is your personal best score for this level!").addClass("honor-msg");
+  }
 }
 
 function tallyLiveScore(){
@@ -550,4 +556,8 @@ function getPossibleCoins(){
     totalCoinValue = totalCoinValue + parseInt($(this).attr('_coin_value'),10);
   })
   return totalCoinValue;
+}
+
+function recordTime(){
+  timer++;
 }
