@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  attr_accessible :fbid
   
   has_many :completions
   has_many :completed_levels, :through => :completions, :source => :level

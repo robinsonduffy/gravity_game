@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120620043324) do
+ActiveRecord::Schema.define(:version => 20120709054505) do
 
   create_table "collections", :force => true do |t|
     t.integer  "number"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20120620043324) do
     t.string   "fbid"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "coins",      :default => 0
   end
 
   add_index "users", ["fbid"], :name => "index_users_on_fbid", :unique => true
