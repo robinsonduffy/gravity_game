@@ -12,10 +12,10 @@
   %body
     %div#header
       %ul#user-navigation
-        %li#user-coins
-          %a
-            %img{:src => '/imgs/shared/coin_green.png'}
-            %span#user-coins-current= @game_user.coins
+      %div#user-coins
+        %a
+          %img{:src => '/imgs/shared/coin_green.png'}
+          %span#user-coins-current= @game_user.coins
     %div#content-wrapper
       %h1.title= (@title.nil?) ? @base_title : @title
       %div#flash-messages

@@ -1,7 +1,7 @@
 
 #wrapper {float:left; width:750px;}
 #content {width:750px;}
-#header {width:750px;}
+#header {width:750px; position:absolute;}
 #debug-info {float:left; clear:both; position:absolute; top:650px;}
 
 /*Collection List Page*/
@@ -46,6 +46,9 @@
 /*USER NAV AREA*/
 #user-navigation {float:right; margin:0; padding:0; list-style:none;}
 #user-navigation li {float:left; margin:0; padding:0;}
-#user-navigation #user-coins img {vertical-align:middle;}
-#user-navigation #user-coins #user-coins-current {text-align:right; font-size:25px; padding-top:10px; position:relative; top:6px; font-family:sans-serif;}
+
+/*USER COINS */
+#user-coins {position:absolute; right:0px;} 
+#user-coins img {vertical-align:middle;}
+#user-coins #user-coins-current {text-align:right; font-size:25px; padding-top:10px; position:relative; top:6px; font-family:sans-serif;}
 
