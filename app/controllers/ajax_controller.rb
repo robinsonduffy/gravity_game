@@ -19,20 +19,28 @@ class AjaxController < ApplicationController
       #this user has already completed this level
       completion = current_user.completions.find_by_level_id(level)
       response = {:type => 'Success', :first_time => 'false'}
+      response[:add_coins] = 0
     else
       #this is the first time this user has completed this level
       completion = current_user.completions.build({:level => level})
       response = {:type => 'Success', :first_time => 'true'}
+      current_user.add_coins(10)
+      response[:add_coins] = 10
     end
     #ROTATIONS
-    #l_rotations = level.best_rotation
     u_rotations = completion.meta_data.find_by_key("rotations") || completion.meta_data.build(:key => 'rotations', :value => rotations)
     #LOCKS
-    #l_locks = level.best_locked
     u_locks = completion.meta_data.find_by_key("locks") || completion.meta_data.build(:key => 'locks', :value => locks)
     #COINS
-    #l_coins = level.best_coins
     u_coins = completion.meta_data.find_by_key("coins") || completion.meta_data.build(:key => 'coins', :value => coins)
+    u_best_coins = completion.meta_data.find_by_key("best_coins") || completion.meta_data.build(:key => 'best_coins', :value => coins)
+    if coins.to_i > u_best_coins.value.to_i
+      #this is the best coins
+      current_user.add_coins(coins.to_i - u_best_coins.value.to_i)
+      response[:add_coins] = response[:add_coins].to_i + (coins.to_i - u_best_coins.value.to_i)
+      u_best_coins.value = coins.to_s
+      u_best_coins.save unless u_best_coins.id.nil?
+    end
     #TIME BONUS
     time_bonus = 0
     time_bonus = time_bonus + 1 if time_taken <= 60
@@ -44,7 +52,7 @@ class AjaxController < ApplicationController
     response[:time_bonus] = time_bonus
     #SCORE
     if level.possible_coins > 0
-      score = ((1 - (coins / level.possible_coins)) * 50) + (weighted_rotations * 2) + (locks * 5)
+      score = ((1 - (coins.to_f / level.possible_coins)) * 50).round + (weighted_rotations * 2) + (locks * 5)
     else
       score = (weighted_rotations * 2) + (locks * 5)
     end
@@ -55,6 +63,8 @@ class AjaxController < ApplicationController
     response[:score] = score
     if u_score.value.to_i > score
       response[:score_personal_best] = 'true'
+      current_user.add_coins(2)
+      response[:add_coins] = response[:add_coins].to_i + 2
       u_score.value = score.to_s
       u_score.save unless u_score.id.nil?
       u_coins.value = coins.to_s
