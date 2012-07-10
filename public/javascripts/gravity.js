@@ -539,6 +539,9 @@ function tallyScore(scoreInfo){
   }else if(scoreInfo.score_personal_best == 'true'){
     $("#honors p").html("This is your personal best score for this level!").addClass("honor-msg");
   }
+  if(scoreInfo.add_coins > 0){
+    change_coins_live(scoreInfo.add_coins);
+  }
 }
 
 function tallyLiveScore(){
