@@ -59,6 +59,7 @@ class AjaxController < ApplicationController
     score = score - time_bonus
     score = 1 if score < 1
     l_score = level.best_score
+    old_top_scorers = level.top_scorers
     u_score = completion.meta_data.find_by_key("score") || completion.meta_data.build(:key => 'score', :value => score)
     response[:score] = score
     if u_score.value.to_i > score
@@ -74,7 +75,13 @@ class AjaxController < ApplicationController
       u_rotations.value = rotations.to_s
       u_rotations.save unless u_rotations.id.nil?
     end
-    response[:score_best] = 'true' if (l_score.nil? || score < l_score)
+    if (l_score.nil? || score < l_score)
+      response[:score_best] = 'true'
+      unless (old_top_scorers.length == 1 && old_top_scorers.include?(current_user))
+        current_user.add_coins(10)
+        response[:add_coins] = response[:add_coins].to_i + 10
+      end
+    end
     #SAVE Completion
     completion.save
     #send the ajax response

@@ -52,4 +52,8 @@ class Level < ActiveRecord::Base
     self.game_pieces.joins(:meta_data).where("meta_data.key = 'class' AND meta_data.value = 'lockable'").count
   end
   
+  def top_scorers
+    self.users_completed.joins(:completions => :meta_data).where("meta_data.key = 'score' AND meta_data.value = ?", self.completions.joins(:meta_data).select("meta_data.value").where("meta_data.key = 'score'").order("cast(meta_data.value as integer)").limit(1).first.value)
+  end
+  
 end
