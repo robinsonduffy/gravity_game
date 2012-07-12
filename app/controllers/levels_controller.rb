@@ -4,6 +4,7 @@ class LevelsController < ApplicationController
   
   def show
     @level = Level.find(params[:id])
+    redirect_to root_path and return unless @level.collection.playable_by_user?(current_user)
     session[:current_level] = @level.id
   end
   

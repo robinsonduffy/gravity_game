@@ -2,6 +2,9 @@ class AjaxController < ApplicationController
   before_filter :require_current_user, :only => [:complete_level]
   
   def complete_level
+    level = Level.find_by_id(session[:current_level])
+    ajax_response({:type => 'Error', :code => 'CL2'}) and return if level.nil?
+    render :nothing => true, :status => 403 and return unless level.collection.playable_by_user?(current_user)
     rotations = params[:r].to_i || 0
     ajax_response({:type => 'Error', :code => 'CL4'}) and return if rotations < 1
     weighted_rotations = params[:w].to_i || 0
@@ -11,8 +14,6 @@ class AjaxController < ApplicationController
     ajax_response({:type => 'Error', :code => 'CL5'}) and return if locks < 0
     coins = params[:c].to_i || -1
     ajax_response({:type => 'Error', :code => 'CL6'}) and return if coins < 0
-    level = Level.find_by_id(session[:current_level])
-    ajax_response({:type => 'Error', :code => 'CL2'}) and return if level.nil?
     time_taken = params[:t].to_i || 0
     ajax_response({:type => 'Error', :code => 'CL9'}) and return if time_taken < 1
     if current_user.completed_levels.include?(level)
