@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   
   has_many :completions
   has_many :completed_levels, :through => :completions, :source => :level
+  has_many :unlocks, :dependent => :destroy
+  has_many :unlocked_collections, :through => :unlocks, :source => :collection
   
   validates :fbid, :presence => true,
                    :uniqueness => true

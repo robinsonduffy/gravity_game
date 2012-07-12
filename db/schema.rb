@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712050949) do
+ActiveRecord::Schema.define(:version => 20120712053155) do
 
   create_table "collections", :force => true do |t|
     t.integer  "number"
@@ -66,6 +66,17 @@ ActiveRecord::Schema.define(:version => 20120712050949) do
 
   add_index "meta_data", ["item_id", "item_type"], :name => "index_meta_data_on_item_id_and_item_type"
   add_index "meta_data", ["key"], :name => "index_meta_data_on_key"
+
+  create_table "unlocks", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "collection_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "unlocks", ["collection_id"], :name => "index_unlocks_on_collection_id"
+  add_index "unlocks", ["user_id", "collection_id"], :name => "index_unlocks_on_user_id_and_collection_id", :unique => true
+  add_index "unlocks", ["user_id"], :name => "index_unlocks_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "fbid"

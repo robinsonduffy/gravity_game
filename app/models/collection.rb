@@ -1,5 +1,7 @@
 class Collection < ActiveRecord::Base
   has_many :levels
+  has_many :unlocks, :dependent => :delete_all
+  has_many :users_unlocked, :through => :unlocks, :source => :user
   
   validates :name, :presence => true
   validates :number, :presence => true,
