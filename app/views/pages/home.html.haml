@@ -17,7 +17,11 @@
                 %span.slider-collection-percent-bar.round{:style => "width:#{collection.percent_done(current_user)}%"}
                 %span.slider-collection-percent-text= "#{collection.percent_done(current_user)}%"
             - else
-              %h3.locked= link_to collection.name, collection_path(collection)
+              %h3.locked
+                - if collection.coin_cost <= current_user.coins
+                  = link_to collection.name, collection_path(collection)
+                - else
+                  = collection.name
               %p.collection-coin-cost
                 %img{:src => '/imgs/shared/coin_green.png'}
                 %span.collection-coin-cost-coins= collection.coin_cost
