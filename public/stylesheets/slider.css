@@ -19,7 +19,7 @@
 #slider1 .overview li{ float: left; margin: 0 20px 0 0; height: 121px; width: 236px;}
 
 #slider1 .slider-item {border:1px solid #dcdcdc; height:105px; margin:10px 0 0 10px; width:217px; background-color:#f0f0f0; text-align:center;}
-#slider1 .slider-item h3 {color:#999; font-size:30px; margin:20px 0 20px 0;}
+#slider1 .slider-item h3 {color:#999; font-size:30px; margin:10px 0 10px 0;}
 #slider1 .slider-item h3 a {color:black; text-decoration:none; font-size:30px;}
 #slider1 .slider-collection-percent {border:1px solid blue; float:left; width:80%; margin-left:20px; height:20px; position:relative;}
 #slider1 .slider-collection-percent .slider-collection-percent-bar {background-color:#a9ccfd; height:100%; float:left;}
