@@ -23,3 +23,6 @@
 #slider1 .slider-collection-percent {border:1px solid blue; float:left; width:80%; margin-left:20px; height:20px; position:relative;}
 #slider1 .slider-collection-percent .slider-collection-percent-bar {background-color:#a9ccfd; height:100%; float:left;}
 #slider1 .slider-collection-percent .slider-collection-percent-text {position:absolute; left:0; width:100%; height:100%; line-height:20px; font-weight:bold;}
+#slider1 .collection-coin-cost {margin:0; padding:0; font-size:25px; font-family:sans-serif;}
+#slider1 .collection-coin-cost img {vertical-align:middle;}
+#slider1 .collection-coin-cost-coins {position:relative; top:3px;}

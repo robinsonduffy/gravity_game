@@ -11,9 +11,15 @@
       - @collections.each do |collection|
         %li
           %div.slider-item.round
-            %h3= link_to collection.name, collection_path(collection)
-            %div.slider-collection-percent.round
-              %span.slider-collection-percent-bar.round{:style => "width:#{collection.percent_done(current_user)}%"}
-              %span.slider-collection-percent-text= "#{collection.percent_done(current_user)}%"
+            - if collection.playable_by_user?(current_user)
+              %h3= link_to collection.name, collection_path(collection)
+              %div.slider-collection-percent.round
+                %span.slider-collection-percent-bar.round{:style => "width:#{collection.percent_done(current_user)}%"}
+                %span.slider-collection-percent-text= "#{collection.percent_done(current_user)}%"
+            - else
+              %h3.locked= link_to collection.name, collection_path(collection)
+              %p.collection-coin-cost
+                %img{:src => '/imgs/shared/coin_green.png'}
+                %span.collection-coin-cost-coins= collection.coin_cost
   %a{:class => 'buttons next', :href=> '#'} Right
 %script{:type => 'text/javascript'}= "$('#slider1').tinycarousel({start: #{params[:lc]}});"
