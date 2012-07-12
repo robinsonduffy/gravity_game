@@ -14,4 +14,9 @@ class Collection < ActiveRecord::Base
     end
     ((levels_done.to_f / self.levels.count.to_f) * 100).to_i
   end
+  
+  def playable_by_user?(user = User.find(1))
+    return true if (self.coin_cost.to_i == 0 || user.unlocked_collections.include?(self))
+    return false
+  end
 end
