@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
     if(@game_user.nil? && session[:fb_user_id].present? && !session[:fb_user_id].empty?)
       @game_user = User.create!({:fbid => session[:fb_user_id]})
     end
-    if(@game_user.coins < 0)
+    if(@game_user.coins.to_i <= 0)
       @game_user.coins = 0
       @game_user.save
     end
