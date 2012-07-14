@@ -24,4 +24,7 @@
           %div{:class => ["flash", type]}= message
       %div#content= yield
     %div#coin-float-message
+    - unless params[:coin_display].to_s.blank?
+      :javascript
+        float_coin_message(#{params[:coin_display]})
     %div#debug-info= debug(params) if Rails.env.development?
