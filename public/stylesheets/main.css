@@ -25,6 +25,9 @@
 #popup-content h1{text-align:left; color:#333; font-size:25px; border-bottom:1px dotted #D3D3D3; padding-bottom:7px; margin-top:0px; margin-bottom:0px;}
 #score-tally-popup {display:none;}
 
+#popup-window .popup-button-row form.button_to {display:inline;}
+#popup-window .popup-button-row form.button_to div {display:inline;}
+
 #alert-popup {text-align:center;}
 #alert-popup .popup-button-row input {width:100px;}
 

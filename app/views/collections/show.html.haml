@@ -15,8 +15,9 @@
       %h1= "Unlock #{@collection.name}?"
       %div#alert-popup
         %h3= "Do you want to unlock the #{@collection.name} levels?"
-        %input{:type => 'button', :value => 'Cancel', :id => 'collection-unlock-cancel'}
-        = button_to "Unlock", collection_unlock_path(@collection)
+        %div.popup-button-row
+          %input{:type => 'button', :value => 'Cancel', :id => 'collection-unlock-cancel'}
+          = button_to "Unlock", collection_unlock_path(@collection)
         %p
           = image_tag('/imgs/shared/coin_green.png')
           %br
