@@ -4,6 +4,7 @@ class CollectionsController < ApplicationController
   
   def show
     @collection = Collection.find(params[:id])
+    redirect_to root_path(:lc => @collection.number) and return if(@collection.coin_cost > current_user.coins && !@collection.playable_by_user?(current_user))
   end
   
   def unlock
