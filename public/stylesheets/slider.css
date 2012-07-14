@@ -15,7 +15,7 @@
 #slider1 .buttons { background:url("../imgs/shared/slider-buttons.png") no-repeat scroll 0 0 transparent; display: block; margin: 30px 10px 0 0; background-position: 0 -38px; text-indent: -999em; float: left; width: 39px; height: 37px; overflow: hidden; position: relative; }
 #slider1 .next { background-position: 0 0; margin: 30px 0 0 10px;  }
 #slider1 .disable { visibility: hidden; }
-#slider1 .overview { list-style: none; position: absolute; padding: 0; margin: 0; width: 240px; left: 0 top: 0; }
+#slider1 .overview { list-style: none; position: absolute; padding: 0; margin: 0; width: 240px; left: 0; top: 0; }
 #slider1 .overview li{ float: left; margin: 0 20px 0 0; height: 121px; width: 236px;}
 
 #slider1 .slider-item {border:1px solid #dcdcdc; height:105px; margin:10px 0 0 10px; width:217px; background-color:#f0f0f0; text-align:center;}
