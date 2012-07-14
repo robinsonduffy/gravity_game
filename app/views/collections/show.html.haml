@@ -1,3 +1,7 @@
+- unless @collection.playable_by_user?(current_user)
+  - content_for :custom_js do
+    = javascript_include_tag "popup.js"
+    %script{:type => 'text/javascript'} $(document).ready(function(){popupLock = true; centerPopup(); loadPopup();});
 = link_to image_tag('/imgs/shared/go-back.png'), root_path(:lc => @collection.number), {:id => 'collection-back', :title => 'Go Back'}
 %h1#collection-list-name= @collection.name
 %ul#collection-level-grid.round
@@ -5,3 +9,23 @@
     %li
       = link_to level.number, level_path(:id => level.id), {:class => 'number round'}
       %span{:class => "star#{current_user.completed_levels.include?(level) ? ' completed' : ''}"}
+- unless @collection.playable_by_user?(current_user)
+  %div#popup-window
+    %div#popup-content
+      %h1= "Unlock #{@collection.name}?"
+      %div#alert-popup
+        %h3= "Do you want to unlock the #{@collection.name} levels?"
+        %input{:type => 'button', :value => 'Cancel', :id => 'collection-unlock-cancel'}
+        = button_to "Unlock", collection_unlock_path(@collection)
+        %p
+          = image_tag('/imgs/shared/coin_green.png')
+          %br
+          = "This action requires #{@collection.coin_cost} coins."
+  %div#popup-background
+  :javascript
+    $("#collection-unlock-cancel").click(function(){
+      window.location = '#{root_path(:lc => @collection.number)}';
+    });
+    $("#collection-unlock-unlock").click(function(){
+      window.location = '#{root_path(:lc => @collection.number)}';
+    });
