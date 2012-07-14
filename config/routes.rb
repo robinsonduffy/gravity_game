@@ -10,6 +10,7 @@ GravityGame::Application.routes.draw do
   post 'ajax/complete_level' => 'ajax#complete_level'
   
   match 'collection/:id' => 'collections#show', :as => 'collection'
+  post 'collection/:id/unlock' => 'collections#unlock', :as => 'collection_unlock'
   
   if Rails.env == 'development'
     match 'level/:id/create' => 'levels#get_create_commands'
