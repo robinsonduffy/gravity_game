@@ -12,7 +12,7 @@ class Collection < ActiveRecord::Base
     self.levels.each do |level|
       levels_done = levels_done + 1 if user.completed_levels.include?(level)
     end
-    ((levels_done.to_f / self.levels.count.to_f) * 100).to_i
+    ((levels_done.to_f / self.levels.length.to_f) * 100).to_i
   end
   
   def playable_by_user?(user = User.find(1))
