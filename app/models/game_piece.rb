@@ -8,8 +8,8 @@ class GamePiece < ActiveRecord::Base
   def class_hash
     class_array = Array.new
     class_array.push self.piece_type
-    self.meta_data.where(:key => 'class').each do |extra_class|
-      class_array.push extra_class.value
+    self.meta_data.each do |extra_class|
+      class_array.push extra_class.value if extra_class.key == 'class'
     end
     return {:class => class_array}
   end
@@ -17,8 +17,8 @@ class GamePiece < ActiveRecord::Base
   def attributes_hash
     attribute_hash = Hash.new
     attribute_hash['_cell'] = self.cell
-    self.meta_data.where(['meta_data.key <> ?','class']).each do |extra_attribute|
-      attribute_hash[extra_attribute.key] = extra_attribute.value
+    self.meta_data.each do |extra_attribute|
+      attribute_hash[extra_attribute.key] = extra_attribute.value if extra_attribute.key != 'class'
     end
     return attribute_hash
   end
