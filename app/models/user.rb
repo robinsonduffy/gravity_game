@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   has_many :completed_levels, :through => :completions, :source => :level
   has_many :unlocks, :dependent => :destroy
   has_many :unlocked_collections, :through => :unlocks, :source => :collection
+  has_many :coin_transactions, :dependent => :destroy
   
   validates :fbid, :presence => true,
                    :uniqueness => true

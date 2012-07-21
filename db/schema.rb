@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120712053155) do
+ActiveRecord::Schema.define(:version => 20120721213145) do
+
+  create_table "coin_transactions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "amount"
+    t.string   "transaction_type"
+    t.text     "note"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "coin_transactions", ["user_id"], :name => "index_coin_transactions_on_user_id"
 
   create_table "collections", :force => true do |t|
     t.integer  "number"
