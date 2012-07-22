@@ -5,7 +5,8 @@
     $(document).ready(function(){
       $("#coin-transactions").tablesorter({sortList: [[3,1]], widgets: ['zebra']}).tablesorterPager({container: $("#pager")});
     });
-%h1 Your Coin Transactions
+%h1 Manage Coins
+%h3 Recent Transactions
 %table#coin-transactions.tablesorter
   %thead
     %tr
@@ -19,7 +20,7 @@
         %td= coin_transaction.transaction_type
         %td= coin_transaction.amount
         %td= coin_transaction.note
-        %td= coin_transaction.created_at.strftime("%b %e, %Y %R")
+        %td= coin_transaction.created_at.strftime("%B %e, %Y %R")
 %div#pager.pager
   %form
     %img.first{:src => 'imgs/shared/tablesorter/pager/first.png'}
