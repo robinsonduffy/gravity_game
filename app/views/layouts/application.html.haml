@@ -14,7 +14,7 @@
     %div#header
       %ul#user-navigation
       %div#user-coins
-        %a
+        %a{:href => transactions_path}
           %img{:src => '/imgs/shared/coin_green.png'}
           %span#user-coins-current= current_user.coins
     %div#content-wrapper

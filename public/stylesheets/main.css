@@ -54,6 +54,7 @@
 #user-coins {position:absolute; right:0px;} 
 #user-coins img {vertical-align:middle;}
 #user-coins #user-coins-current {text-align:right; font-size:25px; padding-top:10px; position:relative; top:6px; font-family:sans-serif;}
+#user-coins a {text-decoration:none; color:black;}
 
 /*COIN FLOAT MESSAGE*/
 #coin-float-message {z-index:1000; display:none; float:left; position:fixed; border:3px dotted #ccc; background-color:#e4e4e4; font-size:150%; padding:10px; font-family:sans-serif; background-image:url('../imgs/shared/coin_green.png'); background-repeat:no-repeat; background-position:center left; padding-left:40px}
