@@ -13,6 +13,7 @@ class CollectionsController < ApplicationController
     redirect_to root_path(:lc => @collection.number) and return if @collection.coin_cost > current_user.coins
     @collection.unlocks.create!(:user => current_user)
     current_user.remove_coins(@collection.coin_cost)
+    current_user.coin_transactions.create!({:amount => 0 - @collection.coin_cost, :transaction_type => 'Unlock', :note => "Unlocked #{@collection.name}"})
     redirect_to collection_path(:id => @collection.id, :cdisp => "-#{@collection.coin_cost}")
   end
   

@@ -85,6 +85,10 @@ class AjaxController < ApplicationController
     end
     #SAVE Completion
     completion.save
+    #record any coin transaction
+    if response[:add_coins].to_i > 0
+      current_user.coin_transactions.create!({:amount => response[:add_coins].to_i, :transaction_type => 'Level Reward', :note => "Reward for solving level #{level.number} of #{level.collection.name}"})
+    end
     #send the ajax response
     ajax_response response
   end
