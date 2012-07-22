@@ -12,6 +12,8 @@ GravityGame::Application.routes.draw do
   match 'collection/:id' => 'collections#show', :as => 'collection'
   post 'collection/:id/unlock' => 'collections#unlock', :as => 'collection_unlock'
   
+  match 'coins' => 'coin_transactions#show', :as => 'coins'
+  
   if Rails.env == 'development'
     match 'level/:id/create' => 'levels#get_create_commands'
     match 'collection/:id/create' => 'collections#get_create_commands'

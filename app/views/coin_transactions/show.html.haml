@@ -1,0 +1,33 @@
+- content_for :custom_js do
+  = javascript_include_tag "jquery.tablesorter.min.js"
+  = javascript_include_tag "jquery.tablesorter.pager.js"
+  :javascript
+    $(document).ready(function(){
+      $("#coin-transactions").tablesorter({sortList: [[3,1]], widgets: ['zebra']}).tablesorterPager({container: $("#pager")});
+    });
+%h1 Your Coin Transactions
+%table#coin-transactions.tablesorter
+  %thead
+    %tr
+      %th Type
+      %th Amount
+      %th Description
+      %th Date
+  %tbody
+    - @coin_transactions.each do |coin_transaction|
+      %tr
+        %td= coin_transaction.transaction_type
+        %td= coin_transaction.amount
+        %td= coin_transaction.note
+        %td= coin_transaction.created_at.strftime("%b %e, %Y %R")
+%div#pager.pager
+  %form
+    %img.first{:src => 'imgs/shared/tablesorter/pager/first.png'}
+    %img.prev{:src => 'imgs/shared/tablesorter/pager//prev.png'}
+    %input.pagedisplay{:type => 'text'}
+    %img.next{:src => 'imgs/shared/tablesorter/pager/next.png'}
+    %img.last{:src => 'imgs/shared/tablesorter/pager/last.png'}
+    %input.pagesize{:type => 'hidden', :value =>10}
+    
+      
+  
