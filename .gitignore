@@ -9,3 +9,4 @@ doc/
 .project
 config/initializers/facebook.rb
 ._*
+.idea
