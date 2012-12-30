@@ -21,7 +21,7 @@
         %p
           = image_tag('/imgs/shared/coin_green.png')
           %br
-          = "This action requires #{@collection.coin_cost} coins."
+          = "This action requires #{@collection.coin_cost.value} coins."
   %div#popup-background
   :javascript
     $("#collection-unlock-cancel").click(function(){
