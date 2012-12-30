@@ -23,7 +23,7 @@
           %td= coin_transaction.transaction_type
           %td= coin_transaction.amount
           %td= coin_transaction.note
-          %td= coin_transaction.created_at.strftime("%B %e, %Y %R")
+          %td= coin_transaction.created_at.to_time.strftime("%B %e, %Y %R")
   %div#pager.pager
     %form
       %img.first{:src => 'imgs/shared/tablesorter/pager/first.png'}
