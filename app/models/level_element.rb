@@ -6,4 +6,10 @@ class LevelElement < ActiveRecord::Base
   validates :name, :presence => true,
                    :uniqueness => true
   validates :description, :presence => true
+
+  def usable_by_user?(user = User.find(1))
+    return true if (self.coin_cost.nil? || user.unlocked_items.include?(self))
+    return false
+  end
+
 end
