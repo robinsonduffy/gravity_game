@@ -3,7 +3,8 @@ class GamePiece < ActiveRecord::Base
   has_many :meta_data, :as => :item, :dependent => :delete_all
   
   validates :cell, :presence => true
-  validates :piece_type, :presence => true
+  validates :piece_type, :presence => true,
+                         :inclusion => {:in => game_piece_types}
   
   def class_hash
     class_array = Array.new

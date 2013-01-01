@@ -20,6 +20,11 @@ describe GamePiece do
       bad_game_piece = @level.game_pieces.build(@attrs.merge({:piece_type => ''}))
       bad_game_piece.should_not be_valid
     end
+
+    it "should require a valid piece_type" do
+      bad_game_piece = @level.game_pieces.build(@attrs.merge({:piece_type => 'invalid-game-piece-type'}))
+      bad_game_piece.should_not be_valid
+    end
     
   end
   
