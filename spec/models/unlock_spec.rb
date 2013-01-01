@@ -7,7 +7,7 @@ describe Unlock do
   end
   
   it "should create a new unlock for a user and collection" do
-    @user.unlocks.create!(:collection => @collection)
+    @user.unlocks.create!(:item => @collection)
   end
   
   describe "validations" do
@@ -21,19 +21,19 @@ describe Unlock do
       bad_unlock.should_not be_valid
     end
     
-    it "should require a unique collection and user combination" do
-      @user.unlocks.create!(:collection => @collection)
-      bad_unlock = @user.unlocks.build(:collection => @collection)
+    it "should require a unique item and user combination" do
+      @user.unlocks.create!(:item => @collection)
+      bad_unlock = @user.unlocks.build(:item => @collection)
       bad_unlock.should_not be_valid
     end
     
-    it "should allow users to have multple unlocked collections" do
-      @user.unlocks.create!(:collection => @collection)
-      good_unlock = @user.unlocks.build(:collection => Factory(:collection, :number => 2))
+    it "should allow users to have multiple unlocked items" do
+      @user.unlocks.create!(:item => @collection)
+      good_unlock = @user.unlocks.build(:item => Factory(:collection, :number => 2))
       good_unlock.should be_valid
     end
     
-    it "should allow collections to have multple unlocked users" do
+    it "should allow items to have multiple unlocked users" do
       @collection.unlocks.create!(:user => @user)
       good_unlock = @collection.unlocks.build(:user => Factory(:user, :fbid => '2'))
       good_unlock.should be_valid

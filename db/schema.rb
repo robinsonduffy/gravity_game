@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121230003901) do
+ActiveRecord::Schema.define(:version => 20130101194119) do
 
   create_table "coin_costs", :force => true do |t|
     t.integer  "item_id"
@@ -108,13 +108,13 @@ ActiveRecord::Schema.define(:version => 20121230003901) do
 
   create_table "unlocks", :force => true do |t|
     t.integer "user_id"
-    t.integer "collection_id"
-    t.text    "created_at",    :limit => 6
-    t.text    "updated_at",    :limit => 6
+    t.text    "created_at", :limit => 6
+    t.text    "updated_at", :limit => 6
+    t.integer "item_id"
+    t.string  "item_type"
   end
 
-  add_index "unlocks", ["collection_id"], :name => "index_unlocks_on_collection_id"
-  add_index "unlocks", ["user_id", "collection_id"], :name => "index_unlocks_on_user_id_and_collection_id", :unique => true
+  add_index "unlocks", ["user_id", "item_id", "item_type"], :name => "index_unlocks_on_user_id_and_item_id_and_item_type", :unique => true
   add_index "unlocks", ["user_id"], :name => "index_unlocks_on_user_id"
 
   create_table "users", :force => true do |t|

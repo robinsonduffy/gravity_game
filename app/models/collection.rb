@@ -1,7 +1,7 @@
 class Collection < ActiveRecord::Base
   has_many :levels
-  has_many :unlocks, :dependent => :delete_all
-  has_many :users_unlocked, :through => :unlocks, :source => :user
+  has_many :unlocks, :as => :item, :dependent => :delete_all
+  has_many :users_unlocked, :through => :unlocks, :as => :item, :source => :user
   has_one :coin_cost, :as => :item, :dependent => :destroy
   
   validates :name, :presence => true
@@ -17,7 +17,7 @@ class Collection < ActiveRecord::Base
   end
   
   def playable_by_user?(user = User.find(1))
-    return true if (self.coin_cost.nil? || user.unlocked_collections.include?(self))
+    return true if (self.coin_cost.nil? || user.unlocked_items.include?(self))
     return false
   end
 end
