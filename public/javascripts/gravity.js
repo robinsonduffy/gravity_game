@@ -390,7 +390,7 @@ function applyTeleport(){
 }
 
 function applyPaint(){
-	var colors = ['red','green'];
+	var colors = ['blue','green','orange','purple','red','yellow'];
 	$("#board .paint").each(function(){
 		if($("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").length){
 			for(x in colors){
