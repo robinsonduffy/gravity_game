@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130101201941) do
+ActiveRecord::Schema.define(:version => 20130105210050) do
 
   create_table "coin_costs", :force => true do |t|
     t.integer  "item_id"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(:version => 20130101201941) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "piece_type"
   end
 
   create_table "levels", :force => true do |t|
@@ -96,6 +97,7 @@ ActiveRecord::Schema.define(:version => 20130101201941) do
     t.text    "created_at",    :limit => 6
     t.text    "updated_at",    :limit => 6
     t.integer "collection_id"
+    t.boolean "published",                  :default => false
   end
 
   add_index "levels", ["collection_id"], :name => "index_levels_on_collection_id"
