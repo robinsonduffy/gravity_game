@@ -16,16 +16,7 @@
     %p#reload-level= link_to image_tag('/imgs/shared/reload.png'), level_path(@level)
     - unless popup.nil?
       %p#level-popup
-  %div#board-wrapper
-    %div#board.game-board
-      %table{:id => "squares", :class => "board-grid", :cell_border => "1"}
-        - @level.grid_size.times do |i|
-          %tr
-            - @level.grid_size.times do |j|
-              %td{:class => 'square', :id => "row-#{i+1}-square-#{j+1}", :_cell => "#{i+1},#{j+1}"}
-      %div#game-pieces
-        - @level.game_pieces.each do |game_piece|
-          %div{game_piece.class_hash, game_piece.attributes_hash}
+  = render "shared/game_board", :level => @level
   %div#level-info
     %p#level-collection-name= @level.collection.name
     %h3= "Level #{@level.number}"
