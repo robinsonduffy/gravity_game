@@ -3,21 +3,10 @@ var max_x = 0;
 var max_y = 0;
 var pieces_moved = false;
 var settling = false;
-var rotations = 0;
-var weighted_rotations = 0; //the rotations weighted with the number of locks
-var locks = 0;
-var coins = 0;
-var liveScore = 0;
-var possibleCoins = 0;
-var possibleLocks = 0;
-var timer = 0;
-var timerStarted = false;
-var timerInterval;
+
 $(document).ready(function(){
 	max_x = parseInt($("#board table tr").length);
 	max_y = parseInt($("#board table tr").length);
-	possibleCoins = getPossibleCoins();
-	possibleLocks = $("#board .lockable").length;
 	setUpPieces();
 	$("#nav p.rotate").click(function(){
 		if(!settling){
@@ -29,44 +18,6 @@ $(document).ready(function(){
 			$(this).toggleClass("locked");
 			afterRotate();
 		}
-	});
-	$("#nav #reload-level a").click(function(){
-	  $("#alert-popup-ok").click(function(){
-	    window.location = $("#reload-level a").attr('href');
-	  });
-	  $("#alert-popup h3").html("Are you sure you want to restart this level?")
-		$("#popup-content #startup-popup").hide();
-    $("#popup-content #alert-popup").show();
-    $("#popup-close-button").hide();
-    popupLock = true;
-    centerPopup(); 
-	  loadPopup();
-	  return false;
-	});
-	$("#nav #cancel-level a").click(function(){
-	  $("#alert-popup-ok").click(function(){
-	    window.location = $("#cancel-level a").attr('href');
-	  });
-	  $("#alert-popup h3").html("Are you sure you want to quit this level?")
-		$("#popup-content #startup-popup").hide();
-    $("#popup-content #alert-popup").show();
-    $("#popup-close-button").hide();
-    popupLock = true;
-    centerPopup(); 
-	  loadPopup();
-	  return false;
-	});
-	$("#level-popup").click(function(){
-	  $("#popup-content #startup-popup").show();
-    $("#popup-content #alert-popup").hide();
-    $("#popup-close-button").show();
-    popupLock = false;
-	  centerPopup(); 
-	  loadPopup();
-	});
-	$("#alert-popup-cancel").click(function(){
-    popupLock = false;
-    disablePopup();
 	});
 });
 
@@ -85,10 +36,7 @@ function afterRotate(){
 }
 
 function rotate(direction){
-  if(!timerStarted){
-    timerInterval = setInterval("recordTime();", 1000);
-    timerStarted = true;
-  }
+  $("#board").trigger("rotate");
 	switch(direction){
 		case 'counter-clock-wise':
 			degree = -90;
@@ -99,9 +47,6 @@ function rotate(direction){
 			rotate_degree = 90;
 			break;
 	}
-	rotations++;
-	weighted_rotations = weighted_rotations + 1 + Math.ceil($("#board .locked").length / 2);
-	$("#current-rotations .stat-value").html(rotations);
 	$("#board").clone().attr('id','board-clone').appendTo($("#board-wrapper"));
 	$("#board").css('visibility','hidden');
 	rearrangeBoard();
@@ -420,10 +365,9 @@ function applyCoins(){
 			if($(this).hasClass("destructive")){
 				$("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").remove();
 			}
-			$(this).remove();
-			coins = coins + parseInt($(this).attr('_coin_value'),10);
-			$("#current-coins .stat-value span").html(coins);
-			pieces_moved = true;
+      $(this).trigger("capture_coins")
+      $(this).remove();
+      pieces_moved = true;
 		}
 	});
 	applyMagnets();
@@ -474,93 +418,5 @@ function applyBombs(){
 			$(this).remove();
 		}
 	});
-	checkSuccess();
-}
-
-function checkSuccess(){
-	if(pieces_moved){
-		afterRotate();
-		return false;
-	}else{
-		var goals_reached = 0;
-		settling = false;
-		locks = $("#board .locked").length;
-		tallyLiveScore();
-		$("#current-locks .stat-value span").html(locks);
-		$('#board .goal').each(function(){
-			if($("#board .game-piece."+$(this).attr('_goal_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
-				goals_reached++;
-			}
-		});
-		if(goals_reached == $("#board .goal").length){
-			setTimeout('triggerSuccess()',1000);
-		}
-	}
-}
-
-function triggerSuccess(){
-  clearInterval(timerInterval)
-	$("#nav p").css('visibility', 'hidden');
-	$.ajax({
-		type: "POST",
-		url : '/ajax/complete_level',
-		data : {
-			r : rotations,
-			w : weighted_rotations,
-			l : locks,
-			c : coins,
-			t : timer
-		}
-	}).done(function(msg){
-		if(msg.type == 'Error'){
-		  alert('There was an error (code: '+msg.code+')');
-		  return false;
-		}
-		if(msg.type == 'Success'){
-		  tallyScore(msg);
-		}
-	});
-}
-
-function tallyScore(scoreInfo){
-  $("#popup-content #startup-popup").hide();
-  $("#popup-content #score-tally-popup").show();
-  $("#popup-close-button").hide();
-  popupLock = true;
-  centerPopup();
-  loadPopup();
-  $("#tally-detail-rotations .tally-detail-value").html(rotations);
-  $("#tally-detail-locks .tally-detail-value").html(locks + ' / ' + possibleLocks);
-  $("#tally-detail-coins .tally-detail-value").html(coins + ' / ' + possibleCoins);
-  $("#tally-score-value").html(scoreInfo.score);
-  $("#tally-detail-time .tally-detail-value").html(scoreInfo.time_bonus);
-  if(scoreInfo.score_best == 'true'){
-    $("#honors p").html("This is the best score for this level...ever!").addClass("honor-msg");
-  }else if(scoreInfo.score_personal_best == 'true'){
-    $("#honors p").html("This is your personal best score for this level!").addClass("honor-msg");
-  }
-  if(scoreInfo.add_coins > 0){
-    change_coins_live(scoreInfo.add_coins);
-  }
-}
-
-function tallyLiveScore(){
-  if(possibleCoins > 0){
-    liveScore = Math.ceil(((1 - (coins / possibleCoins)) * 50) + (weighted_rotations * 2))
-  }else{
-    liveScore = Math.ceil((weighted_rotations * 2))
-  }
-  $("#user-current-stats .top-score").html(liveScore);
-}
-
-function getPossibleCoins(){
-  totalCoinValue = 0;
-  $("#board .coin").each(function(){
-    totalCoinValue = totalCoinValue + parseInt($(this).attr('_coin_value'),10);
-  })
-  return totalCoinValue;
-}
-
-function recordTime(){
-  timer++;
+  $("#board").trigger("gravity_done");
 }
