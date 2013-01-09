@@ -1,0 +1,13 @@
+- content_for :custom_css do
+  = stylesheet_link_tag "table.css"
+  = stylesheet_link_tag "table-#{@level.grid_size}.css", :id => 'table-grid-size-css'
+- content_for :custom_js do
+  = javascript_include_tag "jquery.transform-0.9.3.min.js"
+  = javascript_include_tag "factory"
+  = javascript_include_tag "gravity"
+%div#wrapper
+  %div#nav
+    %p#counter-clock-wise.rotate &nbsp;
+    %p#clock-wise.rotate &nbsp;
+  = render "shared/game_board", :level => @level
+  %div#level-info

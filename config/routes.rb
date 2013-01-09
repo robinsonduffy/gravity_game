@@ -18,6 +18,8 @@ GravityGame::Application.routes.draw do
     match 'level/:id/create' => 'levels#get_create_commands'
     match 'collection/:id/create' => 'collections#get_create_commands'
   end
+
+  get '/level_factory/new', :to=> 'level_factory#new', :as => 'new_level_factory'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.
