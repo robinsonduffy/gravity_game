@@ -11,3 +11,5 @@
     %p#clock-wise.rotate &nbsp;
   = render "shared/game_board", :level => @level
   %div#level-info
+    = label_tag "Grid Size", "Grid Size"
+    = select_tag "grid-size", options_for_select(level_grid_sizes, @level.grid_size)
