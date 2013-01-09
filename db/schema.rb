@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130105210050) do
+ActiveRecord::Schema.define(:version => 20130109191354) do
 
   create_table "coin_costs", :force => true do |t|
     t.integer  "item_id"
@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(:version => 20130105210050) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "piece_type"
   end
 
   create_table "levels", :force => true do |t|
