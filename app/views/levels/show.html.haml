@@ -1,7 +1,6 @@
 - popup = @level.meta_data.where(:key => 'popup').first
 - content_for :custom_css do
   = stylesheet_link_tag "table.css"
-  = stylesheet_link_tag "table-#{@level.grid_size}.css"
 - content_for :custom_js do
   = javascript_include_tag "jquery.transform-0.9.3.min.js"
   = javascript_include_tag "gameplay"

@@ -1,4 +1,4 @@
-%div#board-wrapper
+%div#board-wrapper{:class => "grid-size-#{level.grid_size}"}
   %div#board.game-board
     %table{:id => "squares", :class => "board-grid", :cell_border => "1"}
       - level.grid_size.times do |i|
