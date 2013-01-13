@@ -10,10 +10,11 @@ $(document).ready(function(){
 	setUpPieces();
 	$("#nav p.rotate").click(function(){
 		if(!settling){
+      settling = true;
 			rotate(this.id);
 		}
 	});
-	$("#board .lockable").click(function(){
+  $("#board").on("click","div.lockable", function(){
 		if(!settling && !$(this).hasClass('magnetized')){
 			$(this).toggleClass("locked");
 			afterRotate();
