@@ -1,8 +1,11 @@
 - content_for :custom_css do
   = stylesheet_link_tag "table.css"
-  = stylesheet_link_tag "table-#{@level.grid_size}.css", :id => 'table-grid-size-css'
+  %link{:rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => 'http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css'}
+  :css
+    .drag-and-drop-target-hover {background-color:#ccff99;}
 - content_for :custom_js do
   = javascript_include_tag "jquery.transform-0.9.3.min.js"
+  %script{:type => 'text/javascript', :src=> 'http://code.jquery.com/ui/1.9.2/jquery-ui.js'}
   = javascript_include_tag "factory"
   = javascript_include_tag "gravity"
 %div#wrapper
@@ -11,5 +14,27 @@
     %p#clock-wise.rotate &nbsp;
   = render "shared/game_board", :level => @level
   %div#level-info
-    = label_tag "Grid Size", "Grid Size"
-    = select_tag "grid-size", options_for_select(level_grid_sizes, @level.grid_size)
+    %div#factory-mode-wrapper
+      %p Factory Mode
+      = radio_button_tag "mode", "edit", true
+      = label_tag "Edit"
+      = radio_button_tag "mode", "play"
+      = label_tag "play", "Test Play"
+    %div#factory-edit-controls
+      = label_tag "Grid Size", "Grid Size"
+      = select_tag "grid-size", options_for_select(level_grid_sizes, @level.grid_size)
+      = label_tag "Add Game Piece", "Add Game Piece"
+      %div#add-game-pieces
+        - LevelElement.all.each do |level_element|
+          %p.add-game-piece{:class => level_element.usable_by_user?(current_user) ? 'usable':'disabled', "data-game_piece" => level_element.name, "data-game_piece_info" => game_piece_info(level_element.name).to_json}= level_element.name
+%div#game-piece-dialog
+  %div#game-piece-config-options
+    %p#color
+      %label Color
+      %select
+    %p#locked
+      %label Locked
+      %input{:type => 'checkbox'}
+  %div#game-piece-dialog-buttons
+    %button#save-game-piece{:type => 'button'} Save
+    %button#delete-game-piece{:type => 'button'} Delete
