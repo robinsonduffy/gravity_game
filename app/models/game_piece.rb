@@ -10,7 +10,7 @@ class GamePiece < ActiveRecord::Base
     class_array = Array.new
     class_array.push self.piece_type
     self.meta_data.each do |extra_class|
-      class_array.push extra_class.value if extra_class.key == 'class'
+      class_array.push extra_class.value if extra_class.key == 'class' || extra_class.key == '_color'
     end
     return {:class => class_array}
   end

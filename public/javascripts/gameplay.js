@@ -82,7 +82,7 @@ $(document).ready(function(){
       tallyLiveScore();
       $("#current-locks .stat-value span").html(locks);
       $('#board .goal').each(function(){
-        if($("#board .game-piece."+$(this).attr('_goal_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
+        if($("#board .game-piece."+$(this).attr('_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
           goals_reached++;
         }
       });

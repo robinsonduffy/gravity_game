@@ -336,13 +336,9 @@ function applyTeleport(){
 }
 
 function applyPaint(){
-	var colors = ['blue','green','orange','purple','red','yellow'];
 	$("#board .paint").each(function(){
 		if($("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").length){
-			for(x in colors){
-				$("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").removeClass(colors[x]);
-			}
-			$("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").addClass($(this).attr('_paint_color'));
+			$("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").removeClass($("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").eq(0).attr("_color")).addClass($(this).attr('_color'));
 			$(this).remove();
 		}
 	});
@@ -406,15 +402,15 @@ function applyBombs(){
 			[(bomb_cell[0]),(bomb_cell[1] - 1)]
 		];
 		for(x in check_cells){
-			if($("#board ."+$(this).attr("_bomb_color")+".falling[_cell='"+check_cells[x]+"']").length || $("#board ."+$(this).attr("_bomb_color")+".floating[_cell='"+check_cells[x]+"']").length){
+			if($("#board ."+$(this).attr("_color")+".falling[_cell='"+check_cells[x]+"']").length || $("#board ."+$(this).attr("_color")+".floating[_cell='"+check_cells[x]+"']").length){
 				exploded = true;
 			}
 		}
 		if(exploded){
 			pieces_moved = true;
 			for(x in check_cells){
-				$("#board ."+$(this).attr("_bomb_color")+".falling[_cell='"+check_cells[x]+"']").remove();
-				$("#board ."+$(this).attr("_bomb_color")+".floating[_cell='"+check_cells[x]+"']").remove();
+				$("#board ."+$(this).attr("_color")+".falling[_cell='"+check_cells[x]+"']").remove();
+				$("#board ."+$(this).attr("_color")+".floating[_cell='"+check_cells[x]+"']").remove();
 			}
 			$(this).remove();
 		}
