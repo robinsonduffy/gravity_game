@@ -4,6 +4,7 @@ class Level < ActiveRecord::Base
   has_many :users_completed, :through => :completions, :source => :user
   has_many :meta_data, :as => :item, :dependent => :delete_all
   belongs_to :collection
+  belongs_to :user
   
   validates :number, :presence => true,
                      :numericality => {:only_integer => true},
