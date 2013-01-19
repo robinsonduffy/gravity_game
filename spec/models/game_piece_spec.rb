@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe GamePiece do
   before(:each) do
-    @attrs = {:cell => '1,1', :piece_type => 'goal'}
+    @attrs = {:cell => '1,1', :piece_type => 'goal', :piece => 'goal'}
     @level = Factory(:level)
   end
   
@@ -23,6 +23,11 @@ describe GamePiece do
 
     it "should require a valid piece_type" do
       bad_game_piece = @level.game_pieces.build(@attrs.merge({:piece_type => 'invalid-game-piece-type'}))
+      bad_game_piece.should_not be_valid
+    end
+
+    it "should require a valid piece" do
+      bad_game_piece = @level.game_pieces.build(@attrs.merge({:piece => 'invalid-game-piece'}))
       bad_game_piece.should_not be_valid
     end
     
@@ -51,7 +56,7 @@ describe GamePiece do
     end
     
     it "should return the attributes_hash when called" do
-      @game_piece.attributes_hash.should == {"_cell" => "1,1", "_attrA" => 'valueA', "_attrB" => 'valueB', "_attrC" => 'valueC'}
+      @game_piece.attributes_hash.should == {"_cell" => "1,1", "_game_piece_id" => @game_piece.id, "_piece_type" => @game_piece.piece_type, "_piece" => @game_piece.piece, "_attrA" => 'valueA', "_attrB" => 'valueB', "_attrC" => 'valueC'}
     end
   end
 end

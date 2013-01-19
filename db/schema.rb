@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130118181740) do
+ActiveRecord::Schema.define(:version => 20130119201327) do
 
   create_table "coin_costs", :force => true do |t|
     t.integer  "item_id"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(:version => 20130118181740) do
     t.integer "level_id"
     t.text    "created_at", :limit => 6
     t.text    "updated_at", :limit => 6
+    t.string  "piece"
   end
 
   add_index "game_pieces", ["level_id"], :name => "index_game_pieces_on_level_id"
