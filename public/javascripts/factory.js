@@ -39,25 +39,23 @@ $(document).ready(function(){
       $("#game-pieces div.lockable-disabled").removeClass("lockable-disabled").addClass("lockable");
       $("#factory-edit-controls").css('visibility','hidden');
       $("#game-pieces div").addClass('no-drag no-click');
-      $("#game-pieces div.configurable").removeClass("configurable").addClass("configurable-disabled");
       applyGravity();
     }else{
       $("p.rotate").css('visibility','hidden');
       $("#game-pieces div.lockable").removeClass("lockable").addClass("lockable-disabled");
       $("#factory-edit-controls").css('visibility','');
       $("#game-pieces div").removeClass('no-drag no-click');
-      $("#game-pieces div.configurable-disabled").removeClass("configurable-disabled").addClass("configurable");
     }
   });
 
   $("#game-pieces").on("dblclick",'div:not(.no-click)',function(){
     $(this).addClass('currently-being-configured');
-    game_piece_info = $(".add-game-piece[data-game_piece='"+$(this).data("game_piece")+"']").data("game_piece_info")
-    if($(this).hasClass("configurable")){
+    game_piece_info = $(".add-game-piece[data-game_piece='"+$(this).attr("_piece")+"']").data("game_piece_info")
+    if(game_piece_info.configurable){
       $("#game-piece-dialog #save-game-piece").show();
       $("#game-piece-dialog #game-piece-config-options").show();
       $("#game-piece-config-options #color select").empty();
-      if($(this).data("game_piece") == 'coin'){
+      if($(this).attr("_piece") == 'coin'){
         $("#game-piece-config-options #color label").html("Value");
         for(x in game_piece_info.colors){
           option = $("<option></option>");
@@ -122,11 +120,11 @@ $(document).ready(function(){
 
   $("#save-game-piece").click(function(){
     piece = $(".currently-being-configured").eq(0);
-    game_piece_info = $(".add-game-piece[data-game_piece='"+piece.data("game_piece")+"']").data("game_piece_info")
+    game_piece_info = $(".add-game-piece[data-game_piece='"+piece.attr("_piece")+"']").data("game_piece_info")
     old_color = piece.attr("_color");
     new_color = $("#game-piece-dialog #game-piece-config-options #color option:selected").val();
     piece.attr("_color", new_color).removeClass(old_color).addClass(new_color);
-    if(piece.data("game_piece") == 'coin'){
+    if(piece.attr("_piece") == 'coin'){
       piece.attr("_coin_value", game_piece_info["color_values"][new_color]);
     }
     if(piece.hasClass("lockable-disabled")){
@@ -229,13 +227,12 @@ function initialize_drag(){
       game_piece_info = $(this).data("game_piece_info")
       new_piece = $("<div></div>");
       new_piece.addClass(game_piece_info.piece_type).addClass($(this).data("game_piece"));
-      new_piece.data("game_piece", $(this).data("game_piece"));
       new_piece.attr("_game_piece_id", "new").attr("_piece_type", game_piece_info.piece_type).attr("_piece", $(this).data("game_piece"));
       if(game_piece_info.lockable){
         new_piece.addClass('lockable-disabled');
       }
       if(game_piece_info.configurable){
-        new_piece.addClass('configurable init-config');
+        new_piece.addClass('init-config');
       }
       if($.inArray($(this).data("game_piece"),["falling","floating","goal","coin","bomb","paint"]) >= 0){
         //these elements are pre-assigned the first color in the list
