@@ -111,3 +111,7 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 	/* For IE 5.5 - 7 */
 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
 }
+
+/*DIALOGS*/
+.dialog-no-title .ui-dialog-titlebar {display:none;}
+.dialog-no-close .ui-dialog-titlebar-close {display:none;}
