@@ -1,0 +1,6 @@
+= render "level_factory"
+- content_for :custom_js do
+  :javascript
+    $(document).ready(function(){
+      $("#board").data("level_id",#{@level.id});
+    });

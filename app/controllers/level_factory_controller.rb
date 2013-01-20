@@ -53,4 +53,10 @@ class LevelFactoryController < ApplicationController
     end
     render :json => response.to_json
   end
+
+  def edit
+    @title = "Level Factory"
+    @level = Level.find(params[:id])
+    ##TODO: make sure the user has access to edit this level
+  end
 end
