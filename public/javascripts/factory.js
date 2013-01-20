@@ -106,6 +106,15 @@ $(document).ready(function(){
     }
   });
 
+  $("#saving-dialog").dialog({
+    autoOpen: false,
+    modal: true,
+    draggable: false,
+    resizable: false,
+    closeOnEscape: false,
+    dialogClass: "dialog-no-title dialog-no-close"
+  });
+
   $("#delete-game-piece").click(function(){
     $(".currently-being-configured").remove();
     $("#game-piece-dialog").dialog("close");
@@ -128,6 +137,48 @@ $(document).ready(function(){
       }
     }
     $("#game-piece-dialog").dialog("close");
+  });
+
+  $("#save-level").click(function(){
+    $("#saving-dialog").dialog("open");
+    var game_board_data = {}
+    game_board_data.pieces = new Array();
+    game_board_data.level_id = $("#board").data("level_id");
+    game_board_data.grid_size = $("#grid-size").val();
+    $("#game-pieces div").each(function(){
+      piece = {}
+      piece.cell = $(this).attr("_cell");
+      piece.id = $(this).attr("_game_piece_id");
+      piece.piece_type = $(this).attr("_piece_type");
+      piece.piece = $(this).attr("_piece");
+      piece.classes = $(this).attr("class").split(/\s+/);
+      piece.attributes = {};
+      if($(this).attr("_color")){
+        piece.attributes.color = $(this).attr("_color");
+      }
+      if($(this).attr("_teleport_exit_cell")){
+        piece.attributes.teleport_exit_cell = $(this).attr("_teleport_exit_cell");
+      }
+      if($(this).attr("_coin_value")){
+        piece.attributes.coin_value = $(this).attr("_coin_value");
+      }
+      game_board_data.pieces.push(piece);
+    });
+    console.log(JSON.stringify(game_board_data));
+    $.ajax({
+      type: 'POST',
+      url: '/level_factory/save',
+      data: game_board_data,
+      dataType: "json",
+      success: function(data){
+        console.log(data);
+        if(data.action == 'create'){
+          window.location = data.level_factory_path;
+        }else if(data.action == 'update'){
+          $("#saving-dialog").dialog("close");
+        }
+      }
+    });
   });
 
   $("#board").trigger("change");
@@ -179,6 +230,7 @@ function initialize_drag(){
       new_piece = $("<div></div>");
       new_piece.addClass(game_piece_info.piece_type).addClass($(this).data("game_piece"));
       new_piece.data("game_piece", $(this).data("game_piece"));
+      new_piece.attr("_game_piece_id", "new").attr("_piece_type", game_piece_info.piece_type).attr("_piece", $(this).data("game_piece"));
       if(game_piece_info.lockable){
         new_piece.addClass('lockable-disabled');
       }

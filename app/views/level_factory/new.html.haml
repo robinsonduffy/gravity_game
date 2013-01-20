@@ -8,6 +8,11 @@
   %script{:type => 'text/javascript', :src=> 'http://code.jquery.com/ui/1.9.2/jquery-ui.js'}
   = javascript_include_tag "factory"
   = javascript_include_tag "gravity"
+  :javascript
+    $(document).ready(function(){
+      $("#revert-level").remove();
+      $("#board").data("level_id","new");
+    });
 %div#wrapper
   %div#nav
     %p#counter-clock-wise.rotate &nbsp;
@@ -27,6 +32,9 @@
       %div#add-game-pieces
         - LevelElement.all.each do |level_element|
           %p.add-game-piece{:class => level_element.usable_by_user?(current_user) ? 'usable':'disabled', "data-game_piece" => level_element.name, "data-game_piece_info" => game_piece_info(level_element.name).to_json}= level_element.name
+      %div#save-level-buttons
+        %button#save-level Save
+        %button#revert-level Revert
 %div#game-piece-dialog
   %div#game-piece-config-options
     %p#color
@@ -38,3 +46,8 @@
   %div#game-piece-dialog-buttons
     %button#save-game-piece{:type => 'button'} Save
     %button#delete-game-piece{:type => 'button'} Delete
+%div#saving-dialog
+  %p{:style => 'text-align:center;'}
+    = image_tag "/imgs/shared/loadingspinner.gif"
+    %br
+    Saving...

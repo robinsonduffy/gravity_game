@@ -2,6 +2,10 @@ def game_piece_types
   ['game-piece','goal','station']
 end
 
+def game_piece_pieces
+  ['fixed','falling','floating','goal','coin','bomb','paint','gravity-swap','magnet','teleport']
+end
+
 def game_piece_default_colors
   ['blue','green','orange','purple','red','yellow']
 end
@@ -89,4 +93,12 @@ def game_piece_info(piece_name)
     else
       nil
   end
+end
+
+def game_piece_valid_classes
+  ['locked','lockable','magnetized']
+end
+
+def game_piece_valid_attributes
+  ['color','teleport_exit_cell']
 end
