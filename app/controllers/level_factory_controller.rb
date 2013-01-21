@@ -12,7 +12,13 @@ class LevelFactoryController < ApplicationController
     if params[:level_id] == 'new'
       response["action"] = 'create'
       level = current_user.levels.create(:collection_id => 0, :grid_size => params[:grid_size], :published => false, :number => (Level.where(:collection_id => 0).first.nil? ? 1 : Level.where(:collection_id => 0).order("number DESC").first.number + 1))
+    else
+      response["action"] = 'update'
+      level = Level.find(params[:level_id])
+      level.grid_size = params[:grid_size]
+      level.save
     end
+    ##TODO: make sure the user has access to edit this level
     response["level_id"] = level.id
     response["level_factory_path"] = edit_level_factory_path(:id => level.id)
     response["published"] = level.published
