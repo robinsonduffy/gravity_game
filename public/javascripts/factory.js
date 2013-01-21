@@ -200,6 +200,28 @@ $(document).ready(function(){
     });
   });
 
+  $("#cancel-level").click(function(){
+    confirm_dialog = $("<div></div>");
+    confirm_dialog.append("<p>Are you sure you want to quit?  You will lose any unsaved changes.</p>");
+    confirm_dialog.dialog({
+      title: "Quit Editor?",
+      modal: true,
+      draggable: false,
+      resizable: false,
+      closeOnEscape: false,
+      dialogClass: "dialog-no-close",
+      buttons:{
+        Yes: function(){
+          window.location = $("#cancel-level a").attr('href');
+        },
+        No: function(){
+          confirm_dialog.dialog("close").remove();
+        }
+      }
+    });
+    return false;
+  });
+
   $("#board").trigger("change");
   initialize_drag();
   initialize_drop();

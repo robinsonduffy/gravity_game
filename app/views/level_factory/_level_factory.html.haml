@@ -12,6 +12,7 @@
   %div#nav
     %p#counter-clock-wise.rotate &nbsp;
     %p#clock-wise.rotate &nbsp;
+    %p#cancel-level= link_to image_tag('/imgs/shared/cancel.png'), level_factory_path
   = render "shared/game_board", :level => @level
   %div#level-info
     %div#factory-mode-wrapper

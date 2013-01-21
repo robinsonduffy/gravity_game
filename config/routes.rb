@@ -19,6 +19,7 @@ GravityGame::Application.routes.draw do
     match 'collection/:id/create' => 'collections#get_create_commands'
   end
 
+  match '/level_factory', :to => 'level_factory#index', :as => 'level_factory'
   match '/level_factory/new', :to=> 'level_factory#new', :as => 'new_level_factory'
   post '/level_factory/save', :to => 'level_factory#save', :as => 'save_level_factory'
   match '/level_factory/:id', :to => 'level_factory#edit', :as => 'edit_level_factory'

@@ -1,0 +1,22 @@
+- content_for :custom_css do
+  %link{:rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => 'http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css'}
+- content_for :custom_js do
+  %script{:type => 'text/javascript', :src=> 'http://code.jquery.com/ui/1.9.2/jquery-ui.js'}
+  :javascript
+    $(document).ready(function(){
+      $("#level-tabs").tabs();
+    });
+%div#level-tabs
+  %ul
+    %li
+      %a{:href => '#tab-drafts'} Drafts
+    %li
+      %a{:href => '#tab-published'} Published
+  %div#tab-drafts
+    - @levels.each do |level|
+      - unless level.published?
+        %li= link_to level.id, edit_level_factory_path(level.id)
+  %div#tab-published
+    - @levels.each do |level|
+      - if level.published?
+        %li= link_to level.id, edit_level_factory_path(level.id)

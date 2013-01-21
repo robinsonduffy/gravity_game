@@ -65,4 +65,9 @@ class LevelFactoryController < ApplicationController
     @level = Level.find(params[:id])
     page_not_found unless current_user.can_edit_level?(@level)
   end
+
+  def index
+    @title = "Level Factory"
+    @levels = current_user.levels.where(:collection_id => 0)
+  end
 end
