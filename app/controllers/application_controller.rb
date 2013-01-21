@@ -76,6 +76,10 @@ class ApplicationController < ActionController::Base
       render :text => "<script type='text/javascript'>parent.location.href='#{fb_url(root_path)}';</script>" and return
     end
   end
+
+  def page_not_found
+    raise ActiveRecord::RecordNotFound
+  end
   
   private
     def oath2_error(e)
