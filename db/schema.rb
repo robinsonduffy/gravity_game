@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130119201327) do
+ActiveRecord::Schema.define(:version => 20130121013605) do
 
   create_table "coin_costs", :force => true do |t|
     t.integer  "item_id"
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(:version => 20130119201327) do
     t.text    "created_at", :limit => 6
     t.text    "updated_at", :limit => 6
     t.integer "coins"
+    t.boolean "admin",                     :default => false
   end
 
   add_index "users", ["fbid"], :name => "index_users_on_fbid", :unique => true
