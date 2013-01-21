@@ -1,5 +1,5 @@
 class LevelFactoryController < ApplicationController
-
+  before_filter :require_get, :except => [:save]
   before_filter :require_current_user
 
   def new
