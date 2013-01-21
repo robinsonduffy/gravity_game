@@ -36,5 +36,8 @@ class User < ActiveRecord::Base
     amount = self.coins if amount > self.coins
     self.update_attribute(:coins, self.coins - amount)
   end
-  
+
+  def can_edit_level?(level)
+    return (self.admin? || (level.collection_id === 0 && self == level.user))
+  end
 end

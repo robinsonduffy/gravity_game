@@ -18,7 +18,7 @@ class LevelFactoryController < ApplicationController
       level.grid_size = params[:grid_size]
       level.save
     end
-    ##TODO: make sure the user has access to edit this level
+    page_not_found unless current_user.can_edit_level?(level)
     response["level_id"] = level.id
     response["level_factory_path"] = edit_level_factory_path(:id => level.id)
     response["published"] = level.published
@@ -63,6 +63,6 @@ class LevelFactoryController < ApplicationController
   def edit
     @title = "Level Factory"
     @level = Level.find(params[:id])
-    ##TODO: make sure the user has access to edit this level
+    page_not_found unless current_user.can_edit_level?(@level)
   end
 end
