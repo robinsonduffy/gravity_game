@@ -179,6 +179,27 @@ $(document).ready(function(){
     });
   });
 
+  $("#revert-level").click(function(){
+    confirm_dialog = $("<div></div>");
+    confirm_dialog.append("<p>You will lose any unsaved changes.</p>")
+    confirm_dialog.dialog({
+      title: "Are You Sure?",
+      modal: true,
+      draggable: false,
+      resizable: false,
+      closeOnEscape: false,
+      dialogClass: "dialog-no-close",
+      buttons:{
+        Yes: function(){
+          window.location.reload();
+        },
+        No: function(){
+          confirm_dialog.dialog("close").remove();
+        }
+      }
+    });
+  });
+
   $("#board").trigger("change");
   initialize_drag();
   initialize_drop();
