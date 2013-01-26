@@ -9,16 +9,20 @@ class LevelFactoryController < ApplicationController
 
   def save
     response = Hash.new
+    params[:pieces] = Array.new if params[:pieces].nil?
+    params[:pieces].each do |piece_info|
+      piece_info = piece_info[1]
+      page_not_found unless LevelElement.find_by_name(piece_info["piece"]).usable_by_user?(current_user)
+    end
     if params[:level_id] == 'new'
       response["action"] = 'create'
       level = current_user.levels.create(:collection_id => 0, :grid_size => params[:grid_size], :published => false, :number => (Level.where(:collection_id => 0).first.nil? ? 1 : Level.where(:collection_id => 0).order("number DESC").first.number + 1))
     else
       response["action"] = 'update'
       level = Level.find(params[:level_id])
-      level.grid_size = params[:grid_size]
-      level.save
     end
     page_not_found unless current_user.can_edit_level?(level)
+    level.update_attribute("grid_size", params[:grid_size])
     response["level_id"] = level.id
     response["level_factory_path"] = edit_level_factory_path(:id => level.id)
     response["published"] = level.published
@@ -56,6 +60,11 @@ class LevelFactoryController < ApplicationController
       end
       #save the piece and all metadata
       piece.save
+      active_pieces.push piece
+    end
+    #remove unused game pieces
+    level.game_pieces.each do |piece|
+      piece.destroy unless active_pieces.include? piece
     end
     render :json => response.to_json
   end

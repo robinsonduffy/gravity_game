@@ -217,6 +217,10 @@ $(document).ready(function(){
         }else if(data.action == 'update'){
           $("#saving-dialog").dialog("close");
         }
+      },
+      error: function(data){
+        $("#saving-dialog").dialog("close");
+        alert_dialog.html("<p>There was an error.  Your changes were not saved.</p>").dialog("open");
       }
     });
   });
