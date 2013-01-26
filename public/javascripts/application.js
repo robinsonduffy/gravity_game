@@ -11,3 +11,20 @@ function change_coins_live(amount){
   new_coin_amount = parseInt($("#user-coins-current").html(),10) + parseInt(amount, 10)
   $("#user-coins-current").html(new_coin_amount)
 }
+
+var alert_dialog;
+$(document).ready(function(){
+  alert_dialog = $("<div></div>");
+  alert_dialog.dialog({
+    autoOpen: false,
+    modal: true,
+    draggable: false,
+    resizable: false,
+    dialogClass: "dialog-no-close dialog-no-title",
+    buttons: {
+      OK: function(){
+        alert_dialog.dialog("close");
+      }
+    }
+  })
+});
