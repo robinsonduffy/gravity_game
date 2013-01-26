@@ -8,7 +8,7 @@ class LevelElement < ActiveRecord::Base
   validates :description, :presence => true
 
   def usable_by_user?(user = User.find(1))
-    return true if (self.coin_cost.nil? || user.unlocked_items.include?(self))
+    return true if (self.coin_cost.nil? || user.unlocked_level_elements.include?(self))
     return false
   end
 

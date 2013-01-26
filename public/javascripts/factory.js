@@ -29,8 +29,50 @@ $(document).ready(function(){
   });
 
   $("#add-game-pieces").on("click","p.disabled",function(){
+    level_element = $(this);
     //TODO:Allow users to purchase access to disabled level elements
-
+    purchase_dialog = $("<div></div>");
+    purchase_dialog.append("<p>Do you wish to unlock this game piece so you can use it in your custom levels?</p><p>This action requires "+$(this).data("coin_cost")+" coins.</p>")
+    purchase_dialog.dialog({
+      title: "Unlock Game Piece",
+      modal: true,
+      draggable: false,
+      resizable: false,
+      closeOnEscape: false,
+      buttons:{
+        Unlock: function(){
+          $.ajax({
+            type: "POST",
+            url: "/level_element/"+level_element.data("level_element_id")+"/unlock",
+            dataType: 'json',
+            success: function(data){
+              console.log(data);
+              if(data.type == 'error'){
+                if(data.msg == 'Not Enough Coins'){
+                  alert_dialog.html("<p>You do not have enough coins for this transaction.</p>").dialog("open");
+                }
+                if(data.msg == 'Already Unlocked'){
+                  $("#add-game-pieces .add-game-piece[data-level_element_id="+data.level_element.level_element.id+"]").removeClass("disabled");
+                }
+              }
+              if(data.type == 'unlock'){
+                $("#add-game-pieces .add-game-piece[data-level_element_id="+data.level_element.level_element.id+"]").removeClass("disabled");
+                $("#user-coins-current").html(data.user_coins);
+                float_coin_message("-"+data.coin_cost);
+              }
+              purchase_dialog.dialog("close");
+            },
+            error: function(){
+              purchase_dialog.dialog("close");
+              alert_dialog.html("<p>There was an error processing your request.</p>").dialog("open");
+            }
+          })
+        },
+        Cancel: function(){
+          purchase_dialog.dialog("close").remove();
+        }
+      }
+    });
   });
 
   $("input[name='mode']").change(function(){
@@ -265,7 +307,7 @@ function adjust_game_pieces_to_fit_grid(grid_size){
 function initialize_drag(){
   $("#add-game-pieces p.usable").draggable({
     zIndex: '1000',
-    cancel: '.no-drag',
+    cancel: '.no-drag, .disabled',
     helper: function(event){
       game_piece_info = $(this).data("game_piece_info")
       new_piece = $("<div></div>");

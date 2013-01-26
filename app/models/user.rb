@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   has_many :completions
   has_many :completed_levels, :through => :completions, :source => :level
   has_many :unlocks, :dependent => :destroy
-  has_many :unlocked_items, :through => :unlocks, :source => :item
+  has_many :unlocked_collections, :through => :unlocks, :source => :item, :source_type => "Collection"
+  has_many :unlocked_level_elements, :through => :unlocks, :source => :item, :source_type => "LevelElement"
   has_many :coin_transactions, :dependent => :destroy
   has_many :levels
   
