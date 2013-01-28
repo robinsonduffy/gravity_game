@@ -22,6 +22,10 @@
       = radio_button_tag "mode", "play"
       = label_tag "play", "Test Play"
     %div#factory-edit-controls
+      = label_tag "Name"
+      = text_field_tag "level-name", @level.name
+      = label_tag "Description"
+      = text_area_tag "level-description", @level.description
       = label_tag "Grid Size", "Grid Size"
       = select_tag "grid-size", options_for_select(level_grid_sizes, @level.grid_size)
       = label_tag "Add Game Piece", "Add Game Piece"

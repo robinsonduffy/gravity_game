@@ -22,8 +22,12 @@ class LevelFactoryController < ApplicationController
       level = Level.find(params[:level_id])
     end
     page_not_found unless current_user.can_edit_level?(level)
-    level.update_attribute("grid_size", params[:grid_size])
+    level.grid_size = params[:grid_size]
+    level.name = params[:level_name]
+    level.description = params[:level_description]
+    level.save
     response["level_id"] = level.id
+    response["level_name"] = level.name
     response["level_factory_path"] = edit_level_factory_path(:id => level.id)
     response["published"] = level.published
     active_pieces = Array.new

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121013605) do
+ActiveRecord::Schema.define(:version => 20130128212953) do
 
   create_table "coin_costs", :force => true do |t|
     t.integer  "item_id"
@@ -99,6 +99,8 @@ ActiveRecord::Schema.define(:version => 20130121013605) do
     t.integer "collection_id"
     t.boolean "published",                  :default => false
     t.integer "user_id"
+    t.string  "name"
+    t.text    "description"
   end
 
   add_index "levels", ["collection_id"], :name => "index_levels_on_collection_id"

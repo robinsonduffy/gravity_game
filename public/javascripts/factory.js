@@ -185,6 +185,8 @@ $(document).ready(function(){
     game_board_data.pieces = new Array();
     game_board_data.level_id = $("#board").data("level_id");
     game_board_data.grid_size = $("#grid-size").val();
+    game_board_data.level_name = $("#level-name").val();
+    game_board_data.level_description = $("#level-description").val();
     $("#game-pieces div").each(function(){
       piece = {}
       piece.cell = $(this).attr("_cell");
@@ -216,6 +218,7 @@ $(document).ready(function(){
           window.location = data.level_factory_path;
         }else if(data.action == 'update'){
           $("#saving-dialog").dialog("close");
+          $("#level-name").val(data.level_name);
         }
       },
       error: function(data){
