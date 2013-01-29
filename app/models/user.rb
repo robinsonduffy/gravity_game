@@ -39,6 +39,6 @@ class User < ActiveRecord::Base
   end
 
   def can_edit_level?(level)
-    return (self.admin? || (level.collection_id === 0 && self == level.user))
+    return (self.admin? || (level.collection_id === 0 && self == level.user && !level.published?))
   end
 end

@@ -1,3 +1,4 @@
+var level_publish_confirm = false;
 $(document).ready(function(){
   $("#board").on("gravity_done", function(){
     if(pieces_moved){
@@ -180,52 +181,82 @@ $(document).ready(function(){
   });
 
   $("#save-level").click(function(){
-    $("#saving-dialog").dialog("open");
-    var game_board_data = {}
-    game_board_data.pieces = new Array();
-    game_board_data.level_id = $("#board").data("level_id");
-    game_board_data.grid_size = $("#grid-size").val();
-    game_board_data.level_name = $("#level-name").val();
-    game_board_data.level_description = $("#level-description").val();
-    $("#game-pieces div").each(function(){
-      piece = {}
-      piece.cell = $(this).attr("_cell");
-      piece.id = $(this).attr("_game_piece_id");
-      piece.piece_type = $(this).attr("_piece_type");
-      piece.piece = $(this).attr("_piece");
-      piece.classes = $(this).attr("class").split(/\s+/);
-      piece.attributes = {};
-      if($(this).attr("_color")){
-        piece.attributes.color = $(this).attr("_color");
-      }
-      if($(this).attr("_teleport_exit_cell")){
-        piece.attributes.teleport_exit_cell = $(this).attr("_teleport_exit_cell");
-      }
-      if($(this).attr("_coin_value")){
-        piece.attributes.coin_value = $(this).attr("_coin_value");
-      }
-      game_board_data.pieces.push(piece);
-    });
-    console.log(JSON.stringify(game_board_data));
-    $.ajax({
-      type: 'POST',
-      url: '/level_factory/save',
-      data: game_board_data,
-      dataType: "json",
-      success: function(data){
-        console.log(data);
-        if(data.action == 'create'){
-          window.location = data.level_factory_path;
-        }else if(data.action == 'update'){
-          $("#saving-dialog").dialog("close");
-          $("#level-name").val(data.level_name);
+    if(level_publish_confirm || !$("#level-publish").is(":checked")){
+      $("#saving-dialog").dialog("open");
+      var game_board_data = {}
+      game_board_data.pieces = new Array();
+      game_board_data.level_id = $("#board").data("level_id");
+      game_board_data.grid_size = $("#grid-size").val();
+      game_board_data.level_name = $("#level-name").val();
+      game_board_data.level_description = $("#level-description").val();
+      game_board_data.level_publish = $("#level-publish").is(":checked");
+      $("#game-pieces div").each(function(){
+        piece = {}
+        piece.cell = $(this).attr("_cell");
+        piece.id = $(this).attr("_game_piece_id");
+        piece.piece_type = $(this).attr("_piece_type");
+        piece.piece = $(this).attr("_piece");
+        piece.classes = $(this).attr("class").split(/\s+/);
+        piece.attributes = {};
+        if($(this).attr("_color")){
+          piece.attributes.color = $(this).attr("_color");
         }
-      },
-      error: function(data){
-        $("#saving-dialog").dialog("close");
-        alert_dialog.html("<p>There was an error.  Your changes were not saved.</p>").dialog("open");
-      }
-    });
+        if($(this).attr("_teleport_exit_cell")){
+          piece.attributes.teleport_exit_cell = $(this).attr("_teleport_exit_cell");
+        }
+        if($(this).attr("_coin_value")){
+          piece.attributes.coin_value = $(this).attr("_coin_value");
+        }
+        game_board_data.pieces.push(piece);
+      });
+      console.log(JSON.stringify(game_board_data));
+      $.ajax({
+        type: 'POST',
+        url: '/level_factory/save',
+        data: game_board_data,
+        dataType: "json",
+        success: function(data){
+          console.log(data);
+          if(data.action == 'create'){
+            window.location = data.level_factory_path;
+          }else if(data.action == 'update'){
+            if(data.published){
+              window.location = data.level_factory_index_path;
+            }else{
+              $("#saving-dialog").dialog("close");
+              $("#level-name").val(data.level_name);
+            }
+          }
+        },
+        error: function(data){
+          $("#saving-dialog").dialog("close");
+          alert_dialog.html("<p>There was an error.  Your changes were not saved.</p>").dialog("open");
+        }
+      });
+    }else{
+      //we need to confirm that they actually want to publish
+      confirm_dialog = $("<div></div>");
+      confirm_dialog.append("<p>You are about to publish this level.  Once the level is published, you will not be able to make any changes to it.</p><p>Continue?</p>");
+      confirm_dialog.dialog({
+        title: "Publish Level?",
+        modal: true,
+        draggable: false,
+        resizable: false,
+        closeOnEscape: false,
+        dialogClass: "dialog-no-close",
+        buttons:{
+          Yes: function(){
+            confirm_dialog.dialog("close").remove();
+            level_publish_confirm = true;
+            $("#save-level").click();
+          },
+          No: function(){
+            $("#level-publish").removeAttr("checked");
+            confirm_dialog.dialog("close").remove();
+          }
+        }
+      });
+    }
   });
 
   $("#revert-level").click(function(){

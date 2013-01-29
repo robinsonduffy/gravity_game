@@ -25,11 +25,13 @@ class LevelFactoryController < ApplicationController
     level.grid_size = params[:grid_size]
     level.name = params[:level_name]
     level.description = params[:level_description]
+    level.published = params[:level_publish]
     level.save
     response["level_id"] = level.id
     response["level_name"] = level.name
     response["level_factory_path"] = edit_level_factory_path(:id => level.id)
     response["published"] = level.published
+    response["level_factory_index_path"] = level_factory_path
     active_pieces = Array.new
     params[:pieces].each do |piece_info|
       piece_info = piece_info[1]
