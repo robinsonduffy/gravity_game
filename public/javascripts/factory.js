@@ -31,7 +31,6 @@ $(document).ready(function(){
 
   $("#add-game-pieces").on("click","p.disabled",function(){
     level_element = $(this);
-    //TODO:Allow users to purchase access to disabled level elements
     purchase_dialog = $("<div></div>");
     purchase_dialog.append("<p>Do you wish to unlock this game piece so you can use it in your custom levels?</p><p>This action requires "+$(this).data("coin_cost")+" coins.</p>")
     purchase_dialog.dialog({
@@ -217,14 +216,22 @@ $(document).ready(function(){
         dataType: "json",
         success: function(data){
           console.log(data);
+          if(data.type == 'error'){
+            if(data.msg == 'not enough coins'){
+              $("#saving-dialog").dialog("close");
+              alert_dialog.html("<p>You do not have enough coins for this transaction.</p>").dialog("open");
+              level_publish_confirm = false;
+            }
+          }
           if(data.action == 'create'){
             window.location = data.level_factory_path;
           }else if(data.action == 'update'){
             if(data.published){
-              window.location = data.level_factory_index_path;
+              window.location = data.level_factory_index_path+"?tab=1&cdisp=-"+data.publish_level_coin_cost;
             }else{
               $("#saving-dialog").dialog("close");
               $("#level-name").val(data.level_name);
+              level_publish_confirm = false;
             }
           }
         },
@@ -236,7 +243,7 @@ $(document).ready(function(){
     }else{
       //we need to confirm that they actually want to publish
       confirm_dialog = $("<div></div>");
-      confirm_dialog.append("<p>You are about to publish this level.  Once the level is published, you will not be able to make any changes to it.</p><p>Continue?</p>");
+      confirm_dialog.append("<p>You are about to publish this level.  Once the level is published, you will not be able to make any changes to it.</p><p>This action requires "+$("#level-publish").val()+" coins.</p><p>Continue?</p>");
       confirm_dialog.dialog({
         title: "Publish Level?",
         modal: true,

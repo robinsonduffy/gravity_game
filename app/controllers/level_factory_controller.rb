@@ -9,6 +9,11 @@ class LevelFactoryController < ApplicationController
 
   def save
     response = Hash.new
+    if params[:level_publish] === 'true' && publish_level_coin_cost > current_user.coins
+      response["type"] = "error"
+      response["msg"] = "not enough coins"
+      render :json => response.to_json and return
+    end
     params[:pieces] = Array.new if params[:pieces].nil?
     params[:pieces].each do |piece_info|
       piece_info = piece_info[1]
@@ -27,11 +32,16 @@ class LevelFactoryController < ApplicationController
     level.description = params[:level_description]
     level.published = params[:level_publish]
     level.save
+    if level.published?
+      current_user.remove_coins(publish_level_coin_cost)
+      current_user.coin_transactions.create!({:amount => 0 - publish_level_coin_cost, :transaction_type => 'Publish', :note => "Published Level: #{level.name}"})
+    end
     response["level_id"] = level.id
     response["level_name"] = level.name
     response["level_factory_path"] = edit_level_factory_path(:id => level.id)
     response["published"] = level.published
     response["level_factory_index_path"] = level_factory_path
+    response["publish_level_coin_cost"] = publish_level_coin_cost
     active_pieces = Array.new
     params[:pieces].each do |piece_info|
       piece_info = piece_info[1]
