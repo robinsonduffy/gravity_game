@@ -14,10 +14,40 @@
     %li
       %a{:href => '#tab-published'} Published
   %div#tab-drafts
-    - @levels.each do |level|
-      - unless level.published?
-        %li= link_to level.id, edit_level_factory_path(level.id)
+    %table
+      %thead
+        %tr
+          %th
+          %th Description
+          %th Grid Size
+          %th Created
+          %th Last Modified
+      %tbody
+        - @levels.each do |level|
+          - unless level.published?
+            %tr
+              %td= link_to level.name, edit_level_factory_path(level.id)
+              %td= level.description
+              %td= "#{level.grid_size}x#{level.grid_size}"
+              %td= level.created_at.to_time.strftime("%Y-%m-%d")
+              %td= level.updated_at.to_time.strftime("%Y-%m-%d")
   %div#tab-published
-    - @levels.each do |level|
-      - if level.published?
-        %li= link_to level.id, edit_level_factory_path(level.id)
+    %table
+      %thead
+        %tr
+          %th
+          %th Description
+          %th Grid Size
+          %th Published
+          %th Users Completed
+          %th Top Score
+      %tbody
+        - @levels.each do |level|
+          - if level.published?
+            %tr
+              %td= link_to level.name, level_path(level.id)
+              %td= level.description
+              %td= "#{level.grid_size}x#{level.grid_size}"
+              %td= level.updated_at.to_time.strftime("%Y-%m-%d")
+              %td= level.completions.length
+              %td= level.best_score || 'NA'
