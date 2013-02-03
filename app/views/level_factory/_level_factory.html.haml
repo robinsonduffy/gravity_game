@@ -16,22 +16,29 @@
   = render "shared/game_board", :level => @level
   %div#level-info
     %div#factory-mode-wrapper
-      %p Factory Mode
+      %label Factory Mode
+      %div#factory-mode-buttons
       = radio_button_tag "mode", "edit", true
       = label_tag "Edit"
       = radio_button_tag "mode", "play"
       = label_tag "play", "Test Play"
     %div#factory-edit-controls
-      = label_tag "Name"
-      = text_field_tag "level-name", @level.name
-      = label_tag "Description"
-      = text_area_tag "level-description", @level.description
-      = label_tag "Grid Size", "Grid Size"
-      = select_tag "grid-size", options_for_select(level_grid_sizes, @level.grid_size)
-      = label_tag "Add Game Piece", "Add Game Piece"
+      %div.form-field
+        = label_tag "Name"
+        = text_field_tag "level-name", @level.name
+      %div.form-field
+        = label_tag "Description"
+        = text_area_tag "level-description", @level.description
+      %div.form-field
+        = label_tag "Grid Size", "Grid Size"
+        = select_tag "grid-size", options_for_select(level_grid_sizes.map{|v| ["#{v}x#{v}",v]}, @level.grid_size)
       %div#add-game-pieces
         - LevelElement.all.each do |level_element|
-          %p.add-game-piece{:class => level_element.usable_by_user?(current_user) ? 'usable':'usable no-drag disabled', "data-game_piece" => level_element.name, "data-game_piece_info" => game_piece_info(level_element.name).to_json, "data-coin_cost" => level_element.usable_by_user?(current_user) ? '' : level_element.coin_cost.value, "data-level_element_id" => level_element.id}= level_element.name
+          %p.add-game-piece{:class => [level_element.name, level_element.usable_by_user?(current_user) ? 'usable':'usable no-drag disabled'], "data-game_piece" => level_element.name, "data-game_piece_info" => game_piece_info(level_element.name).to_json, "data-coin_cost" => level_element.usable_by_user?(current_user) ? '' : level_element.coin_cost.value, "data-level_element_id" => level_element.id}
+            %span.add-game-piece-img
+            %span.level-element-description= level_element.description
+            %span.level-disabled.transparent-75
+            %span.level-disabled-coin
       %div#save-level-buttons
         %button#save-level Save
         %button#revert-level Revert

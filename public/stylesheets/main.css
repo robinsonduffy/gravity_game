@@ -51,7 +51,7 @@
 #user-navigation li {float:left; margin:0; padding:0;}
 
 /*USER COINS */
-#user-coins {position:absolute; right:0px; padding:3px;} 
+#user-coins {position:absolute; right:0px; padding:3px;}
 #user-coins img {vertical-align:middle;}
 #user-coins #user-coins-current {text-align:right; font-size:25px; padding-top:10px; position:relative; top:6px; font-family:sans-serif;}
 #user-coins a {text-decoration:none; color:black;}
@@ -62,56 +62,98 @@
 
 /*TABLE SORT*/
 table.tablesorter {
-	font-family:arial;
-	background-color: #CDCDCD;
-	margin:10px 0pt 15px;
-	font-size: 8pt;
-	width: 100%;
-	text-align: left;
+    font-family:arial;
+    background-color: #CDCDCD;
+    margin:10px 0pt 15px;
+    font-size: 8pt;
+    width: 100%;
+    text-align: left;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: #e6EEEE;
-	border: 1px solid #FFF;
-	font-size: 8pt;
-	padding: 4px;
+    background-color: #e6EEEE;
+    border: 1px solid #FFF;
+    font-size: 8pt;
+    padding: 4px;
 }
 table.tablesorter thead tr .header {
-	background-image: url('../imgs/shared/tablesorter/bg.gif');
-	background-repeat: no-repeat;
-	background-position: center right;
-	cursor: pointer;
+    background-image: url('../imgs/shared/tablesorter/bg.gif');
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
 }
 table.tablesorter tbody td {
-	color: #3D3D3D;
-	padding: 4px;
-	background-color: #FFF;
-	vertical-align: top;
+    color: #3D3D3D;
+    padding: 4px;
+    background-color: #FFF;
+    vertical-align: top;
 }
 table.tablesorter tbody tr.odd td {
-	background-color:#F0F0F6;
+    background-color:#F0F0F6;
 }
 table.tablesorter thead tr .headerSortUp {
-	background-image: url('../imgs/shared/tablesorter/asc.gif');
+    background-image: url('../imgs/shared/tablesorter/asc.gif');
 }
 table.tablesorter thead tr .headerSortDown {
-	background-image: url('../imgs/shared/tablesorter/desc.gif');
+    background-image: url('../imgs/shared/tablesorter/desc.gif');
 }
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
-  background-color: #8dbdd8;
+    background-color: #8dbdd8;
 }
 #pager {margin-top:10px;}
 
 /*DROP SHADOW EFFECT*/
 .drop-shadow {
-	-moz-box-shadow: 3px 3px 4px #000;
-	-webkit-box-shadow: 3px 3px 4px #000;
-	box-shadow: 3px 3px 4px #000;
-	/* For IE 8 */
-	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
-	/* For IE 5.5 - 7 */
-	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
+    -moz-box-shadow: 3px 3px 4px #000;
+    -webkit-box-shadow: 3px 3px 4px #000;
+    box-shadow: 3px 3px 4px #000;
+    /* For IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+    /* For IE 5.5 - 7 */
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000');
 }
 
 /*DIALOGS*/
 .dialog-no-title .ui-dialog-titlebar {display:none;}
 .dialog-no-close .ui-dialog-titlebar-close {display:none;}
+
+/*Level Factory*/
+#factory-mode-wrapper {border:1px solid #ccc;padding:5px; margin-bottom:10px; font-size:12px;}
+#factory-mode-wrapper p {margin:0;}
+#factory-mode-wrapper label {font-weight:bold;}
+#factory-edit-controls .form-field {float:left; clear:left; padding-bottom:10px;}
+#factory-edit-controls .form-field label {font-weight:bold; float:left; font-size:12px;}
+#factory-edit-controls .form-field input, #factory-edit-controls .form-field textarea {clear:left; float:left; width:200px;}
+#factory-edit-controls .form-field #grid-size {float:left; clear:left;}
+#factory-edit-controls #add-game-pieces {background-color:white; float:left; clear:left; border:1px solid #ccc; padding:5px; font-size:12px; height:250px; overflow:scroll}
+#factory-edit-controls #add-game-pieces p {cursor:pointer; padding:5px; margin-top:0; margin-bottom:3px; float:left; width:90%}
+#factory-edit-controls #add-game-pieces p span.add-game-piece-img {width:59px; height:59px; float:left; margin-right:10px;background-image:url('../imgs/table-8/sprite.png');}
+#factory-edit-controls #add-game-pieces p.goal span.add-game-piece-img {background-image:url('../imgs/table-8/goal-blue.gif');}
+#factory-edit-controls #add-game-pieces p.teleport span.add-game-piece-img {background-image:url('../imgs/table-8/teleport-blue.gif');}
+#factory-edit-controls #add-game-pieces p.falling span.add-game-piece-img {background-position:0px -177px;}
+#factory-edit-controls #add-game-pieces p.floating span.add-game-piece-img {background-position:0px -295px;}
+#factory-edit-controls #add-game-pieces p.bomb span.add-game-piece-img {background-position:0px 0px;}
+#factory-edit-controls #add-game-pieces p.coin span.add-game-piece-img {background-position:-59px -118px;}
+#factory-edit-controls #add-game-pieces p.paint span.add-game-piece-img {background-position:0px -413px;}
+#factory-edit-controls #add-game-pieces p.magnet span.add-game-piece-img {background-position:-236px -118px;}
+#factory-edit-controls #add-game-pieces p.gravity-swap span.add-game-piece-img {background-position:-354px -118px;}
+#factory-edit-controls #add-game-pieces p.fixed span.add-game-piece-img {background-position:-295px -118px;}
+#factory-edit-controls #save-level-buttons {float:left; clear:left; margin-top: 10px;}
+#factory-edit-controls #level-publish-wrapper {float:right; margin-top: 10px;}
+#factory-edit-controls #add-game-pieces p.disabled {position:relative;}
+#factory-edit-controls #add-game-pieces p.disabled span.level-disabled-coin {position: absolute; left:5px; top:5px; width:30px; height:30px; float:left; background-image:url('../imgs/shared/coin_green.png'); background-repeat:no-repeat; background-position:bottom-right}
+#factory-edit-controls #add-game-pieces p.disabled span.level-disabled {position:absolute; left:0; top:0; float:left; width:100%; height:100%; background-color:#fff; border:1px dashed #666;}
+#factory-edit-controls #add-game-pieces p.disabled span.level-element-description {z-index:10; position:relative;}
+
+.transparent-75 {
+    /* IE 8 */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=75)";
+    /* IE 5-7 */
+    filter: alpha(opacity=75);
+    /* Netscape */
+    -moz-opacity: 0.75;
+    /* Safari 1.x */
+    -khtml-opacity: 0.75;
+    /* Good browsers */
+    opacity: 0.75;
+}
+
