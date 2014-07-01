@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140701011153) do
+ActiveRecord::Schema.define(:version => 20140701014600) do
 
   create_table "coin_costs", :force => true do |t|
     t.integer  "item_id"
@@ -114,8 +114,11 @@ ActiveRecord::Schema.define(:version => 20140701011153) do
   create_table "users", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "coins",      :default => 0
-    t.boolean  "admin",      :default => false
+    t.integer  "coins",            :default => 0
+    t.boolean  "admin",            :default => false
+    t.string   "email",                               :null => false
+    t.string   "crypted_password"
+    t.string   "salt"
   end
 
 end

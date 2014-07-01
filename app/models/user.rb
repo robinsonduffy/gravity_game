@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  authenticates_with_sorcery!
+  attr_accessible :email, :password, :password_confirmation
   
   has_many :completions
   has_many :completed_levels, :through => :completions, :source => :level
@@ -7,6 +9,15 @@ class User < ActiveRecord::Base
   has_many :unlocked_level_elements, :through => :unlocks, :source => :item, :source_type => "LevelElement"
   has_many :coin_transactions, :dependent => :destroy
   has_many :levels
+  
+  validates :password, :presence => true, 
+                       :confirmation => {:on => :create}, 
+                       :length => {:within => 6..40}
+  
+  email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/
+  validates :email, :presence => true, 
+                    :uniqueness => {:case_sensitve => false},
+                    :format => { :with => email_regex }
   
 
   def best_rotation(level)
