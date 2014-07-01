@@ -1,5 +1,5 @@
 class AjaxController < ApplicationController
-  before_filter :require_current_user, :only => [:complete_level]
+  before_filter :require_login, :only => [:complete_level]
   
   def complete_level
     level = Level.find_by_id(session[:current_level])

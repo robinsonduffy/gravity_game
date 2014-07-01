@@ -1,5 +1,5 @@
 class LevelFactoryController < ApplicationController
-  before_filter :require_current_user
+  before_filter :require_login
 
   def new
     @title = "Level Factory"

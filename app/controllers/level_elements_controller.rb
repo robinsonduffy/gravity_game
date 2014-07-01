@@ -1,5 +1,5 @@
 class LevelElementsController < ApplicationController
-  before_filter :require_current_user
+  before_filter :require_login
 
   def unlock
     level_element = LevelElement.find(params[:id])

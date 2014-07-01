@@ -1,5 +1,5 @@
 class CollectionsController < ApplicationController
-  before_filter :require_current_user
+  before_filter :require_login
   
   def show
     @collection = Collection.find(params[:id])

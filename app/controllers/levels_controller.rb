@@ -1,5 +1,5 @@
 class LevelsController < ApplicationController
-  before_filter :require_current_user
+  before_filter :require_login
   
   def show
     @level = Level.find(params[:id], :include => [:collection, {:game_pieces => :meta_data}])
