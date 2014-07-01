@@ -36,7 +36,7 @@ class Level < ActiveRecord::Base
   end
   
   def best_score
-    if self.completions.length > 0
+    if self.completions.length > 0 && completions.joins(:meta_data).where("meta_data.key = 'score'").any?
       self.completions.joins(:meta_data).where("meta_data.key = 'score'").order("cast(meta_data.value as integer) ASC").first.meta_data.find_by_key("score").value.to_i
     end
   end
@@ -50,7 +50,11 @@ class Level < ActiveRecord::Base
   end
   
   def top_scorers
-    self.users_completed.joins(:completions => :meta_data).where("meta_data.key = 'score' AND meta_data.value = ?", self.completions.joins(:meta_data).select("meta_data.value").where("meta_data.key = 'score'").order("cast(meta_data.value as integer)").limit(1).first.value)
+    unless self.best_score.nil?
+      self.users_completed.joins(:completions => :meta_data).where("meta_data.key = 'score' AND meta_data.value = ?", self.completions.joins(:meta_data).select("meta_data.value").where("meta_data.key = 'score'").order("cast(meta_data.value as integer)").limit(1).first.value)
+    else
+      []
+    end
   end
 
   private
