@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   protect_from_forgery
-  before_filter :set_p3p
+  
   before_filter :log_session
   
   def host
@@ -66,10 +66,6 @@ class ApplicationController < ActionController::Base
   end
   
   private
-    
-    def set_p3p
-      headers['P3P'] = 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"'
-    end
     
     def log_session
       logger.debug " "
