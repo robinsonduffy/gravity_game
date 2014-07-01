@@ -4,8 +4,8 @@ GravityGame::Application.routes.draw do
   match '/' => "pages#home", :as => 'root'
   
   get "login" => "sessions#new", :as => "login"
+  post "login" => "sessions#create", :as => "sessions"
   get "logout" => "sessions#destroy", :as => "logout"
-  resources :sessions, :only => [:create]
   
   match 'level/:id' => 'levels#show', :as => 'level'
   

@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
   end
   
   def access_denied
-    flash[:error] = "You are not authorized to view that page"
+    #flash[:error] = "Please login"
     redirect_to login_path
   end
   

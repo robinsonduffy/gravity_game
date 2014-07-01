@@ -14,6 +14,7 @@ class SessionsController < ApplicationController
       redirect_back_or_to root_path
     else
       flash.now[:error] = "The credentials you entered were invalid"
+      @title = "Sign In"
       render :new
     end
   end
