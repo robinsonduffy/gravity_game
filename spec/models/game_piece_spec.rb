@@ -48,7 +48,7 @@ describe GamePiece do
     end
     
     it "should return the class_hash when called" do
-      @game_piece.class_hash.should == {:class => ['goal', 'classA', 'classB']}
+      @game_piece.class_hash[:class].should =~ ['goal', 'classA', 'classB']
     end
     
     it "should have a attributes_hash method" do
