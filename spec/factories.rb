@@ -27,5 +27,5 @@ Factory.define :extra_class do |extra_class|
 end
 
 Factory.define :user do |user|
-  user.fbid "1234567890"
+  
 end

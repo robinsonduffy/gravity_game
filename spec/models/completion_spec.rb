@@ -36,7 +36,7 @@ describe Completion do
     
     it "should allow levels to have multple users" do
       @level.completions.create!(:user => @user)
-      good_completion = @level.completions.build(:user => Factory(:user, :fbid => '2'))
+      good_completion = @level.completions.build(:user => Factory(:user))
       good_completion.should be_valid
     end
   end

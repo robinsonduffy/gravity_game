@@ -35,7 +35,7 @@ describe Unlock do
     
     it "should allow items to have multiple unlocked users" do
       @collection.unlocks.create!(:user => @user)
-      good_unlock = @collection.unlocks.build(:user => Factory(:user, :fbid => '2'))
+      good_unlock = @collection.unlocks.build(:user => Factory(:user))
       good_unlock.should be_valid
     end
   end
