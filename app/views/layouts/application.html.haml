@@ -13,12 +13,13 @@
   %body
     %div#header
       %ul#user-navigation
-      %div#user-coins.drop-shadow
-        %a{:href => transactions_path}
-          %img{:src => '/imgs/shared/coin_green.png'}
-          %span#user-coins-current= current_user.coins
-          %br
-          %span#user-coins-manage-coins Manage Coins
+      - if current_user
+        %div#user-coins.drop-shadow
+          %a{:href => transactions_path}
+            %img{:src => '/imgs/shared/coin_green.png'}
+            %span#user-coins-current= current_user.coins
+            %br
+            %span#user-coins-manage-coins Manage Coins
     %div#content-wrapper
       %h1.title= (@title.nil?) ? @base_title : @title
       %div#flash-messages
