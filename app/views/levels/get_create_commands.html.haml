@@ -1,9 +1,9 @@
-="c = Collection.find(#{@level.collection.id});"
-="l = c.levels.build({:number => #{@level.number}, :grid_size => #{@level.grid_size}});"
+= raw("c = Collection.find(#{@level.collection.id});")
+= raw("l = c.levels.build({:number => #{@level.number}, :grid_size => #{@level.grid_size}});")
 - @level.meta_data.each do |md|
-  = "l.meta_data.build({:key => '#{md.key}', :value => '#{md.value}'});"
+  = raw("l.meta_data.build({:key => '#{md.key.escape_single_quotes}', :value => '#{md.value.escape_single_quotes}'});")
 - @level.game_pieces.each do |gp|
-  = "gp = l.game_pieces.build({:cell => '#{gp.cell}', :piece_type => '#{gp.piece_type}'});"
+  = raw("gp = l.game_pieces.build({:cell => '#{gp.cell.escape_single_quotes}', :piece_type => '#{gp.piece_type.escape_single_quotes}', :piece => '#{gp.piece.escape_single_quotes}'});")
   - gp.meta_data.each do |meta|
-    = "gp.meta_data.build({:key => '#{meta.key}', :value => '#{meta.value}'});"
-= "l.save"
+    = raw("gp.meta_data.build({:key => '#{meta.key.escape_single_quotes}', :value => '#{meta.value.escape_single_quotes}'});")
+= raw("l.save")
