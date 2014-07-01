@@ -60,6 +60,11 @@ class ApplicationController < ActionController::Base
     raise ActiveRecord::RecordNotFound
   end
   
+  def access_denied
+    flash[:error] = "You are not authorized to view that page"
+    redirect_to login_path
+  end
+  
   private
     
     def set_p3p
