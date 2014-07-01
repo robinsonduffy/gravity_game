@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   protect_from_forgery
   
+  before_filter :no_negative_coins
   before_filter :log_session
   
   def host
@@ -18,23 +19,6 @@ class ApplicationController < ActionController::Base
 
   def url(path = '')
     "#{scheme}://#{host}#{path}"
-  end
-  
-  def require_current_user
-    if Rails.env == 'production'
-      @graph = Koala::Facebook::API.new(session[:access_token])
-      session[:fb_user_id] = (@graph.get_object('me'))["id"]
-    else
-      session[:fb_user_id] = 'abcde12345'
-    end
-    @game_user = User.find_by_fbid(session[:fb_user_id])
-    if(@game_user.nil? && session[:fb_user_id].present? && !session[:fb_user_id].empty?)
-      @game_user = User.create!({:fbid => session[:fb_user_id]})
-    end
-    if(@game_user.coins.to_i <= 0)
-      @game_user.coins = 0
-      @game_user.save
-    end
   end
   
   def store_location(url = '')
@@ -73,6 +57,13 @@ class ApplicationController < ActionController::Base
       logger.debug session.inspect
       logger.debug "~~~"
       logger.debug " "
+    end
+    
+    def no_negative_coins
+      if(current_user && current_user.coins.to_i <= 0)
+        current_user.coins = 0
+        current_user.save
+      end
     end
     
     def clear_current_level
