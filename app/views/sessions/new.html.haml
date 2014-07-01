@@ -1,0 +1,9 @@
+= form_tag sessions_path do
+  %div.form-field
+    = label_tag :email
+    = text_field_tag :email, params[:email]
+  %div.form-field
+    = label_tag :password
+    = password_field_tag :password
+  %div.form-actions
+    = submit_tag "Log In"

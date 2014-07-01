@@ -7,7 +7,7 @@ Rails.application.config.sorcery.submodules = []
 # Here you can configure each submodule's features.
 Rails.application.config.sorcery.configure do |config|
   # -- core --
-  # config.not_authenticated_action = :not_authenticated              # what controller action to call for
+  config.not_authenticated_action = :access_denied              # what controller action to call for
                                                                       # non-authenticated users.
                                                                       # You can also override 'not_authenticated'
                                                                       # instead.
@@ -77,7 +77,7 @@ Rails.application.config.sorcery.configure do |config|
   # --- user config ---
   config.user_config do |user|
     # -- core --
-    # user.username_attribute_names = [:username]                                     # specify username
+    user.username_attribute_names = [:email]                                     # specify username
                                                                                       # attributes, for example:
                                                                                       # [:username, :email].
 

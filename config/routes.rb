@@ -3,6 +3,10 @@ GravityGame::Application.routes.draw do
   
   match '/' => "pages#home", :as => 'root'
   
+  get "login" => "sessions#new", :as => "login"
+  get "logout" => "sessions#destroy", :as => "logout"
+  resources :sessions, :only => [:create]
+  
   match 'level/:id' => 'levels#show', :as => 'level'
   
   match 'auth/facebook/callback' => 'sessions#callback', :as => 'fb_callback'
