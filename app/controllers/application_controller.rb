@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   def url(path = '')
     "#{scheme}://#{host}#{path}"
   end
+  
   def require_current_user
     if Rails.env == 'production'
       @graph = Koala::Facebook::API.new(session[:access_token])
@@ -53,14 +54,6 @@ class ApplicationController < ActionController::Base
     redirect_url = session[:return_to] || default
     clear_stored_location
     render :text => "<script type='text/javascript'>parent.location.href='#{redirect_url}';</script>" and return
-  end
-  
-  def require_get
-    if request.method != 'GET'
-      redirect_to(request.fullpath) and return if (request.fullpath == root_path)
-      session[:post_return_to] = request.fullpath
-      render :text => "<script type='text/javascript'>parent.location.href='#{fb_url(root_path)}';</script>" and return
-    end
   end
 
   def page_not_found

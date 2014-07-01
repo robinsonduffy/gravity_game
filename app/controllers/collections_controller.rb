@@ -1,5 +1,4 @@
 class CollectionsController < ApplicationController
-  before_filter :require_get, :except => [:unlock]
   before_filter :require_current_user
   
   def show
