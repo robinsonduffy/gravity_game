@@ -44,9 +44,18 @@ class ApplicationController < ActionController::Base
     raise ActiveRecord::RecordNotFound
   end
   
-  def access_denied
+  def send_to_login_page
     #flash[:error] = "Please login"
     redirect_to login_path
+  end
+  
+  def require_admin
+    logger.debug "I got here"
+    send_to_login_page if !current_user
+    unless current_user.admin
+      logger.debug "denied"
+      render :status => 403, :text => "Forbidden" and return
+    end
   end
   
   private
