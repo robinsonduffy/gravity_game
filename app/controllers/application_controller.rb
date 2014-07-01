@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   protect_from_forgery
-  rescue_from Koala::Facebook::APIError, :with => :oath2_error
   before_filter :set_p3p
   before_filter :log_session
   
@@ -20,19 +19,6 @@ class ApplicationController < ActionController::Base
   def url(path = '')
     "#{scheme}://#{host}#{path}"
   end
-  
-  def fb_url(path = '')
-    "#{scheme}://apps.facebook.com/gravitygame#{path}"
-  end
-  
-  def authenticator
-    session[:oath] ||= Koala::Facebook::OAuth.new(ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_SECRET"], url("#{fb_callback_path}"))
-  end
-  
-  def fb_user
-    graph.get_object('me')
-  end
-  
   def require_current_user
     if Rails.env == 'production'
       @graph = Koala::Facebook::API.new(session[:access_token])
@@ -82,16 +68,6 @@ class ApplicationController < ActionController::Base
   end
   
   private
-    def oath2_error(e)
-      logger.debug e
-      login_to_facebook
-    end
-    
-    def login_to_facebook
-      store_location(fb_url(request.fullpath))
-      session[:access_token] = nil
-      render :text => "<script type='text/javascript'>parent.location.href='#{authenticator.url_for_oauth_code()}';</script>";
-    end
     
     def set_p3p
       headers['P3P'] = 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"'

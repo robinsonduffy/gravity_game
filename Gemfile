@@ -20,7 +20,6 @@ end
 gem "haml", ">= 3.0.0"
 gem "haml-rails"
 gem "jquery-rails"
-gem "koala"
 gem 'hirb'
 
 # Use unicorn as the web server
