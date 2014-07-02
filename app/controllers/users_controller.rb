@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :require_login, :except => [:new]
-  before_filter :require_admin, :except => [:new]
-  before_filter :require_guest, :only => [:new]
+  before_filter :require_login, :except => [:new, :create]
+  before_filter :require_admin, :except => [:new, :create]
+  before_filter :require_guest, :only => [:new, :create]
   
   def new
     @title = "Sign Up"
@@ -11,10 +11,11 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      flash[:success] = "Created User (#{@user.email})"
-      redirect_to users_path
+      auto_login(@user)
+      flash[:success] = "Thanks for signing up."
+      redirect_to root_path
     else
-      @title = "Create New User"
+      @title = "Sign Up"
       render :new
     end
   end

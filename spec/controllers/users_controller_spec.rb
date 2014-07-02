@@ -34,28 +34,18 @@ describe UsersController do
   
   describe "POST 'create'" do
     
-    describe "for non users" do
-      it "should deny access" do
-        post :create
-        response.should redirect_to(login_path)
-      end
-    end
-    
-    describe "for non-admin users" do
+    describe "for users" do
       before(:each) do
-        login_user(Factory(:user, :email => "nonadmin@example.com"))
+        login_user(Factory(:user))
       end
       
       it "should deny access" do
         post :create
-        response.response_code.should == 403
+        response.should redirect_to(root_path)
       end
     end
     
-    describe "for admin users" do
-      before(:each) do
-        login_user(Factory(:user, :email => "admin@example.com", :admin => true))
-      end
+    describe "for non users" do
       describe "failure" do
         before(:each) do
           @attr = { :email => "", :password => "", :password_confirmation => "" }
@@ -69,7 +59,7 @@ describe UsersController do
       
         it "should have the right title" do
           post :create, :user => @attr
-          response.should have_selector("title", :content => "Create New User")
+          response.should have_selector("title", :content => "Sign Up")
         end
       
         it "should render the user create form again" do
@@ -91,12 +81,17 @@ describe UsersController do
       
         it "should redirect to the user index" do
           post :create, :user => @attr
-          response.should redirect_to(users_path)
+          response.should redirect_to(root_path)
         end
       
         it "should display a success message" do
           post :create, :user => @attr
-          flash[:success].should =~ /created user/i
+          flash[:success].should =~ /Thanks for signing up/i
+        end
+        
+        it "should log the user in" do
+          post :create, :user => @attr
+          controller.should be_logged_in
         end
       end
     end
