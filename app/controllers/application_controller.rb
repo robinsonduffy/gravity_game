@@ -50,12 +50,14 @@ class ApplicationController < ActionController::Base
   end
   
   def require_admin
-    logger.debug "I got here"
     send_to_login_page if !current_user
     unless current_user.admin
-      logger.debug "denied"
       render :status => 403, :text => "Forbidden" and return
     end
+  end
+  
+  def require_guest
+    redirect_to root_path unless current_user.nil?
   end
   
   private

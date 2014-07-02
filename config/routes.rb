@@ -30,7 +30,8 @@ GravityGame::Application.routes.draw do
 
   post 'level_element/:id/unlock', :to => 'level_elements#unlock', :as => 'level_element_unlock'
   
-  resources :users, :except => [:show]
+  resources :users, :except => [:show,:new]
+  get "signup" => "users#new", :as => "signup"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

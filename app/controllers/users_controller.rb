@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
-  before_filter :require_login
-  before_filter :require_admin
+  before_filter :require_login, :except => [:new]
+  before_filter :require_admin, :except => [:new]
+  before_filter :require_guest, :only => [:new]
   
   def new
-    @title = "Create New User"
+    @title = "Sign Up"
     @user = User.new
   end
   

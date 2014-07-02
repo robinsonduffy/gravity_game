@@ -2,29 +2,19 @@ require 'spec_helper'
 
 describe UsersController do
   render_views
-  describe "GET 'new'" do
-    describe "for non users" do
-      it "should deny access" do
-        get :new
-        response.should redirect_to(login_path)
-      end
-    end
-    
-    describe "for non-admin users" do
+  describe "GET 'signup'" do
+    describe "for users" do
       before(:each) do
-        login_user(Factory(:user, :email => "nonadmin@example.com"))
+        login_user(Factory(:user))
       end
       
       it "should deny access" do
         get :new
-        response.response_code.should == 403
+        response.should redirect_to(root_path)
       end
     end
     
-    describe "for admins" do
-      before(:each) do
-        login_user(Factory(:user, :email => "admin@example.com", :admin => true))
-      end
+    describe "for non users" do
       it "should be success" do
         get :new
         response.should be_success
@@ -32,7 +22,7 @@ describe UsersController do
       
       it "should have the right title" do
         get :new
-        response.should have_selector("title", :content => "Create New User")
+        response.should have_selector("title", :content => "Sign Up")
       end
     
       it "should NOT have the admin checkbox" do
