@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   end
   
   def render_403
-    render :status => 403, :text => "Forbidden" and return
+    render :status => 403, :text => "Forbidden"
   end
   
   def require_guest
