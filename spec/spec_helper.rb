@@ -32,3 +32,7 @@ RSpec.configure do |config|
 end
 
 include Sorcery::TestHelpers::Rails
+
+def logger
+RAILS_DEFAULT_LOGGER
+end
