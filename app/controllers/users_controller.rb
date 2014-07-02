@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_login, :except => [:new, :create]
-  before_filter :require_admin, :except => [:new, :create]
+  before_filter :require_admin, :except => [:new, :create, :edit]
   before_filter :require_guest, :only => [:new, :create]
   
   def new
@@ -26,8 +26,9 @@ class UsersController < ApplicationController
   end
   
   def edit
-    @title = "Edit User"
+    @title = "Edit Account"
     @user = User.find(params[:id])
+    render_403 unless current_user == @user
   end
   
   def update

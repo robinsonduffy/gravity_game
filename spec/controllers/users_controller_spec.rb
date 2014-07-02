@@ -156,35 +156,35 @@ describe UsersController do
       end
     end
     
-    describe "for non-admin users" do
+    describe "for user" do
       before(:each) do
-        login_user(Factory(:user, :email => "nonadmin@example.com"))
-      end
-      
-      it "should deny access" do
-        get :edit, :id => @user
-        response.response_code.should == 403
-      end
-    end
-    
-    describe "for admins" do
-      before(:each) do
-        login_user(Factory(:user, :email => "admin@example.com", :admin => true))
+        login_user(@user)
       end
       
       it "should be success" do
         get :edit, :id => @user
         response.should be_success
       end
-    
+      
       it "should have the right title" do
         get :edit, :id => @user
-        response.should have_selector("title", :content => "Edit User")
+        response.should have_selector("title", :content => "Edit Account")
       end
     
-      it "should have a delete link" do
+      it "should not have a delete link" do
         get :edit, :id => @user
-        response.should have_selector("a", :content => "Delete User")
+        response.should_not have_selector("a", :content => "Delete User")
+      end
+    end
+    
+    describe "for different user" do
+      before(:each) do
+        login_user(Factory(:user, :email => "diferentuser@example.com"))
+      end
+      
+      it "should deny access" do
+        get :edit, :id => @user
+        response.response_code.should == 403
       end
     end
   end
