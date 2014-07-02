@@ -51,9 +51,11 @@ class ApplicationController < ActionController::Base
   
   def require_admin
     send_to_login_page if !current_user
-    unless current_user.admin
-      render :status => 403, :text => "Forbidden" and return
-    end
+    render_403 unless current_user.admin
+  end
+  
+  def render_403
+    render :status => 403, :text => "Forbidden" and return
   end
   
   def require_guest
