@@ -201,9 +201,9 @@ describe UsersController do
       end
     end
     
-    describe "for non-admin users" do
+    describe "for different user" do
       before(:each) do
-        login_user(Factory(:user, :email => "nonadmin@example.com"))
+        login_user(Factory(:user, :email => "differentuser@example.com"))
       end
       
       it "should deny access" do
@@ -212,9 +212,9 @@ describe UsersController do
       end
     end
     
-    describe "for admins" do
+    describe "for user" do
       before(:each) do
-        login_user(Factory(:user, :email => "admin@example.com", :admin => true))
+        login_user(@user)
       end
       
       describe "failure" do
@@ -229,7 +229,7 @@ describe UsersController do
       
         it "should have the right title" do
           put :update, :id => @user, :user => @attr
-          response.should have_selector("title", :content => "Edit User")
+          response.should have_selector("title", :content => "Edit Account")
         end
       end
     
@@ -238,9 +238,9 @@ describe UsersController do
           @attr = {:email => "change@email.com", :password => "foobar", :password_confirmation => "foobar"}
         end
       
-        it "should redirect to the user index" do
+        it "should redirect to the user edit page" do
           put :update, :id => @user, :user => @attr
-          response.should redirect_to(users_path)
+          response.should redirect_to(edit_user_path(@user))
         end
       
         it "should display a success message" do

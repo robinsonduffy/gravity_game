@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
   before_filter :require_login, :except => [:new, :create]
-  before_filter :require_admin, :except => [:new, :create, :edit]
+  before_filter :require_admin, :except => [:new, :create, :edit, :update]
   before_filter :require_guest, :only => [:new, :create]
+  before_filter :only_edit_yourself, :only => [:edit, :update]
   
   def new
     @title = "Sign Up"
@@ -27,19 +28,16 @@ class UsersController < ApplicationController
   
   def edit
     @title = "Edit Account"
-    @user = User.find(params[:id])
-    render_403 unless current_user == @user
   end
   
   def update
-    @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       @user.reload
-      flash[:success] = "Updated User (#{@user.email})"
-      redirect_to users_path
+      flash[:success] = "Updated Account"
+      redirect_to edit_user_path(@user)
     else
-      @title = "Edit User"
-      render :edit
+      @title = "Edit Account"
+      render :edit and return
     end
   end
   
@@ -47,5 +45,11 @@ class UsersController < ApplicationController
     user = User.find(params[:id]).destroy
     flash[:success] = "User deleted (#{user.email})"
     redirect_to users_path
+  end
+  
+  private
+  def only_edit_yourself
+    @user = User.find(params[:id])
+    render_403 unless current_user == @user
   end
 end
