@@ -1,7 +1,4 @@
-- content_for :custom_css do
-  %link{:rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => 'http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css'}
 - content_for :custom_js do
-  %script{:type => 'text/javascript', :src=> 'http://code.jquery.com/ui/1.9.2/jquery-ui.js'}
   :javascript
     $(document).ready(function(){
       $("#level-tabs").tabs({'active':#{params[:tab] || 0}});

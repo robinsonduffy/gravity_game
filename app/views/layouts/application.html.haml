@@ -3,9 +3,10 @@
   %head
     %title= title
     = stylesheet_link_tag "main.css"
+    %link{:rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => 'http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css'}
     = yield :custom_css
     = javascript_include_tag "jquery.min.js"
-    = javascript_include_tag "jquery-ui.js"
+    %script{:type => 'text/javascript', :src=> 'http://code.jquery.com/ui/1.9.2/jquery-ui.js'}
     = javascript_include_tag "jquery_ujs.js"
     = javascript_include_tag "application.js"
     = yield :custom_js
