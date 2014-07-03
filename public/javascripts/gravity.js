@@ -108,6 +108,9 @@ function getNewCell(current_cell){
 }
 
 function applyGravity(){
+  if (level_js_status != 'gameplay' && !gravity_turned_on) {
+    return false;
+  }
 	var cell = [0,0];
 	var bottom_cell = [0,0];
 	var change_row = [0,0];

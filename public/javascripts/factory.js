@@ -1,4 +1,6 @@
 var level_publish_confirm = false;
+var level_js_status = 'factory';
+var gravity_turned_on = false;
 $(document).ready(function(){
   $("#board").on("gravity_done", function(){
     if(pieces_moved){
@@ -81,12 +83,14 @@ $(document).ready(function(){
       $("#game-pieces div.lockable-disabled").removeClass("lockable-disabled").addClass("lockable");
       $("#factory-edit-controls").css('visibility','hidden');
       $("#game-pieces div").addClass('no-drag no-click');
+      gravity_turned_on = true;
       applyGravity();
     }else{
       $("p.rotate").css('visibility','hidden');
       $("#game-pieces div.lockable").removeClass("lockable").addClass("lockable-disabled");
       $("#factory-edit-controls").css('visibility','');
       $("#game-pieces div").removeClass('no-drag no-click');
+      gravity_turned_on = false;
     }
   });
 
