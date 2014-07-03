@@ -317,6 +317,41 @@ $(document).ready(function(){
   initialize_drag();
   initialize_drop();
   $("input[name='mode']").trigger("change");
+  
+  $("#board").on("gravity_done", function(){
+    if(pieces_moved){
+      afterRotate();
+      return false;
+    }else{
+      var goals_reached = 0;
+      settling = false;
+      $('#board .goal').each(function(){
+        if($("#board .game-piece."+$(this).attr('_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
+          goals_reached++;
+        }
+      });
+      console.log(goals_reached);
+      if(goals_reached == $("#board .goal").length){
+        console.log("I got here")
+        success_dialog = $("<div></div>");
+        success_dialog.append("<p>You completed the level</p>");
+        success_dialog.dialog({
+          title: "Success",
+          modal: true,
+          draggable: false,
+          resizable: false,
+          closeOnEscape: false,
+          dialogClass: "dialog-no-close",
+          buttons:{
+            OK: function(){
+              success_dialog.dialog("close").remove();
+            }
+          }
+        });
+        return false;
+      }
+    }
+  });
 });
 
 function rebuild_grid(grid_size){
