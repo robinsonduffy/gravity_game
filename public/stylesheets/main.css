@@ -46,17 +46,6 @@
 #tally #tally-score-details .tally-detail-label {color:#666; width:85px; float:left; text-align:right; padding-right:10px;}
 #tally #tally-score-details .tally-detail-value {font-weight:bold;}
 
-/*USER NAV AREA*/
-#user-navigation {float:right; margin:0; padding:0; list-style:none;}
-#user-navigation li {float:left; margin:0; padding:0;}
-
-/*USER COINS */
-#user-coins {position:absolute; right:0px; padding:3px;}
-#user-coins img {vertical-align:middle;}
-#user-coins #user-coins-current {text-align:right; font-size:25px; padding-top:10px; position:relative; top:6px; font-family:sans-serif;}
-#user-coins a {text-decoration:none; color:black;}
-#user-coins #user-coins-manage-coins {font-size:12px; color:blue; float:right; width:100%; text-align:center; padding-top:3px;}
-
 /*COIN FLOAT MESSAGE*/
 #coin-float-message {z-index:1000; display:none; float:left; position:fixed; border:3px dotted #ccc; background-color:#e4e4e4; font-size:150%; padding:10px; font-family:sans-serif; background-image:url('../imgs/shared/coin_green.png'); background-repeat:no-repeat; background-position:center left; padding-left:40px}
 
@@ -157,3 +146,6 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
     opacity: 0.75;
 }
 
+
+#top-nav-bar #user-coins-current { padding-left:20px; font-size:14px;}
+#top-nav-bar #navbar-coins a.btn {background-image:url('/imgs/shared/coin_green.png'); background-repeat:no-repeat; background-position:left center;}
