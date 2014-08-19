@@ -35,7 +35,7 @@
                   %span#user-coins-current.bold= current_user.coins
                   
     %div#content-wrapper.container
-      %h1.title= (@title.nil?) ? @base_title : @title
+      %h1.title Gravity Game
       %div#flash-messages
         - flash.each do |type, message|
           %div{:class => ["flash", type]}= message

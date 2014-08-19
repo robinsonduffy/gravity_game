@@ -1,9 +1,6 @@
-= form_tag sessions_path do
-  %div.form-field
-    = label_tag :email
-    = text_field_tag :email, params[:email]
-  %div.form-field
-    = label_tag :password
-    = password_field_tag :password
-  %div.form-actions
-    = submit_tag "Log In"
+%div.col-xs-4.col-xs-offset-4
+  
+  = form_tag(sessions_path,{:class => 'form-signin', :role => 'form'}) do
+    = text_field_tag :email, params[:email], {:class => 'form-control', :placeholder => 'Email Address', :required => 'required', :autofocus => 'autofocus'}
+    = password_field_tag :password, nil, {:class => 'form-control', :placeholder => 'Password', :required => 'required'}
+    %button.btn.btn-lg.btn-primary.btn-block{:type => 'submit'} Sign in
