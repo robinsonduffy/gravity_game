@@ -34,7 +34,7 @@
                 %a.btn.btn-default{:href => transactions_path}
                   %span#user-coins-current.bold= current_user.coins
                   
-    %div#content-wrapper
+    %div#content-wrapper.container
       %h1.title= (@title.nil?) ? @base_title : @title
       %div#flash-messages
         - flash.each do |type, message|
