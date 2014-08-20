@@ -263,12 +263,29 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 }
 .form-signin input[type="email"] {
   margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  
 }
 .form-signin input[type="password"] {
   margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  
 }
 
+
+#main-title {margin:0 auto; width:33%; text-align:center;  background-color: rgb(248, 248, 248); font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 36px; font-weight: 500; -webkit-border-bottom-right-radius: 10px;
+-webkit-border-bottom-left-radius: 10px;
+-moz-border-radius-bottomright: 10px;
+-moz-border-radius-bottomleft: 10px;
+border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px; padding-bottom:5px;}
+
+#flash-messages {margin:10px 0;}
+#flash-messages .flash {border:1px solid black; -webkit-border-bottom-left-radius: 10px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding:5px 15px;
+}
+#flash-messages .error {border-color:#f5aca6; background-color:#ffecec; }
+#flash-messages .success {border-color:#a6ca8a; background-color:#e9ffd9; }
+#flash-messages .warning {border-color:#f2c779; background-color:#fff8c4; }
+#flash-messages .notice {border-color:#8ed9f6; background-color:#e3f7fc; }

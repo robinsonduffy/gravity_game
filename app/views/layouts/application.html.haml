@@ -32,10 +32,9 @@
             %li#navbar-coins
               %p.navbar-btn
                 %a.btn.btn-default{:href => transactions_path}
-                  %span#user-coins-current.bold= current_user.coins
-                  
+                  %span#user-coins-current.bold= current_user.coins             
     %div#content-wrapper.container
-      %h1.title Gravity Game
+      %div#main-title Gravotate 
       %div#flash-messages
         - flash.each do |type, message|
           %div{:class => ["flash", type]}= message
