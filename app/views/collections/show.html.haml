@@ -2,8 +2,7 @@
   - content_for :custom_js do
     = javascript_include_tag "popup.js"
     %script{:type => 'text/javascript'} $(document).ready(function(){popupLock = true; centerPopup(); loadPopup();});
-= link_to image_tag('/imgs/shared/go-back.png'), root_path(:lc => @collection.number), {:id => 'collection-back', :title => 'Go Back'}
-%h1#collection-list-name= @collection.name
+%h2#collection-list-name= @collection.name
 %ul#collection-level-grid.round
   - @collection.levels.order(:number).each do |level|
     %li
