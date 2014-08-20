@@ -87,6 +87,7 @@ $(document).ready(function(){
         }
       });
       if(goals_reached == $("#board .goal").length){
+        settling = true;
         setTimeout('triggerSuccess()',1000);
       }
     }
