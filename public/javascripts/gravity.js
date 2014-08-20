@@ -8,7 +8,7 @@ $(document).ready(function(){
 	max_x = parseInt($("#board table tr").length);
 	max_y = parseInt($("#board table tr").length);
 	setUpPieces();
-	$("#nav p.rotate").click(function(){
+	$("#level-rotate-buttons p.rotate").click(function(){
 		if(!settling){
       settling = true;
 			rotate(this.id);

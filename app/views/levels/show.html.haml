@@ -9,66 +9,75 @@
   - unless popup.nil?
     %script{:type => 'text/javascript'} $(document).ready(function(){$("#level-popup").click();});
 %div#wrapper
-  %div#nav
-    %p#counter-clock-wise.rotate &nbsp;
-    %p#clock-wise.rotate &nbsp;
-    %p#cancel-level= link_to image_tag('/imgs/shared/cancel.png'), collection_path(:id => @level.collection.id)
-    %p#reload-level= link_to image_tag('/imgs/shared/reload.png'), level_path(@level)
-    - unless popup.nil?
-      %p#level-popup
-  = render "shared/game_board", :level => @level
-  %div#level-info
-    %p#level-collection-name= @level.collection.name
-    %h3= "Level #{@level.number}"
-    %div#user-current-stats
-      %p.top-score
-      %p.score-note Score
-      %table
-        %tr#current-rotations
-          %td.stat-title Rotations
-          %td.stat-value 0
-        %tr#current-locks
-          %td.stat-title Locks
-          %td.stat-value
-            %span 0
-            = " / #{@level.total_lockable}"
-        %tr#current-coins
-          %td.stat-title Coins
-          %td.stat-value 
-            %span 0
-            = " / #{@level.possible_coins}"
-    %div#user-level-stats
-      %h4 Your Best Score
-      - if current_user.completed_levels.include? @level
-        %p.top-score= current_user.best_score(@level)
+  %div.row
+    %div#level-rotate-buttons.col-xs-2.col-xs-offset-1
+      %p#counter-clock-wise.rotate &nbsp;
+      %p#clock-wise.rotate &nbsp;
+    %div#level-icons.col-xs-3.col-xs-offset-5
+      %p#cancel-level
+        %a{:href => collection_path(:id => @level.collection.id)}
+          %span.glyphicon.glyphicon-remove
+      %p#reload-level
+        %a{:href => level_path(@level)}
+          %span.glyphicon.glyphicon-retweet
+      - unless popup.nil?
+        %p#level-popup
+          %span.glyphicon.glyphicon-info-sign
+  %div.row
+    %div.col-xs-7.col-xs-offset-1
+      = render "shared/game_board", :level => @level
+    %div#level-info.col-xs-3
+      %p#level-collection-name= @level.collection.name
+      %h3= "Level #{@level.number}"
+      %div#user-current-stats
+        %p.top-score
+        %p.score-note Score
         %table
-          %tr
+          %tr#current-rotations
             %td.stat-title Rotations
-            %td.stat-value= current_user.best_rotation(@level)
-          %tr
+            %td.stat-value 0
+          %tr#current-locks
             %td.stat-title Locks
-            %td.stat-value= "#{current_user.best_locked(@level)} / #{@level.total_lockable}"
-          %tr
+            %td.stat-value
+              %span 0
+              = " / #{@level.total_lockable}"
+          %tr#current-coins
             %td.stat-title Coins
-            %td.stat-value= "#{current_user.best_coins(@level)} / #{@level.possible_coins}"
-      - else
-        %p.bold You have never completed this level.
-    %div#level-stats
-      %h4 Community Best Score
-      - if @level.users_completed.length > 0
-        %p.top-score= @level.best_score
-        %table
-          %tr
-            %td.stat-title Rotations
-            %td.stat-value= @level.best_rotation
-          %tr
-            %td.stat-title Locks
-            %td.stat-value= "#{@level.best_locked} / #{@level.total_lockable}"
-          %tr
-            %td.stat-title Coins
-            %td.stat-value= "#{@level.best_coins} / #{@level.possible_coins}"
-      - else
-        %p.bold No one has ever completed this level.
+            %td.stat-value 
+              %span 0
+              = " / #{@level.possible_coins}"
+      %div#user-level-stats
+        %h4 Your Best Score
+        - if current_user.completed_levels.include? @level
+          %p.top-score= current_user.best_score(@level)
+          %table
+            %tr
+              %td.stat-title Rotations
+              %td.stat-value= current_user.best_rotation(@level)
+            %tr
+              %td.stat-title Locks
+              %td.stat-value= "#{current_user.best_locked(@level)} / #{@level.total_lockable}"
+            %tr
+              %td.stat-title Coins
+              %td.stat-value= "#{current_user.best_coins(@level)} / #{@level.possible_coins}"
+        - else
+          %p.bold You have never completed this level.
+      %div#level-stats
+        %h4 Community Best Score
+        - if @level.users_completed.length > 0
+          %p.top-score= @level.best_score
+          %table
+            %tr
+              %td.stat-title Rotations
+              %td.stat-value= @level.best_rotation
+            %tr
+              %td.stat-title Locks
+              %td.stat-value= "#{@level.best_locked} / #{@level.total_lockable}"
+            %tr
+              %td.stat-title Coins
+              %td.stat-value= "#{@level.best_coins} / #{@level.possible_coins}"
+        - else
+          %p.bold No one has ever completed this level.
 %div#popup-window
   %p#popup-close-button
   %div#popup-content

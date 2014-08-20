@@ -14,7 +14,7 @@ $(document).ready(function(){
   possibleCoins = getPossibleCoins();
   possibleLocks = $("#board .lockable").length;
 
-  $("#nav #reload-level a").click(function(){
+  $("#level-icons #reload-level a").click(function(){
     $("#alert-popup-ok").click(function(){
       window.location = $("#reload-level a").attr('href');
     });
@@ -28,7 +28,7 @@ $(document).ready(function(){
     return false;
   });
 
-  $("#nav #cancel-level a").click(function(){
+  $("#level-icons #cancel-level a").click(function(){
     $("#alert-popup-ok").click(function(){
       window.location = $("#cancel-level a").attr('href');
     });
