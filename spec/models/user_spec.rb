@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   before(:each) do
-    @attr = {:email => "user@example.com", :password => "foobar", :password_confirmation => "foobar"}
+    @attr = {:username => "test_user", :email => "user@example.com", :password => "foobar", :password_confirmation => "foobar"}
   end
   
   it "should create a new user given valid attributes" do
@@ -10,9 +10,29 @@ describe User do
   end
   
   describe "validations" do
-    it "should require an email" do
-      no_name_user = User.new(@attr.merge(:email => ' '))
+    it "should require a username" do
+      no_name_user = User.new(@attr.merge(:username => ' '))
       no_name_user.should_not be_valid
+    end
+    
+    it "should require a unique username" do
+      User.create!(@attr)
+      same_name_user1 = User.new(@attr.merge(:username => 'test_user', :email => Factory.next(:email)))
+      same_name_user1.should_not be_valid
+      same_name_user2 = User.new(@attr.merge(:username => 'Test_User', :email => Factory.next(:email)))
+      same_name_user2.should_not be_valid
+    end
+    
+    it "should require username that are the right length" do
+      short_name_user = User.new(@attr.merge(:username => "a"*3))
+      short_name_user.should_not be_valid
+      long_name_user = User.new(@attr.merge(:username => "a"*41))
+      long_name_user.should_not be_valid
+    end
+    
+    it "should require an email" do
+      no_email_user = User.new(@attr.merge(:email => ' '))
+      no_email_user.should_not be_valid
     end
     
     it "should require a password" do

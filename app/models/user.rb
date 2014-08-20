@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   authenticates_with_sorcery!
-  attr_accessible :email, :password, :password_confirmation
+  attr_accessible :username, :email, :password, :password_confirmation
   
   has_many :completions
   has_many :completed_levels, :through => :completions, :source => :level
@@ -18,6 +18,11 @@ class User < ActiveRecord::Base
   validates :email, :presence => true, 
                     :uniqueness => {:case_sensitve => false},
                     :format => { :with => email_regex }
+  
+  validates :username,  :presence => true,
+                        :uniqueness => {:case_sensitive => false},
+                        :length => {:within => 6..40}
+                    
   
 
   def best_rotation(level)

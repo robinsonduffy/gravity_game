@@ -16,7 +16,7 @@ LevelElement.find_or_create_by_name_and_description("paint", "Changes the color 
 LevelElement.find_or_create_by_name_and_description("gravity-swap", "Changes falling to floating pieces and vis a versa.")
 LevelElement.find_or_create_by_name_and_description("magnet", "Permanently locks falling or floating pieces.")
 LevelElement.find_or_create_by_name_and_description("teleport", "Transports pieces across the board.")
-User.create({:email => "user@example.com", :password => "123456", :password_confirmation => "123456"})
+User.create({:username => "test_user", :email => "user@example.com", :password => "123456", :password_confirmation => "123456"})
 
 # Collection 1
 c = Collection.new({:number => 1, :name => 'The Basics 1'})

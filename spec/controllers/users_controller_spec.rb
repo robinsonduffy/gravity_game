@@ -48,7 +48,7 @@ describe UsersController do
     describe "for non users" do
       describe "failure" do
         before(:each) do
-          @attr = { :email => "", :password => "", :password_confirmation => "" }
+          @attr = {:username => "", :email => "", :password => "", :password_confirmation => "" }
         end
       
         it "should not create a user" do
@@ -70,7 +70,7 @@ describe UsersController do
     
       describe "success" do
         before(:each) do
-          @attr = { :email => "user@example.com", :password => "foobar", :password_confirmation => "foobar" }
+          @attr = {:username => "test_user", :email => "user@example.com", :password => "foobar", :password_confirmation => "foobar" }
         end
       
         it "should create a new user" do
@@ -108,7 +108,7 @@ describe UsersController do
     
     describe "for non-admin users" do
       before(:each) do
-        login_user(Factory(:user, :email => "nonadmin@example.com"))
+        login_user(Factory(:user, :email => "nonadmin@example.com", :username => "nonadmin"))
       end
       
       it "should deny access" do
@@ -119,10 +119,10 @@ describe UsersController do
     
     describe "for admins" do
       before(:each) do
-        login_user(Factory(:user, :email => "admin@example.com", :admin => true))
-        @user1 = Factory(:user, :email => Factory.next(:email))
-        @user2 = Factory(:user, :email => Factory.next(:email))
-        @user3 = Factory(:user, :email => Factory.next(:email))
+        login_user(Factory(:user, :email => "admin@example.com", :admin => true, :username => "admin_user"))
+        @user1 = Factory(:user, :email => Factory.next(:email), :username => Factory.next(:username))
+        @user2 = Factory(:user, :email => Factory.next(:email), :username => Factory.next(:username))
+        @user3 = Factory(:user, :email => Factory.next(:email), :username => Factory.next(:username))
       end
     
       it "should be success" do
@@ -179,7 +179,7 @@ describe UsersController do
     
     describe "for different user" do
       before(:each) do
-        login_user(Factory(:user, :email => "diferentuser@example.com"))
+        login_user(Factory(:user, :email => "differentuser@example.com", :username => "differentuser"))
       end
       
       it "should deny access" do
@@ -203,7 +203,7 @@ describe UsersController do
     
     describe "for different user" do
       before(:each) do
-        login_user(Factory(:user, :email => "differentuser@example.com"))
+        login_user(Factory(:user, :email => "differentuser@example.com", :username => "differentuser"))
       end
       
       it "should deny access" do
@@ -271,7 +271,7 @@ describe UsersController do
     
     describe "for non-admin users" do
       before(:each) do
-        login_user(Factory(:user, :email => "nonadmin@example.com"))
+        login_user(Factory(:user, :email => "nonadmin@example.com", :username => "nonadmin"))
       end
       
       it "should deny access" do
@@ -282,7 +282,7 @@ describe UsersController do
     
     describe "for admins" do
       before(:each) do
-        login_user(Factory(:user, :email => "admin@example.com", :admin => true))
+        login_user(Factory(:user, :email => "admin@example.com", :admin => true, :username => "adminuser"))
       end
       
       it "should delete the user" do

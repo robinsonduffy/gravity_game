@@ -27,6 +27,7 @@ Factory.define :extra_class do |extra_class|
 end
 
 Factory.define :user do |user|
+  user.username "test_user"
   user.email "user@example.com"
   user.password "foobar"
   user.password_confirmation "foobar"
@@ -34,4 +35,8 @@ end
 
 Factory.sequence :email do |n|
   "user-#{n}@example.com"
+end
+
+Factory.sequence :username do |n|
+  "test_user-#{n}"
 end
