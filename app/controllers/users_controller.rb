@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_filter :require_login, :except => [:new, :create]
-  before_filter :require_admin, :except => [:change_password, :change_password_post]
+  before_filter :require_admin, :except => [:new, :create, :change_password, :change_password_post]
   before_filter :require_guest, :only => [:new, :create]
   
   def new
