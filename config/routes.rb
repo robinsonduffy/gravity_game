@@ -32,6 +32,7 @@ GravityGame::Application.routes.draw do
   
   resources :users, :except => [:show,:new]
   get "signup" => "users#new", :as => "signup"
+  post "signup" => "users#create", :as => "signup_post"
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

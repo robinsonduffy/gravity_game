@@ -17,7 +17,9 @@ class UsersController < ApplicationController
       redirect_to root_path
     else
       @title = "Sign Up"
-      render :new
+      @start_tag = "signup"
+      flash.now[:error] = @user.errors.full_messages.join("<br/>").html_safe
+      render "sessions/new"
     end
   end
   

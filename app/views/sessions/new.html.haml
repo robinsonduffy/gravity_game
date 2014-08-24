@@ -1,6 +1,20 @@
 %div.col-xs-4.col-xs-offset-4
-  
-  = form_tag(sessions_path,{:class => 'form-signin', :role => 'form'}) do
-    = text_field_tag :email, params[:email], {:class => 'form-control', :placeholder => 'Email Address', :required => 'required', :autofocus => 'autofocus'}
-    = password_field_tag :password, nil, {:class => 'form-control', :placeholder => 'Password', :required => 'required'}
-    %button.btn.btn-lg.btn-primary.btn-block{:type => 'submit'} Sign in
+  %ul.nav.nav-tabs{:role => 'tablist'}
+    %li{:class => ("active" if @start_tag != 'signup')}
+      %a{:href => '#login-tab', :role => 'tab', "data-toggle" => 'tab'} Sign In
+    %li{:class => ("active" if @start_tag == 'signup')}
+      %a{:href => '#signup-tab', :role => 'tab', "data-toggle" => 'tab'} Sign Up
+  %div.tab-content#login-signup-tabs
+    %div.tab-pane#login-tab{:class => ("active" if @start_tag != 'signup')}
+      = form_tag(sessions_path,{:class => 'form-signin', :role => 'form'}) do
+        = text_field_tag :email, params[:email], {:class => 'form-control', :placeholder => 'Username', :required => 'required', :autofocus => 'autofocus'}
+        = password_field_tag :password, nil, {:class => 'form-control', :placeholder => 'Password', :required => 'required'}
+        %button.btn.btn-lg.btn-primary.btn-block{:type => 'submit'} Sign In
+    %div.tab-pane#signup-tab{:class => ("active" if @start_tag == 'signup')}
+      = form_tag(signup_post_path,{:class => 'form-signin', :role => 'form'}) do
+        = text_field_tag "user[username]", params[:user][:username], {:class => 'form-control', :placeholder => 'Username', :required => 'required'}
+        = text_field_tag "user[email]", params[:user][:email], {:class => 'form-control', :placeholder => 'Email Address', :required => 'required'}
+        = password_field_tag "user[password]", nil, {:class => 'form-control', :placeholder => 'Password', :required => 'required'}
+        = password_field_tag "user[password_confirmation]", nil, {:class => 'form-control', :placeholder => 'Confirm Password', :required => 'required'}
+        = hidden_field_tag "signin_ref", "root"
+        %button.btn.btn-lg.btn-primary.btn-block{:type => 'Create Account'} Sign Up

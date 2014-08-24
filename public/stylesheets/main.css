@@ -265,8 +265,8 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   margin-bottom: -1px;
   
 }
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
+.form-signin button {
+  margin-top: 10px;
   
 }
 
@@ -289,3 +289,5 @@ border-bottom-left-radius: 10px; padding-bottom:5px;}
 #flash-messages .success {border-color:#a6ca8a; background-color:#e9ffd9; }
 #flash-messages .warning {border-color:#f2c779; background-color:#fff8c4; }
 #flash-messages .notice {border-color:#8ed9f6; background-color:#e3f7fc; }
+
+#login-signup-tabs {border:1px solid #ddd; border-top:0px;}

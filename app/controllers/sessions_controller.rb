@@ -2,6 +2,8 @@ class SessionsController < ApplicationController
   def new
     if !current_user
       @title = "Sign In"
+      @start_tab = "signin"
+      params[:user] = User.new if params[:user].nil?
     else
       redirect_to root_path
     end
@@ -15,6 +17,8 @@ class SessionsController < ApplicationController
     else
       flash.now[:error] = "The credentials you entered were invalid"
       @title = "Sign In"
+      @start_tab = "signin"
+      params[:user] = User.new
       render :new
     end
   end
