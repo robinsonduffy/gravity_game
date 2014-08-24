@@ -19,7 +19,7 @@
           - if current_user
             %li#username-dropdown.dropdown
               %a#username-dropdown-toggle.dropdown-toggle{"data-toggle" => "dropdown", :role => "button", :href => '#'}
-                = current_user.email
+                = current_user.username
                 %span.caret
               %ul#username-menu.dropdown-menu{:role => "menu"}
                 %li#username-menu-manage-coins= link_to "Manage Coins", transactions_path

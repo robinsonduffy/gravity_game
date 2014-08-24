@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
   def create
     user = login(params[:email], params[:password],params[:remember_me])
     if user
-      flash[:success] = "Welcome, #{user.email}!"
+      flash[:success] = "Welcome, #{user.username}!"
       redirect_back_or_to root_path
     else
       flash.now[:error] = "The credentials you entered were invalid"
