@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :levels
   
   validates :password, :presence => true, 
-                       :confirmation => {:on => :create}, 
+                       :confirmation => true, 
                        :length => {:within => 6..40}
   
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/

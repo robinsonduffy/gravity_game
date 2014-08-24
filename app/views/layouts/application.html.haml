@@ -23,7 +23,7 @@
                 %span.caret
               %ul#username-menu.dropdown-menu{:role => "menu"}
                 %li#username-menu-manage-coins= link_to "Manage Coins", transactions_path
-                %li#username-menu-change-password= link_to "Change Password", edit_user_path(current_user)
+                %li#username-menu-change-password= link_to "Change Password", change_password_path
                 %li#username-menu-logout= link_to "Logout", logout_path
         %ul.nav.navbar-nav.navbar-right
           %li= link_to "Home", root_path

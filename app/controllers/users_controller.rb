@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
   before_filter :require_login, :except => [:new, :create]
-  before_filter :require_admin, :except => [:new, :create, :edit, :update]
+  before_filter :require_admin, :except => [:change_password, :change_password_post]
   before_filter :require_guest, :only => [:new, :create]
-  before_filter :only_edit_yourself, :only => [:edit, :update]
   
   def new
     @title = "Sign Up"
@@ -49,9 +48,24 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
   
-  private
-  def only_edit_yourself
-    @user = User.find(params[:id])
-    render_403 unless current_user == @user
+  def change_password
+    @title = "Change Password"
+  end
+  
+  def change_password_post
+    if User.authenticate(current_user.username, params[:current_password])
+      new_attributes = {:password => params[:new_password], :password_confirmation => params[:new_password_confirmation]}
+      if current_user.update_attributes(new_attributes)
+        current_user.reload
+        flash[:success] = "Password Changed"
+        redirect_to root_path and return
+      else
+        flash[:error] = current_user.errors.full_messages.join("<br/>").html_safe
+        redirect_to change_password_path and return
+      end
+    else
+      flash[:error] = "Current Password was incorrect"
+      redirect_to change_password_path and return
+    end
   end
 end
