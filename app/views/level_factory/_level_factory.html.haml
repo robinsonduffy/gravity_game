@@ -5,46 +5,51 @@
     .drag-and-drop-target-hover {background-color:#ccff99;}
 - content_for :custom_js do
   = javascript_include_tag "jquery.transform-0.9.3.min.js"
-  %script{:type => 'text/javascript', :src=> 'http://code.jquery.com/ui/1.9.2/jquery-ui.js'}
   = javascript_include_tag "factory"
   = javascript_include_tag "gravity"
 %div#wrapper
-  %div#nav
-    %p#counter-clock-wise.rotate &nbsp;
-    %p#clock-wise.rotate &nbsp;
-    %p#cancel-level= link_to image_tag('/imgs/shared/cancel.png'), level_factory_path
-  = render "shared/game_board", :level => @level
-  %div#level-info
-    %div#factory-mode-wrapper
-      %label Factory Mode
-      %div#factory-mode-buttons
-      = radio_button_tag "mode", "edit", true
-      = label_tag "Edit"
-      = radio_button_tag "mode", "play"
-      = label_tag "play", "Test Play"
-    %div#factory-edit-controls
-      %div.form-field
-        = label_tag "Name"
-        = text_field_tag "level-name", @level.name
-      %div.form-field
-        = label_tag "Description"
-        = text_area_tag "level-description", @level.description
-      %div.form-field
-        = label_tag "Grid Size", "Grid Size"
-        = select_tag "grid-size", options_for_select(level_grid_sizes.map{|v| ["#{v}x#{v}",v]}, @level.grid_size)
-      %div#add-game-pieces
-        - LevelElement.all.each do |level_element|
-          %p.add-game-piece{:class => [level_element.name, level_element.usable_by_user?(current_user) ? 'usable':'usable no-drag disabled'], "data-game_piece" => level_element.name, "data-game_piece_info" => game_piece_info(level_element.name).to_json, "data-coin_cost" => level_element.usable_by_user?(current_user) ? '' : level_element.coin_cost.value, "data-level_element_id" => level_element.id}
-            %span.add-game-piece-img
-            %span.level-element-description= level_element.description
-            %span.level-disabled.transparent-75
-            %span.level-disabled-coin
-      %div#save-level-buttons
-        %button#save-level Save
-        %button#revert-level Revert
-      %div#level-publish-wrapper
-        = check_box_tag "level-publish", publish_level_coin_cost
-        = label_tag "publish"
+  %div.row
+    %div#level-rotate-buttons.col-xs-2.col-xs-offset-1
+      %p#counter-clock-wise.rotate &nbsp;
+      %p#clock-wise.rotate &nbsp;
+    %div#level-icons.col-xs-3.col-xs-offset-5
+      %p#cancel-level
+        %a{:href => level_factory_path}
+          %span.glyphicon.glyphicon-remove
+  %div.row
+    %div.col-xs-7.col-xs-offset-1
+      = render "shared/game_board", :level => @level
+    %div#level-info.col-xs-3
+      %div#factory-mode-wrapper
+        %label Factory Mode
+        %div#factory-mode-buttons
+        = radio_button_tag "mode", "edit", true
+        = label_tag "Edit"
+        = radio_button_tag "mode", "play"
+        = label_tag "play", "Test Play"
+      %div#factory-edit-controls
+        %div.form-field
+          = label_tag "Name"
+          = text_field_tag "level-name", @level.name
+        %div.form-field
+          = label_tag "Description"
+          = text_area_tag "level-description", @level.description
+        %div.form-field
+          = label_tag "Grid Size", "Grid Size"
+          = select_tag "grid-size", options_for_select(level_grid_sizes.map{|v| ["#{v}x#{v}",v]}, @level.grid_size)
+        %div#add-game-pieces
+          - LevelElement.all.each do |level_element|
+            %p.add-game-piece{:class => [level_element.name, level_element.usable_by_user?(current_user) ? 'usable':'usable no-drag disabled'], "data-game_piece" => level_element.name, "data-game_piece_info" => game_piece_info(level_element.name).to_json, "data-coin_cost" => level_element.usable_by_user?(current_user) ? '' : level_element.coin_cost.value, "data-level_element_id" => level_element.id}
+              %span.add-game-piece-img
+              %span.level-element-description= level_element.description
+              %span.level-disabled.transparent-75
+              %span.level-disabled-coin
+        %div#save-level-buttons
+          %button#save-level Save
+          %button#revert-level Revert
+        %div#level-publish-wrapper
+          = check_box_tag "level-publish", publish_level_coin_cost
+          = label_tag "publish"
 %div#game-piece-dialog
   %div#game-piece-config-options
     %p#color
