@@ -3,6 +3,7 @@ var max_x = 0;
 var max_y = 0;
 var pieces_moved = false;
 var settling = false;
+var table_settling = false;
 
 $(document).ready(function(){
 	max_x = parseInt($("#board table tr").length);
@@ -107,207 +108,160 @@ function getNewCell(current_cell){
 	return new_cell;
 }
 
+
+
+function isCellAvailable(cell){
+  //check if the cell is actually a cell
+  if (!isCellActuallyACell(cell)) {
+    return false;
+  }
+  //check to see if this cell doesn't have a game piece on it
+  if($("#board .game-piece[_cell='"+cell+"']").length < 1){
+    return true;
+  }
+  return false;
+}
+
+function isCellActuallyACell(cell){
+  if (cell[0] > max_x || cell[1] > max_y || cell[0] < 1 || cell[1] < 1){
+    return false;
+  }
+  return true;
+}
+
+function doesCellHaveMovablePiece(cell){
+  console.log("doesCellHaveMovablePiece: " + cell);
+  //check if the cell is actually a cell
+  if (!isCellActuallyACell(cell)) {
+    return false;
+  }
+  
+  if($("#board .floating[_cell='"+cell+"']").not(".locked, .magnetized").length >= 1 || $("#board .falling[_cell='"+cell+"']").not(".locked, .magnetized").length >= 1){
+    console.log("Movable");
+    return true;
+  }
+  console.log("UnMovable");
+  return false;
+}
+
+function moveAllPiecesByOne(){
+	if($("#board .game-piece").filter(":animated").length){
+		setTimeout('moveAllPiecesByOne()',10);
+		return false;
+	}
+  table_settling = false;
+  $("#board #game-pieces div").removeClass('already-moved');
+  for(i=1; i<=max_y; i++){
+    column_settling = true;
+    while(column_settling){
+      column_settling = false;
+      //go through each cell in the column
+      for(j=1; j<=max_x; j++){
+        
+        var cell = [j,i]
+        console.log(cell);
+        
+        //check for falling block
+        if($("#board #game-pieces .falling[_cell='"+cell+"']").length){
+          var this_game_piece = $("#board #game-pieces .falling[_cell='"+cell+"']").eq(0);
+          if(!this_game_piece.hasClass('locked') && !this_game_piece.hasClass('magnetized') && !this_game_piece.hasClass('already-moved')){
+            if(isCellAvailable([j+1,i])){
+              this_game_piece.attr('_cell', [j+1,i]).attr('_just_teleported','false').addClass('already-moved').animate({
+	              left: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().left+'px',
+		            top: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().top+'px'
+	            }, {
+                duration : 100,
+                easing : "linear"
+	            });
+              column_settling = true;
+              table_settling = true;
+            }
+          }
+        }
+        
+        //check for floating block
+        if($("#board #game-pieces .floating[_cell='"+cell+"']").length){
+          var this_game_piece = $("#board #game-pieces .floating[_cell='"+cell+"']").eq(0);
+          if(!this_game_piece.hasClass('locked') && !this_game_piece.hasClass('magnetized') && !this_game_piece.hasClass('already-moved')){
+            //if the space above is available, put it there
+            if(isCellAvailable([j-1,i])){
+              this_game_piece.attr('_cell', [j-1,i]).attr('_just_teleported','false').addClass('already-moved').animate({
+	              left: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().left+'px',
+		            top: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().top+'px'
+	            }, {
+                duration : 100,
+                easing : "linear"
+	            });
+              column_settling = true;
+              table_settling = true;
+            }else{
+              //go up through the pieces until you find a space that doesn't have a falling piece
+              console.log("I got here: "+ cell);
+              current_cell_x = j + 0;
+              found_nonfalling_cell = false;
+              while(current_cell_x > 1 && !found_nonfalling_cell){
+                current_cell_x--;
+                current_cell = [current_cell_x,i]
+                console.log("Check for non_falling: " + current_cell);
+                if(isCellAvailable(current_cell)){
+                  console.log("isCellAvaialable: " + current_cell);
+                  found_nonfalling_cell = true;
+                }else{
+                  console.log("Here I am: " + current_cell);
+                  found_nonfalling_cell = ($("#board #game-pieces .game-piece[_cell='"+current_cell+"']").not(".falling").length || $("#board #game-pieces .locked[_cell='"+current_cell+"']").length || $("#board #game-pieces .magnetized[_cell='"+current_cell+"']").length)
+                }
+                
+              }
+              if(current_cell_x > 0){
+                //go down moving pieces up into available cells
+                while(current_cell_x < j){
+                  current_cell_x++;
+                  current_cell = [current_cell_x,i];
+                  console.log("Hello");
+                  var this_game_piece = $("#board #game-pieces .floating[_cell='"+current_cell+"'], #board #game-pieces .falling[_cell='"+current_cell+"']").eq(0);
+                  if(!this_game_piece.hasClass('locked') && !this_game_piece.hasClass('magnetized')){
+                    //if the space above is available, put it there
+                    if(isCellAvailable([current_cell_x-1,i])){
+                      this_game_piece.attr('_cell', [current_cell_x-1,i]).attr('_just_teleported','false').addClass('already-moved').animate({
+      		              left: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().left+'px',
+      			            top: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().top+'px'
+      		            }, {
+                        duration : 100,
+                        easing : "linear"
+      		            });
+                      column_settling = true;
+                      table_settling = true;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+
+      }
+    }
+    $(":animated").promise().done(function() {
+      applyTeleports();
+      applyCoins();
+      if(table_settling){
+        moveAllPiecesByOne();
+      }
+    });
+  }
+}
+
 function applyGravity(){
   if (level_js_status != 'gameplay' && !gravity_turned_on) {
     return false;
   }
-	var cell = [0,0];
-	var bottom_cell = [0,0];
-	var change_row = [0,0];
-	var change_col = [0,0];
-	var empty_cell = [0,0];
-	cell = [max_x,1];
-	change_row = [-1,0];
-	change_col = [0,1];
-	$("#pos").val(getPosition())
-	var i = 0;
-	var cell_order = '';
-	for(i=0;i<max_y;i++){
-		//iterate through each column
-		bottom_cell = cell.slice(0);
-		empty_cell = [0,0];
-		var j = 0;
-		for(j=0;j<max_x;j++){
-			cell_order = cell_order + cell + ' | ';
-			//iterate through each row in the column
-			//check to see if this cell is empty
-			if($("#board .game-piece[_cell='"+cell+"']").length < 1 && $("#board .station[_cell='"+cell+"']").length < 1){
-				//this cell is empty
-				if(empty_cell == '0,0'){
-					//set the new empty cell
-					empty_cell = cell.slice(0);
-				}
-			}else{
-				//check for fixed
-				if($("#board #game-pieces .fixed[_cell='"+cell+"']").length){
-					empty_cell = [0,0];
-				}
-				//check for locked
-				if($("#board #game-pieces .locked[_cell='"+cell+"']").length){
-					empty_cell = [0,0];
-				}
-				//check for floating
-				if($("#board #game-pieces .floating[_cell='"+cell+"']").length){
-					empty_cell = [0,0];
-				}
-				//check for station
-				if($("#board #game-pieces .station[_cell='"+cell+"']").length){
-					if(!$("#board #game-pieces .game-piece[_cell='"+cell+"']").length){
-						empty_cell = cell.slice(0);
-					}
-				}
-				//check for bomb
-				if($("#board #game-pieces .bomb[_cell='"+cell+"']").length){
-					empty_cell = [0,0];
-				}
-				//check for magnetized
-				if($("#board #game-pieces .magnetized[_cell='"+cell+"']").length){
-					empty_cell = [0,0];
-				}
-				//falling blocks
-				if($("#board #game-pieces .falling[_cell='"+cell+"']").length){
-					if(empty_cell != '0,0'){
-						$("#board #game-pieces .falling[_cell='"+cell+"']").each(function(){
-							if(!$(this).hasClass('locked') && !$(this).hasClass('magnetized')){
-								$(this).animate({
-									left: $(".square[_cell='"+empty_cell+"']").position().left+'px',
-									top: $(".square[_cell='"+empty_cell+"']").position().top+'px'
-								}).attr('_cell', empty_cell).attr('_just_teleported','false');
-								pieces_moved = true;
-								cell[0] = empty_cell[0] + 1;
-								j = max_x - cell[0];
-								empty_cell = [0,0];
-							}
-						});
-						$('#empty-cell').val(empty_cell);
-						//empty_cell = cell.slice(0);
-					}
-				}
-			}
-			//move onto the next cell
-			cell[0] = cell[0] + change_row[0];
-			cell[1] = cell[1] + change_row[1];
-		}
-		//move onto the next column
-		cell[0] = bottom_cell[0] + change_col[0];
-		cell[1] = bottom_cell[1] + change_col[1];
-	}
-	//alert(cell_order);
-	applyAntiGravity();
+  
+  var next_queue_num = 1;
+  moveAllPiecesByOne();
+  console.log("Table settled");
 }
 
-function applyAntiGravity(){
-	if($("#board .game-piece").filter(":animated").length){
-		//setTimeout('applyAntiGravity()',200);
-		//return false;
-	}
-	var cell = [1,1];
-	var change_row = [1,0];
-	var change_col = [0,1];
-	var top_cell = [0,0]
-	var i = 0;
-	var cell_order = '';
-	var empty_cell = [0,0]
-	for(i=0;i<max_y;i++){
-		//iterate through each column
-		top_cell = cell.slice(0);
-		empty_cell = [0,0];
-		var pieces_to_lift = [];
-		var j = 0;
-		for(j=0;j<max_x;j++){
-			cell_order = cell_order + cell + ' | ';
-			//iterate through each row in the column
-			//check to see if this cell is empty
-			if($("#board .game-piece[_cell='"+cell+"']").length < 1 && $("#board .station[_cell='"+cell+"']").length < 1){
-				//this cell is empty
-				if(empty_cell == '0,0'){
-					//set the new empty cell
-					empty_cell = cell.slice(0);
-				}
-			}else{
-				//check for fixed
-				if($("#board #game-pieces .fixed[_cell='"+cell+"']").length){
-					empty_cell = [0,0];
-					pieces_to_lift = [];
-				}
-				//check for locked
-				if($("#board #game-pieces .locked[_cell='"+cell+"']").length){
-					empty_cell = [0,0];
-					pieces_to_lift = [];
-				}
-				//check for falling
-				if($("#board #game-pieces .falling[_cell='"+cell+"']").length){
-					if(!$("#board #game-pieces .falling[_cell='"+cell+"']").eq(0).hasClass('locked')){
-						if(empty_cell != '0,0'){
-							pieces_to_lift.push(cell.slice(0));
-						}
-					}
-				}
-				//check for station
-				if($("#board #game-pieces .station[_cell='"+cell+"']").length){
-					if(!$("#board #game-pieces .game-piece[_cell='"+cell+"']").length){
-						empty_cell = cell.slice(0);
-					}
-				}
-				//check for bomb
-				if($("#board #game-pieces .bomb[_cell='"+cell+"']").length){
-					empty_cell = [0,0];
-					pieces_to_lift = [];
-				}
-				//check for magnetized
-				if($("#board #game-pieces .magnetized[_cell='"+cell+"']").length){
-					empty_cell = [0,0];
-					pieces_to_lift = [];
-				}
-				//floating blocks
-				if($("#board #game-pieces .floating[_cell='"+cell+"']").length){
-					if(empty_cell != '0,0'){
-						$("#board #game-pieces .floating[_cell='"+cell+"']").each(function(){
-							if(!$(this).hasClass('locked') && !$(this).hasClass('magnetized')){
-								//lift each of the pieces above
-								for(x in pieces_to_lift){
-									$("#board #game-pieces .falling[_cell='"+pieces_to_lift[x]+"']").animate({
-										left: $(".square[_cell='"+empty_cell+"']").position().left+'px',
-										top: $(".square[_cell='"+empty_cell+"']").position().top+'px'
-									}).attr('_cell', empty_cell);
-									empty_cell[0] = empty_cell[0] + change_row[0];
-									empty_cell[1] = empty_cell[1] + change_row[1];
-								}
-								//pieces_to_lift = [];
-								$(this).animate({
-									left: $(".square[_cell='"+empty_cell+"']").position().left+'px',
-									top: $(".square[_cell='"+empty_cell+"']").position().top+'px'
-								}).attr('_cell', empty_cell).attr('_just_teleported','false');
-								pieces_moved = true;
-								empty_cell = cell.slice(0);
-							}
-						});
-						$('#empty-cell').val(empty_cell);
-						//empty_cell = cell.slice(0);
-						//empty_cell = [0,0];
-						//cell[0] = 0;
-						//j = -1;
-					}
-				}
-			}
-			//move onto the next cell
-			cell[0] = cell[0] + change_row[0];
-			cell[1] = cell[1] + change_row[1];
-		}
-		//move onto the next column
-		cell[0] = top_cell[0] + change_col[0];
-		cell[1] = top_cell[1] + change_col[1];
-	}
-	//alert(cell_order);
-	applyTeleport();
-	
-}
-
-function applyTeleport(){
-	if($("#board .game-piece").filter(":animated").length){
-		setTimeout('applyTeleport()',200);
-		return false;
-	}
+function applyTeleports(){
 	var teleported = false;
 	$('#board .station.teleport').each(function(){
 		if(!teleported){
@@ -334,7 +288,7 @@ function applyTeleport(){
 		}
 	});
 	if(!teleported){
-		applyPaint();
+		//applyPaint();
 	}
 }
 
@@ -345,7 +299,7 @@ function applyPaint(){
 			$(this).remove();
 		}
 	});
-	applyGravitySwap();
+	//applyGravitySwap();
 }
 
 function applyGravitySwap(){
@@ -356,7 +310,7 @@ function applyGravitySwap(){
 			$(this).remove();
 		}
 	});
-	applyCoins();
+	//applyCoins();
 }
 
 function applyCoins(){
@@ -370,7 +324,7 @@ function applyCoins(){
       pieces_moved = true;
 		}
 	});
-	applyMagnets();
+	//applyMagnets();
 }
 
 function applyMagnets(){
@@ -380,7 +334,7 @@ function applyMagnets(){
 			$(this).remove();
 		}
 	});
-	applyBombs();
+	//applyBombs();
 }
 
 function applyBombs(){
@@ -418,5 +372,5 @@ function applyBombs(){
 			$(this).remove();
 		}
 	});
-  $("#board").trigger("gravity_done");
+  //$("#board").trigger("gravity_done");
 }
