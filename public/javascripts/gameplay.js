@@ -76,6 +76,7 @@ $(document).ready(function(){
       afterRotate();
       return false;
     }else{
+      console.log("I got here, Arthur");
       var goals_reached = 0;
       settling = false;
       locks = $("#board .locked").length;
@@ -86,6 +87,7 @@ $(document).ready(function(){
           goals_reached++;
         }
       });
+      console.log("Goals Reached: " + goals_reached);
       if(goals_reached == $("#board .goal").length){
         settling = true;
         setTimeout('triggerSuccess()',1000);

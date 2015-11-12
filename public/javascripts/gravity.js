@@ -6,15 +6,23 @@ var settling = false;
 var table_settling = false;
 
 $(document).ready(function(){
+	setState("initialBoardSetup");
+});
+
+function initBoard(){
 	max_x = parseInt($("#board table tr").length);
 	max_y = parseInt($("#board table tr").length);
-	setUpPieces();
 	$("#level-rotate-buttons p.rotate").click(function(){
-    console.log("Table Settling: " + table_settling);
-    console.log("Settling: " + settling);
-		if(!settling){
-      settling = true;
-			rotate(this.id);
+		if(currentState == "waitingForInput"){
+    	switch(this.id){
+    		case 'counter-clock-wise':
+    			degree = -90;
+    			break;
+    		case 'clock-wise':
+    			degree = 90;
+    			break;
+    	}
+			setState("triggerRotation");
 		}
 	});
   $("#board").on("click","div.lockable", function(){
@@ -23,47 +31,6 @@ $(document).ready(function(){
 			afterRotate();
 		}
 	});
-});
-
-function afterRotate(){
-	//CHECK TO SEE IF THE BOARD IS DONE BEING REARRANGED
-	if($("#board #game-pieces div[_moved='no']").length > 0){
-		setTimeout('afterRotate()',100);
-		return false;
-	}else{
-		settling = true;
-		$("#board").css('visibility','visible');
-		$("#board-clone").remove();
-		pieces_moved = false;
-		applyGravity();
-	}
-}
-
-function rotate(direction){
-  $("#board").trigger("rotate");
-	switch(direction){
-		case 'counter-clock-wise':
-			degree = -90;
-			rotate_degree = -90;
-			break;
-		case 'clock-wise':
-			degree = 90;
-			rotate_degree = 90;
-			break;
-	}
-	$("#board").clone().attr('id','board-clone').appendTo($("#board-wrapper"));
-	$("#board").css('visibility','hidden');
-	rearrangeBoard();
-	$("#board-clone").animate(
-		{
-			rotate: rotate_degree
-		},
-		{
-			complete: function(){
-				afterRotate();
-			}
-		}
-	);
 }
 
 function getPosition(){
@@ -94,7 +61,7 @@ function setUpPieces(){
 			top: $("#board .square[_cell='"+$(this).attr('_cell')+"']").position().top+'px'
 		}).attr('_moved', 'yes');
 	});
-	afterRotate();
+	//afterRotate();
 }
 
 function getNewCell(current_cell){
@@ -161,7 +128,6 @@ function moveAllPiecesByOne(){
       for(j=1; j<=max_x; j++){
         
         var cell = [j,i]
-        console.log(cell);
         
         //check for falling block
         if($("#board #game-pieces .falling[_cell='"+cell+"']").length){
@@ -251,17 +217,22 @@ function moveAllPiecesByOne(){
       }
     });
   }
+  console.log("Hello Dolly1");
 }
 
 function applyGravity(){
   if (level_js_status != 'gameplay' && !gravity_turned_on) {
     return false;
   }
-  
+	settling = true;
+	pieces_moved = false;
   var next_queue_num = 1;
   moveAllPiecesByOne();
   console.log("Table settled");
   settling = false;
+  console.log("Hello Dolly2");
+  $("#board").trigger("gravity_done");
+  console.log("I got here Robinson")
 }
 
 function applyTeleports(){
