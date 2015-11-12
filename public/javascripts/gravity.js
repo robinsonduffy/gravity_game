@@ -10,6 +10,8 @@ $(document).ready(function(){
 	max_y = parseInt($("#board table tr").length);
 	setUpPieces();
 	$("#level-rotate-buttons p.rotate").click(function(){
+    console.log("Table Settling: " + table_settling);
+    console.log("Settling: " + settling);
 		if(!settling){
       settling = true;
 			rotate(this.id);
@@ -259,6 +261,7 @@ function applyGravity(){
   var next_queue_num = 1;
   moveAllPiecesByOne();
   console.log("Table settled");
+  settling = false;
 }
 
 function applyTeleports(){
