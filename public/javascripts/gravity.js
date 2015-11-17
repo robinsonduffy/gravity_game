@@ -3,7 +3,6 @@ var max_x = 0;
 var max_y = 0;
 var pieces_moved = false;
 var settling = false;
-var table_settling = false;
 
 $(document).ready(function(){
 	setState("initialBoardSetup");
@@ -28,7 +27,7 @@ function initBoard(){
   $("#board").on("click","div.lockable", function(){
 		if(!settling && !$(this).hasClass('magnetized')){
 			$(this).toggleClass("locked");
-			afterRotate();
+			setState("triggerGravity");
 		}
 	});
 }
@@ -114,11 +113,6 @@ function doesCellHaveMovablePiece(cell){
 }
 
 function moveAllPiecesByOne(){
-	if($("#board .game-piece").filter(":animated").length){
-		setTimeout('moveAllPiecesByOne()',10);
-		return false;
-	}
-  table_settling = false;
   $("#board #game-pieces div").removeClass('already-moved');
   for(i=1; i<=max_y; i++){
     column_settling = true;
@@ -134,6 +128,7 @@ function moveAllPiecesByOne(){
           var this_game_piece = $("#board #game-pieces .falling[_cell='"+cell+"']").eq(0);
           if(!this_game_piece.hasClass('locked') && !this_game_piece.hasClass('magnetized') && !this_game_piece.hasClass('already-moved')){
             if(isCellAvailable([j+1,i])){
+              boardSettled = false;
               this_game_piece.attr('_cell', [j+1,i]).attr('_just_teleported','false').addClass('already-moved').animate({
 	              left: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().left+'px',
 		            top: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().top+'px'
@@ -142,7 +137,6 @@ function moveAllPiecesByOne(){
                 easing : "linear"
 	            });
               column_settling = true;
-              table_settling = true;
             }
           }
         }
@@ -153,6 +147,7 @@ function moveAllPiecesByOne(){
           if(!this_game_piece.hasClass('locked') && !this_game_piece.hasClass('magnetized') && !this_game_piece.hasClass('already-moved')){
             //if the space above is available, put it there
             if(isCellAvailable([j-1,i])){
+              boardSettled = false;
               this_game_piece.attr('_cell', [j-1,i]).attr('_just_teleported','false').addClass('already-moved').animate({
 	              left: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().left+'px',
 		            top: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().top+'px'
@@ -161,7 +156,6 @@ function moveAllPiecesByOne(){
                 easing : "linear"
 	            });
               column_settling = true;
-              table_settling = true;
             }else{
               //go up through the pieces until you find a space that doesn't have a falling piece
               console.log("I got here: "+ cell);
@@ -170,15 +164,11 @@ function moveAllPiecesByOne(){
               while(current_cell_x > 1 && !found_nonfalling_cell){
                 current_cell_x--;
                 current_cell = [current_cell_x,i]
-                console.log("Check for non_falling: " + current_cell);
                 if(isCellAvailable(current_cell)){
-                  console.log("isCellAvaialable: " + current_cell);
                   found_nonfalling_cell = true;
                 }else{
-                  console.log("Here I am: " + current_cell);
                   found_nonfalling_cell = ($("#board #game-pieces .game-piece[_cell='"+current_cell+"']").not(".falling").length || $("#board #game-pieces .locked[_cell='"+current_cell+"']").length || $("#board #game-pieces .magnetized[_cell='"+current_cell+"']").length)
                 }
-                
               }
               if(current_cell_x > 0){
                 //go down moving pieces up into available cells
@@ -190,6 +180,7 @@ function moveAllPiecesByOne(){
                   if(!this_game_piece.hasClass('locked') && !this_game_piece.hasClass('magnetized')){
                     //if the space above is available, put it there
                     if(isCellAvailable([current_cell_x-1,i])){
+                      boardSettled = false;
                       this_game_piece.attr('_cell', [current_cell_x-1,i]).attr('_just_teleported','false').addClass('already-moved').animate({
       		              left: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().left+'px',
       			            top: $(".square[_cell='"+this_game_piece.attr('_cell')+"']").position().top+'px'
@@ -198,7 +189,6 @@ function moveAllPiecesByOne(){
                         easing : "linear"
       		            });
                       column_settling = true;
-                      table_settling = true;
                     }
                   }
                 }
@@ -206,33 +196,9 @@ function moveAllPiecesByOne(){
             }
           }
         }
-
       }
     }
-    $(":animated").promise().done(function() {
-      applyTeleports();
-      applyCoins();
-      if(table_settling){
-        moveAllPiecesByOne();
-      }
-    });
   }
-  console.log("Hello Dolly1");
-}
-
-function applyGravity(){
-  if (level_js_status != 'gameplay' && !gravity_turned_on) {
-    return false;
-  }
-	settling = true;
-	pieces_moved = false;
-  var next_queue_num = 1;
-  moveAllPiecesByOne();
-  console.log("Table settled");
-  settling = false;
-  console.log("Hello Dolly2");
-  $("#board").trigger("gravity_done");
-  console.log("I got here Robinson")
 }
 
 function applyTeleports(){
@@ -273,7 +239,6 @@ function applyPaint(){
 			$(this).remove();
 		}
 	});
-	//applyGravitySwap();
 }
 
 function applyGravitySwap(){
@@ -284,7 +249,6 @@ function applyGravitySwap(){
 			$(this).remove();
 		}
 	});
-	//applyCoins();
 }
 
 function applyCoins(){
@@ -295,10 +259,8 @@ function applyCoins(){
 			}
       $(this).trigger("capture_coins")
       $(this).remove();
-      pieces_moved = true;
 		}
 	});
-	//applyMagnets();
 }
 
 function applyMagnets(){
@@ -308,7 +270,6 @@ function applyMagnets(){
 			$(this).remove();
 		}
 	});
-	//applyBombs();
 }
 
 function applyBombs(){

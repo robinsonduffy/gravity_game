@@ -1,9 +1,11 @@
-
+// setup some variables we need
 var currentState = "";
+var boardSettled = false;
+
 //set up an interval
 $(document).ready(function(){
   console.log("Start the machine");
-  setInterval(processCurrentState, 100);
+  setInterval(processCurrentState, 1);
 });
 
 function processCurrentState(){
@@ -25,6 +27,36 @@ var states = {
     setState("triggerGravity");
   },
   'triggerGravity': function () {
+    setState("processStations");
+  },
+  'processStations': function(){
+    setState("processingStations");
+    boardSettled = true;
+    applyPaint();
+    applyGravitySwap();
+    applyCoins();
+    applyMagnets();
+    setState("movePiecesOneSpace");
+  },
+  'movePiecesOneSpace': function(){
+    setState('movingPiecesOneSpace');
+    moveAllPiecesByOne();
+  },
+  'movingPiecesOneSpace': function() {
+  	if($("#board .game-piece").filter(":animated").length) {
+  		return false;
+  	} else {
+      if(boardSettled) {
+        setState('gravityDone');
+      } else {
+        setState('processStations');
+      }
+  	}
+  },
+  'gravityDone': function(){
+    $("#board").trigger("gravity_done");
+  },
+  'applyGravity': function(){
     setState("runningGravity");
     applyGravity();
     setState("waitingForInput");

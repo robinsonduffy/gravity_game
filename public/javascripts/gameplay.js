@@ -72,26 +72,23 @@ $(document).ready(function(){
   });
 
   $("#board").on("gravity_done", function(){
-    if(pieces_moved){
-      afterRotate();
-      return false;
-    }else{
-      console.log("I got here, Arthur");
-      var goals_reached = 0;
-      settling = false;
-      locks = $("#board .locked").length;
-      tallyLiveScore();
-      $("#current-locks .stat-value span").html(locks);
-      $('#board .goal').each(function(){
-        if($("#board .game-piece."+$(this).attr('_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
-          goals_reached++;
-        }
-      });
-      console.log("Goals Reached: " + goals_reached);
-      if(goals_reached == $("#board .goal").length){
-        settling = true;
-        setTimeout('triggerSuccess()',1000);
+    setState("CheckingForSuccess");
+    var goals_reached = 0;
+    settling = false;
+    locks = $("#board .locked").length;
+    tallyLiveScore();
+    $("#current-locks .stat-value span").html(locks);
+    $('#board .goal').each(function(){
+      if($("#board .game-piece."+$(this).attr('_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
+        goals_reached++;
       }
+    });
+    console.log("Goals Reached: " + goals_reached);
+    if(goals_reached == $("#board .goal").length){
+      settling = true;
+      setTimeout('triggerSuccess()',1000);
+    } else {
+      setState("waitingForInput");
     }
   });
 });
