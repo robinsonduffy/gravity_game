@@ -27,7 +27,11 @@ var states = {
     setState("triggerGravity");
   },
   'triggerGravity': function () {
-    setState("processStations");
+    if (level_js_status != 'gameplay' && !gravity_turned_on) {
+      setState("waitingForInput");
+    } else {
+      setState("processStations");
+    }
   },
   'processStations': function(){
     setState("processingStations");

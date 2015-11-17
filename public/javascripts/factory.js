@@ -2,15 +2,6 @@ var level_publish_confirm = false;
 var level_js_status = 'factory';
 var gravity_turned_on = false;
 $(document).ready(function(){
-  $("#board").on("gravity_done", function(){
-    if(pieces_moved){
-      afterRotate();
-      return false;
-    }else{
-      settling = false;
-    }
-  });
-
   $("#board").on("change",function(){
     disable_or_enable_teleport_drag();
     recolor_teleports();
@@ -84,13 +75,14 @@ $(document).ready(function(){
       $("#factory-edit-controls").css('visibility','hidden');
       $("#game-pieces div").addClass('no-drag no-click');
       gravity_turned_on = true;
-      applyGravity();
+      setState("triggerGravity");
     }else{
       $("p.rotate").css('visibility','hidden');
       $("#game-pieces div.lockable").removeClass("lockable").addClass("lockable-disabled");
       $("#factory-edit-controls").css('visibility','');
       $("#game-pieces div").removeClass('no-drag no-click');
       gravity_turned_on = false;
+      setState("waitingForInput");
     }
   });
 
@@ -319,38 +311,33 @@ $(document).ready(function(){
   $("input[name='mode']").trigger("change");
   
   $("#board").on("gravity_done", function(){
-    if(pieces_moved){
-      afterRotate();
-      return false;
-    }else{
-      var goals_reached = 0;
-      settling = false;
-      $('#board .goal').each(function(){
-        if($("#board .game-piece."+$(this).attr('_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
-          goals_reached++;
+    setState("CheckingForSuccess");
+    var goals_reached = 0;
+    settling = false;
+    $('#board .goal').each(function(){
+      if($("#board .game-piece."+$(this).attr('_color')+"[_cell='"+$(this).attr('_cell')+"']").length){
+        goals_reached++;
+      }
+    });
+    console.log(goals_reached);
+    if(goals_reached == $("#board .goal").length && $("#board .goal").length > 0){
+      success_dialog = $("<div></div>");
+      success_dialog.append("<p>You completed the level</p>");
+      success_dialog.dialog({
+        title: "Success",
+        modal: true,
+        draggable: false,
+        resizable: false,
+        closeOnEscape: false,
+        dialogClass: "dialog-no-close",
+        buttons:{
+          OK: function(){
+            success_dialog.dialog("close").remove();
+          }
         }
       });
-      console.log(goals_reached);
-      if(goals_reached == $("#board .goal").length){
-        console.log("I got here")
-        success_dialog = $("<div></div>");
-        success_dialog.append("<p>You completed the level</p>");
-        success_dialog.dialog({
-          title: "Success",
-          modal: true,
-          draggable: false,
-          resizable: false,
-          closeOnEscape: false,
-          dialogClass: "dialog-no-close",
-          buttons:{
-            OK: function(){
-              success_dialog.dialog("close").remove();
-            }
-          }
-        });
-        return false;
-      }
     }
+    setState("waitingForInput");
   });
 });
 
