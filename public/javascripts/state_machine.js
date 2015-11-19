@@ -2,6 +2,7 @@
 var currentState = "";
 var boardSettled = false;
 var piecesTeleporting = 0;
+var bombsExploding = 0;
 
 //set up an interval
 $(document).ready(function(){
@@ -61,11 +62,20 @@ var states = {
   		return false;
   	} else {
       if(boardSettled) {
-        setState('gravityDone');
+        setState('processBombs');
       } else {
         setState('processStations');
       }
   	}
+  },
+  'processBombs': function(){
+    setState("processingBombs");
+    applyBombs();
+  },
+  'processingBombs': function(){
+    if(bombsExploding == 0){
+      setState("gravityDone");
+    }
   },
   'gravityDone': function(){
     $("#board").trigger("gravity_done");

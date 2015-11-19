@@ -265,16 +265,8 @@ function applyMagnets(){
 }
 
 function applyBombs(){
-	if(pieces_moved){
-		afterRotate();
-		return false;
-	}
-	if($("#board .game-piece").filter(":animated").length){
-		setTimeout('applyTeleport()',200);
-		return false;
-	}
 	$("#board .bomb").each(function(){
-		var exploded = false;
+		var explodeBomb = false;
 		var bomb_cell = $(this).attr('_cell').split(',');
 		//check each of the adjacent squares
 		bomb_cell[0] = parseInt(bomb_cell[0]);
@@ -287,17 +279,44 @@ function applyBombs(){
 		];
 		for(x in check_cells){
 			if($("#board ."+$(this).attr("_color")+".falling[_cell='"+check_cells[x]+"']").length || $("#board ."+$(this).attr("_color")+".floating[_cell='"+check_cells[x]+"']").length){
-				exploded = true;
+				explodeBomb = true;
 			}
 		}
-		if(exploded){
-			pieces_moved = true;
-			for(x in check_cells){
-				$("#board ."+$(this).attr("_color")+".falling[_cell='"+check_cells[x]+"']").remove();
-				$("#board ."+$(this).attr("_color")+".floating[_cell='"+check_cells[x]+"']").remove();
-			}
-			$(this).remove();
+		if(explodeBomb){
+      bombsExploding++;
+      //flash the bomb several times
+      $(this).switchClass("notflashing","flashing",200,"linear",function(){
+        $(this).switchClass("flashing","notflashing",200,"linear", function(){
+          $(this).switchClass("notflashing","flashing",200,"linear", function(){
+            $(this).switchClass("flashing","notflashing",200,"linear", function(){
+              $(this).switchClass("notflashing","flashing",200,"linear", function(){
+                $(this).switchClass("flashing","notflashing",200,"linear", function(){
+                  $(this).switchClass("notflashing","flashing",200,"linear", function(){
+                    $(this).switchClass("flashing","notflashing",200,"linear", function(){
+                      //remove the bomb and any adjacent cells
+                      var bomb_cell_to_explode = $(this).attr('_cell').split(',');
+                  		bomb_cell_to_explode[0] = parseInt(bomb_cell[0]);
+                  		bomb_cell_to_explode[1] = parseInt(bomb_cell[1]);
+                  		check_cells_to_explode = [
+                  			[(bomb_cell_to_explode[0] - 1),(bomb_cell_to_explode[1])],
+                  			[(bomb_cell_to_explode[0]),(bomb_cell_to_explode[1] + 1)],
+                  			[(bomb_cell_to_explode[0] + 1),(bomb_cell_to_explode[1])],
+                  			[(bomb_cell_to_explode[0]),(bomb_cell_to_explode[1] - 1)]
+                  		];
+                			for(x in check_cells_to_explode){
+                				$("#board .game-piece[_cell='"+check_cells_to_explode[x]+"']").fadeOut();
+                			}
+                			$(this).fadeOut(function(){
+                			  bombsExploding--;
+                			});
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      });
 		}
 	});
-  //$("#board").trigger("gravity_done");
 }
