@@ -1,6 +1,7 @@
 // setup some variables we need
 var currentState = "";
 var boardSettled = false;
+var piecesTeleporting = 0;
 
 //set up an interval
 $(document).ready(function(){
@@ -40,7 +41,16 @@ var states = {
     applyGravitySwap();
     applyCoins();
     applyMagnets();
-    setState("movePiecesOneSpace");
+    setState("processTeleports");
+  },
+  'processTeleports': function(){
+    setState("processingTeleports");
+    applyTeleports();
+  },
+  'processingTeleports': function(){
+    if(piecesTeleporting == 0){
+      setState("movePiecesOneSpace");
+    }
   },
   'movePiecesOneSpace': function(){
     setState('movingPiecesOneSpace');
