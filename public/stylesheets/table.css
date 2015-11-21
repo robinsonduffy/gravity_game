@@ -36,6 +36,11 @@ table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
 #level-info #user-level-stats .top-score {text-align:center; margin:0; font-weight:bold;}
 #level-info #level-stats .top-score {text-align:center; margin:0; font-weight:bold;}
 #level-info p.bold {text-align:center;}
+#level-info span.time-bonus {color:#666; text-align:center; position:absolute; left:80px;}
+.progress-bar {
+    -webkit-transition: none !important;
+    transition: none !important;
+}
 
 /* TABLE 4 */
 #board-wrapper.grid-size-4 table.board-grid td.square {width:25%; height:25%;}

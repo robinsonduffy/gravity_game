@@ -47,6 +47,9 @@
             %td.stat-value 
               %span 0
               = " / #{@level.possible_coins}"
+        %div.progress
+          %div#time-bonus-progress.progress-bar.progress-bar-info{:role => "progressbar", "aria-valuenow" => "100", "aria-valuemin" => "0", "aria-valuemax" => "100", "style" => "width:100%"}
+          %span.time-bonus Time Bonus
       %div#user-level-stats
         %h4 Your Best Score
         - if current_user.completed_levels.include? @level
