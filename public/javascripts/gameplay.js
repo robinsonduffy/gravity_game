@@ -60,7 +60,7 @@ $(document).ready(function(){
     if(!timerStarted){
       timerInterval = setInterval("recordTime();", 1000);
       timerStarted = true;
-      $("#time-bonus-progress").animate({width: "0%"}, {duration: 60000, easing:"linear"});
+      $("#time-bonus-progress").animate({width: "0%"}, {duration: $("#time-bonus-progress").data("bonus_time_limit"), easing:"linear"});
     }
     rotations++;
     weighted_rotations = weighted_rotations + 1 + Math.ceil($("#board .locked").length / 2);

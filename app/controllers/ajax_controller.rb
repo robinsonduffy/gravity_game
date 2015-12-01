@@ -43,13 +43,8 @@ class AjaxController < ApplicationController
       u_best_coins.save unless u_best_coins.id.nil?
     end
     #TIME BONUS
-    time_bonus = 0
-    time_bonus = time_bonus + 1 if time_taken <= 60
-    time_bonus = time_bonus + 1 if time_taken <= 50
-    time_bonus = time_bonus + 1 if time_taken <= 40
-    time_bonus = time_bonus + 1 if time_taken <= 30
-    time_bonus = time_bonus + 1 if time_taken <= 20
-    time_bonus = time_bonus + 1 if time_taken <= 10
+    time_bonus = (((level.bonus_time_limit / 1000) - time_taken) / 10).floor
+    time_bonus = 0 if time_bonus < 0
     response[:time_bonus] = time_bonus
     #SCORE
     if level.possible_coins > 0
