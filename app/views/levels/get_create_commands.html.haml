@@ -1,5 +1,5 @@
 = raw("c = Collection.find(#{@level.collection.id});")
-= raw("l = c.levels.build({:number => #{@level.number}, :grid_size => #{@level.grid_size}});")
+= raw("l = c.levels.build({:number => #{@level.number}, :grid_size => #{@level.grid_size}}, :bonus_time_limit => #{@level.bonus_time_limit}});")
 - @level.meta_data.each do |md|
   = raw("l.meta_data.build({:key => '#{md.key.escape_single_quotes}', :value => '#{md.value.escape_single_quotes}'});")
 - @level.game_pieces.each do |gp|
