@@ -21,7 +21,7 @@ table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
 #level-icons #reload-level span{color:#7dbd45;}
 #level-icons #level-popup span{color:#5ebaff;}
 
-#level-info {border:1px solid black; background-color:#e9e9e9}
+#level-info {border:1px solid black; background-color:#e9e9e9; padding-bottom:10px; padding-top:10px;}
 #level-info #level-collection-name {margin:0; text-align:center; font-size:small; font-weight:bold;}
 #level-info h3 {margin-top:0; text-align:center;}
 #level-info #user-current-stats {border-bottom:1px dotted #999; padding-bottom:10px;}

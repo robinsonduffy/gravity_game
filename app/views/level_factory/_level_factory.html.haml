@@ -38,6 +38,9 @@
         %div.form-field
           = label_tag "Grid Size", "Grid Size"
           = select_tag "grid-size", options_for_select(level_grid_sizes.map{|v| ["#{v}x#{v}",v]}, @level.grid_size)
+        %div.form-field
+          = label_tag "Bonus Time Limit (Seconds)", "Bonus Time Limit (Seconds)"
+          = text_field_tag "level-bonus-time-limit", (@level.bonus_time_limit / 1000)
         %div#add-game-pieces
           - LevelElement.all.each do |level_element|
             %p.add-game-piece{:class => [level_element.name, level_element.usable_by_user?(current_user) ? 'usable':'usable no-drag disabled'], "data-game_piece" => level_element.name, "data-game_piece_info" => game_piece_info(level_element.name).to_json, "data-coin_cost" => level_element.usable_by_user?(current_user) ? '' : level_element.coin_cost.value, "data-level_element_id" => level_element.id}

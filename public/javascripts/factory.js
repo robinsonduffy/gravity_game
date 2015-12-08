@@ -185,6 +185,7 @@ $(document).ready(function(){
       game_board_data.level_name = $("#level-name").val();
       game_board_data.level_description = $("#level-description").val();
       game_board_data.level_publish = $("#level-publish").is(":checked");
+      game_board_data.level_bonus_time_limit = $("#level-bonus-time-limit").val();
       $("#game-pieces div").each(function(){
         piece = {}
         piece.cell = $(this).attr("_cell");

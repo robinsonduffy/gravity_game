@@ -30,6 +30,7 @@ class LevelFactoryController < ApplicationController
     level.name = params[:level_name]
     level.description = params[:level_description]
     level.published = params[:level_publish]
+    level.bonus_time_limit = (params[:level_bonus_time_limit].to_i * 1000)
     level.save
     if level.published?
       current_user.remove_coins(publish_level_coin_cost)
