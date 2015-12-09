@@ -13,42 +13,68 @@ var level_js_status = 'gameplay';
 $(document).ready(function(){
   possibleCoins = getPossibleCoins();
   possibleLocks = $("#board .lockable").length;
+  
+  $("#restart-level-dialog").dialog({
+    autoOpen: false,
+    modal: true,
+    draggable: false,
+    resizable: false,
+    closeOnEscape: false,
+    title: "Restart Level?",
+    position: { my: "center bottom", at: "center", of: window },
+    buttons: {
+      OK: function() {
+        $(this).dialog( "close" );
+        window.location = $("#reload-level a").attr('href');
+      },
+      Cancel: function() {
+        $(this).dialog( "close" );
+      }
+    }
+  });
+  
+  $("#cancel-level-dialog").dialog({
+    autoOpen: false,
+    modal: true,
+    draggable: false,
+    resizable: false,
+    closeOnEscape: false,
+    title: "Quit Level?",
+    position: { my: "center bottom", at: "center", of: window },
+    buttons: {
+      OK: function() {
+        $(this).dialog( "close" );
+        window.location = $("#cancel-level a").attr('href');
+      },
+      Cancel: function() {
+        $(this).dialog( "close" );
+      }
+    }
+  });
+  
+  $("#level-startup-dialog").dialog({
+    autoOpen: false,
+    modal: true,
+    draggable: false,
+    resizable: false,
+    closeOnEscape: true,
+    title: "Level Info",
+    width: 408,
+    position: { my: "center bottom", at: "center", of: window }
+  });
 
   $("#level-icons #reload-level a").click(function(){
-    $("#alert-popup-ok").click(function(){
-      window.location = $("#reload-level a").attr('href');
-    });
-    $("#alert-popup h3").html("Are you sure you want to restart this level?")
-    $("#popup-content #startup-popup").hide();
-    $("#popup-content #alert-popup").show();
-    $("#popup-close-button").hide();
-    popupLock = true;
-    centerPopup();
-    loadPopup();
+    $("#restart-level-dialog").dialog("open");
     return false;
   });
 
   $("#level-icons #cancel-level a").click(function(){
-    $("#alert-popup-ok").click(function(){
-      window.location = $("#cancel-level a").attr('href');
-    });
-    $("#alert-popup h3").html("Are you sure you want to quit this level?")
-    $("#popup-content #startup-popup").hide();
-    $("#popup-content #alert-popup").show();
-    $("#popup-close-button").hide();
-    popupLock = true;
-    centerPopup();
-    loadPopup();
+    $("#cancel-level-dialog").dialog("open");
     return false;
   });
 
   $("#level-popup").click(function(){
-    $("#popup-content #startup-popup").show();
-    $("#popup-content #alert-popup").hide();
-    $("#popup-close-button").show();
-    popupLock = false;
-    centerPopup();
-    loadPopup();
+    $("#level-startup-dialog").dialog("open");
   });
 
   $("#alert-popup-cancel").click(function(){

@@ -1,6 +1,7 @@
 - popup = @level.meta_data.where(:key => 'popup').first
 - content_for :custom_css do
   = stylesheet_link_tag "table.css"
+  %link{:rel => 'stylesheet', :type => 'text/css', :media => 'screen', :href => 'http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css'}
 - content_for :custom_js do
   = javascript_include_tag "jquery.transform-0.9.3.min.js"
   = javascript_include_tag "state_machine"
@@ -119,3 +120,10 @@
         = link_to image_tag('/imgs/shared/redo.png'), level_path(@level), {:title => 'Redo Level'}
         = link_to(image_tag('/imgs/shared/old_go_next.png'), level_path(@level.collection.levels.find_by_number(@level.number + 1)), {:title => 'Next Level'}) unless @level.collection.levels.find_by_number(@level.number + 1).nil?
 %div#popup-background
+%div#restart-level-dialog
+  %p Are you sure you want to restart this level?
+%div#cancel-level-dialog
+  %p Are you sure you want to quit this level?
+%div#level-startup-dialog
+  - unless popup.nil?
+    = raw(popup.value)

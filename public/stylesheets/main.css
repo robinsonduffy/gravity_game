@@ -21,6 +21,7 @@
 #popup-close-button {float:right; width:40px; height:40px; background-image:url('../imgs/shared/cancel.png');right:6px; top:4px; position:absolute; margin:0; cursor:pointer;}
 #popup-content h1{text-align:left; color:#333; font-size:25px; border-bottom:1px dotted #D3D3D3; padding-bottom:7px; margin-top:0px; margin-bottom:0px;}
 #score-tally-popup {display:none;}
+#level-startup-dialog h1{text-align:left; color:#333; font-size:25px; border-bottom:1px dotted #D3D3D3; padding-bottom:7px; margin-top:0px; margin-bottom:7px;}
 
 #popup-window .popup-button-row form.button_to {display:inline;}
 #popup-window .popup-button-row form.button_to div {display:inline;}
