@@ -21,7 +21,7 @@ $(document).ready(function(){
     resizable: false,
     closeOnEscape: false,
     title: "Restart Level?",
-    position: { my: "center top", at: "center bottom+10", of: $("#main-title") },
+    position: { my: "center top", at: "center top+110", of: window },
     buttons: {
       OK: function() {
         $(this).dialog( "close" );
@@ -40,7 +40,7 @@ $(document).ready(function(){
     resizable: false,
     closeOnEscape: false,
     title: "Quit Level?",
-    position: { my: "center top", at: "center bottom+10", of: $("#main-title") },
+    position: { my: "center top", at: "center top+110", of: window },
     buttons: {
       OK: function() {
         $(this).dialog( "close" );
@@ -60,7 +60,7 @@ $(document).ready(function(){
     closeOnEscape: true,
     title: "Level Info",
     width: 408,
-    position: { my: "center top", at: "center bottom+10", of: $("#main-title") },
+    position: { my: "center top", at: "center top+110", of: window },
   });
 
   $("#level-icons #reload-level a").click(function(){
