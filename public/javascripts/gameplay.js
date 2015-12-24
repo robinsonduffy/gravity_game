@@ -92,20 +92,19 @@ $(document).ready(function(){
     $("#level-startup-dialog").dialog("open");
   });
 
-  $("#alert-popup-cancel").click(function(){
-    popupLock = false;
-    disablePopup();
-  });
-
   $("#board").on("rotate", function(){
+    
+    rotations++;
+    weighted_rotations = weighted_rotations + 1 + Math.ceil($("#board .locked").length / 2);
+    $("#current-rotations .stat-value").html(rotations);
+  });
+  
+  $("#board").on("start_timer_if_needed", function(){
     if(!timerStarted){
       timerInterval = setInterval("recordTime();", 1000);
       timerStarted = true;
       $("#time-bonus-progress").animate({width: "0%"}, {duration: $("#time-bonus-progress").data("bonus_time_limit"), easing:"linear"});
     }
-    rotations++;
-    weighted_rotations = weighted_rotations + 1 + Math.ceil($("#board .locked").length / 2);
-    $("#current-rotations .stat-value").html(rotations);
   });
 
   $("#board").on("capture_coins", ".coin", function(){

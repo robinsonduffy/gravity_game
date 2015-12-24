@@ -87,6 +87,7 @@ var states = {
   },
   'triggerRotation': function () {
     setState("rotating");
+    $("#board").trigger("start_timer_if_needed");
     $("#board").trigger("rotate");
   	$("#board").clone().attr('id','board-clone').appendTo($("#board-wrapper"));
   	$("#board").css('visibility','hidden');

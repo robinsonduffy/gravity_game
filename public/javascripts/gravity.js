@@ -27,6 +27,7 @@ function initBoard(){
   $("#board").on("click","div.lockable", function(){
 		if(!settling && !$(this).hasClass('magnetized')){
 			$(this).toggleClass("locked");
+      $("#board").trigger("start_timer_if_needed");
 			setState("triggerGravity");
 		}
 	});
