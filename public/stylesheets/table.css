@@ -13,6 +13,8 @@ table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
 #game-pieces .goal {z-index:1; background-color:transparent;}
 
 /*Level Page*/
+#level-rotate-buttons .rotate {border:1px dotted #fff;}
+#level-rotate-buttons .rotate:hover {border:1px dotted #999;}
 #level-rotate-buttons #counter-clock-wise {width:40px; height:40px; float:left; background-image:url('../imgs/shared/counterclockwise.png'); cursor:pointer;}
 #level-rotate-buttons #clock-wise {width:40px; height:40px; float:left; background-image:url('../imgs/shared/clockwise.png'); cursor:pointer;}
 #level-icons p {float:right;}
