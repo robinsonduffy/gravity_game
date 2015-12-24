@@ -83,43 +83,32 @@
               %td.stat-value= "#{@level.best_coins} / #{@level.possible_coins}"
         - else
           %p.bold No one has ever completed this level.
-%div#popup-window
-  %p#popup-close-button
-  %div#popup-content
-    - unless popup.nil?
-      %div#startup-popup= raw(popup.value)
-    %div#alert-popup
-      %h3 &nbsp;
-      %p.popup-button-row
-        %input{:type => 'button', :value => 'Cancel', :id => 'alert-popup-cancel'}
-        %input{:type => 'button', :value => 'OK', :id => 'alert-popup-ok'}
-    %div#score-tally-popup
-      %h1 Success!
-      %table#tally
-        %tr
-          %td#tally-score
-            %p#tally-score-value &nbsp;
-            %p#tally-score-label Score
-          %td#tally-score-details
-            %p#tally-detail-rotations
-              %span.tally-detail-label Rotations:
-              %span.tally-detail-value &nbsp;
-            %p#tally-detail-locks
-              %span.tally-detail-label Locks:
-              %span.tally-detail-value &nbsp;
-            %p#tally-detail-coins
-              %span.tally-detail-label Coins:
-              %span.tally-detail-value &nbsp;
-            %p#tally-detail-time
-              %span.tally-detail-label Time Bonus:
-              %span.tally-detail-value &nbsp;
-      %div#honors
-        %p &nbsp;
-      %div#next-action-buttons
-        = link_to image_tag('/imgs/shared/go-back.png'), collection_path(@level.collection), {:id => 'button-return', :title => 'Go Back'}
-        = link_to image_tag('/imgs/shared/redo.png'), level_path(@level), {:title => 'Redo Level'}
-        = link_to(image_tag('/imgs/shared/old_go_next.png'), level_path(@level.collection.levels.find_by_number(@level.number + 1)), {:title => 'Next Level'}) unless @level.collection.levels.find_by_number(@level.number + 1).nil?
-%div#popup-background
+%div#success-dialog
+  %div#score-tally-popup
+    %table#tally
+      %tr
+        %td#tally-score
+          %p#tally-score-value &nbsp;
+          %p#tally-score-label Score
+        %td#tally-score-details
+          %p#tally-detail-rotations
+            %span.tally-detail-label Rotations:
+            %span.tally-detail-value &nbsp;
+          %p#tally-detail-locks
+            %span.tally-detail-label Locks:
+            %span.tally-detail-value &nbsp;
+          %p#tally-detail-coins
+            %span.tally-detail-label Coins:
+            %span.tally-detail-value &nbsp;
+          %p#tally-detail-time
+            %span.tally-detail-label Time Bonus:
+            %span.tally-detail-value &nbsp;
+    %div#honors
+      %p &nbsp;
+    %div#next-action-buttons
+      = link_to image_tag('/imgs/shared/go-back.png'), collection_path(@level.collection), {:id => 'button-return', :title => 'Go Back'}
+      = link_to image_tag('/imgs/shared/redo.png'), level_path(@level), {:title => 'Redo Level'}
+      = link_to(image_tag('/imgs/shared/old_go_next.png'), level_path(@level.collection.levels.find_by_number(@level.number + 1)), {:title => 'Next Level'}) unless @level.collection.levels.find_by_number(@level.number + 1).nil?
 %div#restart-level-dialog
   %p Are you sure you want to restart this level?
 %div#cancel-level-dialog

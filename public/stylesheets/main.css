@@ -20,7 +20,6 @@
 #popup-window {display:none; position:fixed; _position:absolute; /* hack for internet explorer 6*/ width:408px; background:#FFFFFF; border:2px solid #cecece; z-index:200; padding:12px;}
 #popup-close-button {float:right; width:40px; height:40px; background-image:url('../imgs/shared/cancel.png');right:6px; top:4px; position:absolute; margin:0; cursor:pointer;}
 #popup-content h1{text-align:left; color:#333; font-size:25px; border-bottom:1px dotted #D3D3D3; padding-bottom:7px; margin-top:0px; margin-bottom:0px;}
-#score-tally-popup {display:none;}
 #level-startup-dialog h1{text-align:left; color:#333; font-size:25px; border-bottom:1px dotted #D3D3D3; padding-bottom:7px; margin-top:0px; margin-bottom:7px;}
 
 #popup-window .popup-button-row form.button_to {display:inline;}
@@ -30,8 +29,6 @@
 #alert-popup .popup-button-row input {width:100px;}
 
 /*SCORE TALLY*/
-#tally .t ally-detail-value {display:none;}
-#tally #ta lly-score-value {display:none;}
 #next-action-buttons {text-align:center;}
 #next-action-buttons img {border:0;}
 #next-action-buttons a {margin-left:20px; margin-right:20px;}
@@ -39,9 +36,9 @@
 #honors p.honor-msg {background-image:url('../imgs/shared/honor.png'); background-repeat:no-repeat; background-position:center left; padding-left:45px;}
 #tally #tally-score {width:150px; text-align:center; padding-left:35px;}
 #tally #tally-score-value {font-size:50px; margin:0;}
-#tally #tally-score-label {margin:0; font-size:small;  color:#666;}
+#tally #tally-score-label {margin:0; font-size:90%;  color:#666;}
 #tally #tally-score-details p {margin:4px 0; font-size:90%;}
-#tally #tally-score-details .tally-detail-label {color:#666; width:85px; float:left; text-align:right; padding-right:10px;}
+#tally #tally-score-details .tally-detail-label {color:#666; width:110px; float:left; text-align:right; padding-right:10px;}
 #tally #tally-score-details .tally-detail-value {font-weight:bold;}
 
 /*COIN FLOAT MESSAGE*/

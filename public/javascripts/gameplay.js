@@ -52,6 +52,21 @@ $(document).ready(function(){
     }
   });
   
+  $("#success-dialog").dialog({
+    autoOpen: false,
+    modal: true,
+    draggable: false,
+    resizable: false,
+    closeOnEscape: false,
+    title: "Success!",
+    dialogClass: "dialog-no-close",
+    width: 408,
+    position: { my: "center top", at: "center top+110", of: window },
+    open: function(){
+      $('#success-dialog :link').blur();
+    }
+  });
+  
   $("#level-startup-dialog").dialog({
     autoOpen: false,
     modal: true,
@@ -153,12 +168,6 @@ function getPossibleCoins(){
 }
 
 function tallyScore(scoreInfo){
-  $("#popup-content #startup-popup").hide();
-  $("#popup-content #score-tally-popup").show();
-  $("#popup-close-button").hide();
-  popupLock = true;
-  centerPopup();
-  loadPopup();
   $("#tally-detail-rotations .tally-detail-value").html(rotations);
   $("#tally-detail-locks .tally-detail-value").html(locks + ' / ' + possibleLocks);
   $("#tally-detail-coins .tally-detail-value").html(coins + ' / ' + possibleCoins);
@@ -172,6 +181,7 @@ function tallyScore(scoreInfo){
   if(scoreInfo.add_coins > 0){
     change_coins_live(scoreInfo.add_coins);
   }
+  $("#success-dialog").dialog("open");
 }
 
 function tallyLiveScore(){
