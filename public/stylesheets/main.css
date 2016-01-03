@@ -32,7 +32,7 @@
 #next-action-buttons {text-align:center;}
 #next-action-buttons img {border:0;}
 #next-action-buttons a {margin-left:20px; margin-right:20px;}
-#honors p {font-size:large; font-weight:bold; height:40px; line-height:46px; padding:0; margin:0;}
+#honors p {font-size:large; font-weight:bold; min-height:40px; padding:0; margin:0; margin-bottom:20px;}
 #honors p.honor-msg {background-image:url('../imgs/shared/honor.png'); background-repeat:no-repeat; background-position:center left; padding-left:45px;}
 #tally #tally-score {width:150px; text-align:center; padding-left:35px;}
 #tally #tally-score-value {font-size:50px; margin:0;}
