@@ -5,9 +5,7 @@
     $(document).ready(function(){
       $("#coin-transactions").tablesorter({sortList: [[3,1]], widgets: ['zebra']}).tablesorterPager({container: $("#pager")});
     });
-%h1 
-  = link_to image_tag('/imgs/shared/go-back.png', {:height => 30}), root_path
-  Manage Coins
+%h1 Manage Coins
 %div#recent-transactions
   %h3 Recent Transactions
   %table#coin-transactions.tablesorter
