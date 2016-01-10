@@ -49,30 +49,41 @@ class LevelFactoryController < ApplicationController
       piece.cell = piece_info["cell"]
       piece.piece = piece_info["piece"]
       piece.piece_type = piece_info["piece_type"]
-      active_meta_data = Array.new
       #update/add attributes
       unless piece_info["attributes"].nil?
+        #update existing attributes
+        piece.meta_data.each do |md|
+          if (md.key.starts_with?("_"))
+            this_attribute = md.key.slice(1..-1)
+            if (piece_info["attributes"][this_attribute].nil?)
+              md.mark_for_destruction
+            else
+              md.value = piece_info["attributes"][this_attribute]
+            end
+          end
+        end
+        #add new attributes
         piece_info["attributes"].each do |attribute, value|
           if game_piece_valid_attributes.include?(attribute)
-            md = piece.meta_data.find_by_key("_#{attribute}") || piece.meta_data.build(:key => "_#{attribute}")
-            md.value = value
-            active_meta_data.push md.id
+            md = piece.meta_data.find_by_key("_#{attribute}") || piece.meta_data.build(:key => "_#{attribute}", :value => value)
           end
         end
       end
       #update/add classes
       unless piece_info["classes"].nil?
-        piece_info["classes"].each do |md_class|
-          md_class = "lockable" if md_class == "lockable-disabled"
-          if game_piece_valid_classes.include? md_class
-            md = piece.meta_data.find_by_key_and_value("class",md_class) || piece.meta_data.build(:key => "class", :value => md_class)
-            active_meta_data.push md.id
+        piece_info["classes"].push('lockable') unless piece_info["classes"].delete('lockable-disabled').nil?
+        #delete any unneeded classes
+        piece.meta_data.each do |md|
+          if (md.key == 'class')
+            md.mark_for_destruction unless piece_info["classes"].include? md.value
           end
         end
-      end
-      #destroy unused classes/attributes
-      piece.meta_data.each do |md|
-        md.mark_for_destruction unless active_meta_data.include? md.id
+        #add any new classes
+        piece_info["classes"].each do |md_class|
+          if game_piece_valid_classes.include? md_class
+            md = piece.meta_data.find_by_key_and_value("class",md_class) || piece.meta_data.build(:key => "class", :value => md_class)
+          end
+        end
       end
       #save the piece and all metadata
       piece.save
