@@ -229,12 +229,12 @@ table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
 #board-wrapper.grid-size-5 #game-pieces .falling.magnetized.purple {background-position:-291px -775px;}
 #board-wrapper.grid-size-5 #game-pieces .falling.magnetized.red {background-position:-388px -775px;}
 #board-wrapper.grid-size-5 #game-pieces .falling.magnetized.yellow {background-position:-485px -775px;}
-#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.blue {background-position:0px -871px;}
-#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.green {background-position:-97px -871px;}
-#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.orange {background-position:-194px -871px;}
-#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.purple {background-position:-291px -871px;}
-#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.red {background-position:-388px -871px;}
-#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.yellow {background-position:-485px -871px;}
+#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.blue {background-position:0px -873px;}
+#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.green {background-position:-97px -873px;}
+#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.orange {background-position:-194px -873px;}
+#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.purple {background-position:-291px -873px;}
+#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.red {background-position:-388px -873px;}
+#board-wrapper.grid-size-5 #game-pieces .floating.magnetized.yellow {background-position:-485px -873px;}
 
 /*GRAVITY-SWAP*/
 #board-wrapper.grid-size-5 #game-pieces .gravity-swap {background-position:-582px -194px;}
