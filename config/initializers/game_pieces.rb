@@ -100,5 +100,5 @@ def game_piece_valid_classes
 end
 
 def game_piece_valid_attributes
-  ['color','teleport_exit_cell']
+  ['color','teleport_exit_cell','coin_value']
 end
