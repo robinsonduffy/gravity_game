@@ -185,9 +185,9 @@ function tallyScore(scoreInfo){
 
 function tallyLiveScore(){
   if(possibleCoins > 0){
-    liveScore = Math.ceil(((1 - (coins / possibleCoins)) * 50) + (weighted_rotations * 2))
+    liveScore = Math.ceil(((1 - (coins / possibleCoins)) * 50) + (weighted_rotations * 2) + (locks * 5))
   }else{
-    liveScore = Math.ceil((weighted_rotations * 2))
+    liveScore = Math.ceil((weighted_rotations * 2) + (locks * 5))
   }
   $("#user-current-stats .top-score").html(liveScore);
 }
