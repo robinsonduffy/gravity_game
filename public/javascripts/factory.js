@@ -391,7 +391,7 @@ function initialize_drag(){
       if(game_piece_info.configurable){
         new_piece.addClass('init-config');
       }
-      if($.inArray($(this).data("game_piece"),["falling","floating","goal","coin","bomb","paint"]) >= 0){
+      if($.inArray($(this).data("game_piece"),["falling","floating","goal","coin","bomb","paint","gate"]) >= 0){
         //these elements are pre-assigned the first color in the list
         new_piece.addClass(game_piece_info.colors[0]).attr("_color",game_piece_info.colors[0]);
       }

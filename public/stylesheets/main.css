@@ -121,6 +121,7 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 #factory-edit-controls #add-game-pieces p.magnet span.add-game-piece-img {background-position:-236px -118px;}
 #factory-edit-controls #add-game-pieces p.gravity-swap span.add-game-piece-img {background-position:-354px -118px;}
 #factory-edit-controls #add-game-pieces p.fixed span.add-game-piece-img {background-position:-295px -118px;}
+#factory-edit-controls #add-game-pieces p.gate span.add-game-piece-img {background-position:0px -590px;}
 #factory-edit-controls #save-level-buttons {float:left; clear:left; margin-top: 10px;}
 #factory-edit-controls #level-publish-wrapper {float:right; margin-top: 10px;}
 #factory-edit-controls #add-game-pieces p.disabled {position:relative;}

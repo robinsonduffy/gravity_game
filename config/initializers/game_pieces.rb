@@ -3,7 +3,7 @@ def game_piece_types
 end
 
 def game_piece_pieces
-  ['fixed','falling','floating','goal','coin','bomb','paint','gravity-swap','magnet','teleport']
+  ['fixed','falling','floating','goal','coin','bomb','paint','gravity-swap','magnet','teleport','gate']
 end
 
 def game_piece_default_colors
@@ -89,6 +89,13 @@ def game_piece_info(piece_name)
         :lockable => false,
         :colors => game_piece_default_colors,
         :configurable => false,
+      }
+    when "gate"
+      {
+        :piece_type => 'game-piece',
+        :lockable => false,
+        :colors => game_piece_default_colors,
+        :configurable => true,
       }
     else
       nil

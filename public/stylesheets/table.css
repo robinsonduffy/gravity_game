@@ -143,6 +143,14 @@ table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
 /*FIXED*/
 #board-wrapper.grid-size-4 #game-pieces .fixed {background-position:-605px -242px;}
 
+/*GATES*/
+#board-wrapper.grid-size-4 #game-pieces .gate.blue {background-position:0px -1210px;}
+#board-wrapper.grid-size-4 #game-pieces .gate.green {background-position:-121px -1210px;}
+#board-wrapper.grid-size-4 #game-pieces .gate.orange {background-position:-242px -1210px;}
+#board-wrapper.grid-size-4 #game-pieces .gate.purple {background-position:-363px -1210px;}
+#board-wrapper.grid-size-4 #game-pieces .gate.red {background-position:-484px -1210px;}
+#board-wrapper.grid-size-4 #game-pieces .gate.yellow {background-position:-605px -1210px;}
+
 /* TABLE 5 */
 #board-wrapper.grid-size-5 table.board-grid td.square {width:20%; height:20%;}
 #board-wrapper.grid-size-5 #game-pieces div {width:97px; height:97px; background-image:url('../imgs/table-5/sprite.png');}
@@ -241,6 +249,14 @@ table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
 
 /*FIXED*/
 #board-wrapper.grid-size-5 #game-pieces .fixed {background-position:-485px -194px;}
+
+/*GATES*/
+#board-wrapper.grid-size-5 #game-pieces .gate.blue {background-position:0px -971px;}
+#board-wrapper.grid-size-5 #game-pieces .gate.green {background-position:-97px -971px;}
+#board-wrapper.grid-size-5 #game-pieces .gate.orange {background-position:-194px -971px;}
+#board-wrapper.grid-size-5 #game-pieces .gate.purple {background-position:-291px -971px;}
+#board-wrapper.grid-size-5 #game-pieces .gate.red {background-position:-388px -971px;}
+#board-wrapper.grid-size-5 #game-pieces .gate.yellow {background-position:-485px -971px;}
 
 /* TABLE 6 */
 #board-wrapper.grid-size-6 table.board-grid td.square {width:16%; height:16%;}
@@ -341,6 +357,14 @@ table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
 /*FIXED*/
 #board-wrapper.grid-size-6 #game-pieces .fixed {background-position:-400px -160px;}
 
+/*GATES*/
+#board-wrapper.grid-size-6 #game-pieces .gate.blue {background-position:0px -800px;}
+#board-wrapper.grid-size-6 #game-pieces .gate.green {background-position:-80px -800px;}
+#board-wrapper.grid-size-6 #game-pieces .gate.orange {background-position:-160px -800px;}
+#board-wrapper.grid-size-6 #game-pieces .gate.purple {background-position:-240px -800px;}
+#board-wrapper.grid-size-6 #game-pieces .gate.red {background-position:-320px -800px;}
+#board-wrapper.grid-size-6 #game-pieces .gate.yellow {background-position:-400px -800px;}
+
 /* TABLE 7 */
 #board-wrapper.grid-size-7 table.board-grid td.square {width:14%; height:14%;}
 #board-wrapper.grid-size-7 #game-pieces div {width:68px; height:68px; background-image:url('../imgs/table-7/sprite.png');}
@@ -440,6 +464,14 @@ table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
 /*FIXED*/
 #board-wrapper.grid-size-7 #game-pieces .fixed {background-position:-340px -136px;}
 
+/*GATES*/
+#board-wrapper.grid-size-7 #game-pieces .gate.blue {background-position:0px -680px;}
+#board-wrapper.grid-size-7 #game-pieces .gate.green {background-position:-68px -680px;}
+#board-wrapper.grid-size-7 #game-pieces .gate.orange {background-position:-136px -680px;}
+#board-wrapper.grid-size-7 #game-pieces .gate.purple {background-position:-204px -680px;}
+#board-wrapper.grid-size-7 #game-pieces .gate.red {background-position:-272px -680px;}
+#board-wrapper.grid-size-7 #game-pieces .gate.yellow {background-position:-340px -680px;}
+
 /* TABLE 8 */
 #board-wrapper.grid-size-8 table.board-grid td.square {width:12%; height:12%;}
 #board-wrapper.grid-size-8 #game-pieces div {width:59px; height:59px; background-image:url('../imgs/table-8/sprite.png');}
@@ -538,3 +570,11 @@ table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
 
 /*FIXED*/
 #board-wrapper.grid-size-8 #game-pieces .fixed {background-position:-295px -118px;}
+
+/*GATES*/
+#board-wrapper.grid-size-8 #game-pieces .gate.blue {background-position:0px -590px;}
+#board-wrapper.grid-size-8 #game-pieces .gate.green {background-position:-59px -590px;}
+#board-wrapper.grid-size-8 #game-pieces .gate.orange {background-position:-118px -590px;}
+#board-wrapper.grid-size-8 #game-pieces .gate.purple {background-position:-177px -590px;}
+#board-wrapper.grid-size-8 #game-pieces .gate.red {background-position:-236px -590px;}
+#board-wrapper.grid-size-8 #game-pieces .gate.yellow {background-position:-259px -590px;}
