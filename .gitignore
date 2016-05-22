@@ -10,3 +10,5 @@ doc/
 config/initializers/facebook.rb
 ._*
 .idea
+.vagrant
+

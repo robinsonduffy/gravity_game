@@ -3,6 +3,8 @@
 development:
   adapter: postgresql
   database: gravity_game_dev
+  username: gravity_game
+  password: dbpassword
   host: localhost
 
 # Warning: The database defined as "test" will be erased and
