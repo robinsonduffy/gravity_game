@@ -92,7 +92,7 @@ def game_piece_info(piece_name)
       }
     when "gate"
       {
-        :piece_type => 'game-piece',
+        :piece_type => 'station',
         :lockable => false,
         :colors => game_piece_default_colors,
         :configurable => true,
