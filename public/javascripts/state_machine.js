@@ -21,6 +21,10 @@ function setState(stateName) {
   currentState = stateName;
 }
 
+function isState(stateName){
+  return (currentState == stateName);
+}
+
 var states = {
   'initialBoardSetup': function () {
     setState("buildingBoard");

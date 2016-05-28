@@ -12,7 +12,7 @@ function initBoard(){
   max_x = parseInt($("#board table tr").length);
   max_y = parseInt($("#board table tr").length);
   $("#level-rotate-buttons p.rotate").click(function(){
-    if(currentState == "waitingForInput"){
+    if(isState("waitingForInput")){
       switch(this.id){
         case 'counter-clock-wise':
           degree = -90;
@@ -25,10 +25,16 @@ function initBoard(){
     }
   });
   $("#board").on("click","div.lockable", function(){
-    if(!settling && !$(this).hasClass('magnetized')){
+    if(isState("waitingForInput") && !$(this).hasClass('magnetized')){
       $(this).toggleClass("locked");
       $("#board").trigger("start_timer_if_needed");
       setState("triggerGravity");
+    }
+  });
+  $("#board").on("click","div.gate", function(){
+    if(isState("waitingForInput")){
+      //pass the click event down to any "lockable" game pieces on the same cell
+      $("#board div.lockable[_cell='"+$(this).attr("_cell")+"']").click();
     }
   });
 }
