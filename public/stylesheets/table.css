@@ -9,7 +9,7 @@ table.board-grid td.square {border:1px dashed #999; width:25%; height:25%;}
 #game-pieces .game-piece {z-index:5;}
 #game-pieces .station {z-index:1; background-color:transparent;}
 #game-pieces .paint {z-index:10;}
-#game-pieces .goal {z-index:1; background-color:transparent;}
+#game-pieces .goal {z-index:10; background-color:transparent;}
 #game-pieces .gate {z-index:10;}
 
 /*Level Page*/
