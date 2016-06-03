@@ -267,8 +267,7 @@ function applyTeleports(){
 function applyPaint(){
   $("#board .paint").each(function(){
     if($("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").length){
-      THE PAINT NEEDS TO SET THE _COLOR ATTR AS WELL...
-      $("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").removeClass($("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").eq(0).attr("_color")).addClass($(this).attr('_color'));
+      $("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").removeClass($("#board .game-piece[_cell='"+$(this).attr('_cell')+"']").eq(0).attr("_color")).addClass($(this).attr('_color')).attr('_color',$(this).attr('_color'));
       $(this).remove();
     }
   });
